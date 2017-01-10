@@ -1,0 +1,58 @@
+$radius:10px;
+.sign-in {
+    margin-top: 40px;
+    box-shadow: 0px 0px 20px 10px #4a4a4a;
+    width: 280px;
+    border-radius: $radius;
+}
+.form-left {
+    display: inline-block;
+    vertical-align: middle;
+}
+.input {
+    height: 40px;
+    width: 200px;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 40px;
+    display: block;
+    border: 1px solid #dedede;
+    outline: none;
+    font-size: 15px;
+    font-weight: 100;
+}
+.input-btn {
+    display: inline-block;
+    border: none;
+    height: 80px;
+    vertical-align: middle;
+    width: 80px;
+    border-top-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    color: white;
+    font-size: 15px;
+    font-weight: 100;
+    background: #61AEFF;
+    box-shadow: inset 0px 0px 50px 10px #469fff;
+}
+.input-btn:hover {
+    background: #74b7ff;
+}
+.inpt-top {
+    border-top-left-radius: $radius;
+}
+.inpt-bot {
+    border-bottom-left-radius: $radius;
+}
+#logo {
+    width: 100%;
+}
+.header-form {
+    width: 300px;
+}
+.no-account {
+    margin-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100;
+    font-size: 13px;
+}
