@@ -2,11 +2,11 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	/*  font-size: 0;*/
-	color: chartreuse;
+	font-size: 0;
 	font-family: 'Open Sans', sans-serif;
 	background: #5f5f5f;
 	box-shadow: inset 0px 0px 400px 150px #000;
+	height: 100%;
 }
 
 .separator {

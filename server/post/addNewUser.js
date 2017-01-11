@@ -1,5 +1,5 @@
-var connection = require('../config/db_config');
-var check = require("../medias/tools");
+var connection = require('../../config/db_config');
+var check = require("../../medias/tools");
 var sha256 = require("sha256");
 var uniqid = require("uniqid");
 
@@ -14,7 +14,7 @@ var addNewUser = function (req, res) {
 		connection.query("SELECT COUNT(*) as people FROM users WHERE username = ? OR email = ?", [check.protectfield(req.body.username), check.protectfield(req.body.email)], function (err, data) {
 			if (err) throw err;
 			else if (data[0].people) {
-				let ret = "user exists";
+				let ret = "username or email already used";
 				res.render("create_account", {
 					'message': ret
 				});
@@ -23,7 +23,7 @@ var addNewUser = function (req, res) {
 			else {
 				connection.query("INSERT INTO users(firstname, lastname, username, email, password, token) VALUES (?,?,?,?,?,?)", [check.protectfield(req.body.firstname), check.protectfield(req.body.lastname), check.protectfield(req.body.username), check.protectfield(req.body.email), sha256(check.protectfield(req.body.password)), uniqid()], function (err) {
 					if (err) throw err;
-					let ret = "user added";
+					let ret = "account created";
 					res.render("create_account", {
 						'message': ret
 					});

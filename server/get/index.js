@@ -1,4 +1,4 @@
-var connection = require('../config/db_config');
+var connection = require('../../config/db_config');
 var check = function (req, res, callback) {
 	connection.query("SELECT * FROM users WHERE sessionID = ?", [req.sessionID], function (err, connect) {
 		if (err) throw err;

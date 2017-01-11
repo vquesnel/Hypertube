@@ -1,6 +1,6 @@
-var connection = require('../config/db_config');
+var connection = require('../../config/db_config');
 var sha256 = require('sha256');
-var check = require("../medias/tools");
+var check = require("../../medias/tools");
 
 function isValidUserInfos(user) {
 	if (check.isValidUsername(check.protectfield(user.username)) && (check.protectfield(user.password))) {
@@ -19,6 +19,7 @@ var signin = function (req, res) {
 						connection.query("UPDATE users SET sessionID = ? WHERE username = ?", [req.sessionID, check.protectfield(req.body.username)], function (err) {
 							if (err) throw err;
 						})
+						req.session.id_user = rows[0].id;
 						req.session.username = rows[0].username;
 						req.session.firstname = rows[0].firstname;
 						req.session.lastname = rows[0].lastname;
@@ -28,6 +29,7 @@ var signin = function (req, res) {
 						res.redirect("/home.html");
 					}
 					else {
+						req.session.id_user = connect[0].id;
 						req.session.username = connect[0].username;
 						req.session.firstname = connect[0].firstname;
 						req.session.lastname = connect[0].lastname;
