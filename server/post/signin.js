@@ -26,7 +26,7 @@ var signin = function (req, res) {
 						req.session.profil_pic = rows[0].profil_pic;
 						req.session.email = rows[0].email;
 						req.session.token = rows[0].token;
-						res.redirect("/home.html");
+						res.redirect("/profile.html");
 					}
 					else {
 						req.session.id_user = connect[0].id;
@@ -36,7 +36,7 @@ var signin = function (req, res) {
 						req.session.profil_pic = connect[0].profil_pic;
 						req.session.email = connect[0].email;
 						req.session.token = connect[0].token;
-						res.redirect("/home.html");
+						res.redirect("/profile.html");
 					}
 				})
 			}

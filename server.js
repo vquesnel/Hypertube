@@ -2,6 +2,8 @@ var https = require('https');
 var fs = require('fs');
 var connection = require('./config/db_config');
 var bodyParser = require('body-parser');
+var cookie = require('cookie')
+var cookieParser = require('cookie-parser');
 var express = require('express');
 var app = express();
 var mustacheExpress = require('mustache-express');
@@ -32,20 +34,22 @@ home = require('./server/get/home');
 logout = require('./server/get/logout');
 reset_request = require('./server/get/reset_request');
 reset_password = require("./server/get/reset_password");
-reset_password2 = require("./server/get/reset_password2");
+reset_password2 = require("./server/get/reset_password2")
 manage_profil = require("./server/get/manage_profil");
 //================POST======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
 reset_pw = require("./server/post/reset_password");
-manage_profil2 = require("./server/post/manage_profil");
+manage_profil2 = require("./server/post/manage_profil").manage_profil;
+upload_picture = require("./server/post/manage_profil").upload_picture;
+email_confirmation = require("./server/post/manage_profil").email_confirmation;
 //			\\
 // 	  GET 	\\
 //			\\
 app.get("/", index);
 app.get("/create_account.html", create_account);
-app.get("/home.html", home);
+app.get("/profile.html", home);
 app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
@@ -59,6 +63,8 @@ app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
 app.post("/reset_password.html", reset_pw);
 app.post("/manage_profil.html", manage_profil2);
+app.post("/email_confirmation", email_confirmation);
+app.post("/upload", upload_picture);
 //				\\
 //  SERVER PORT	\\
 // 				\\
@@ -67,3 +73,20 @@ var httpsServer = https.createServer(options, app, function (req, res) {
 });
 httpsServer.listen(4422);
 console.log("server listenning to port 4422");
+//				\\
+//		Socket	\\
+//				\\
+var io = require('socket.io').listen(httpsServer.listen(4422));
+io.on('connection', function (socket) {
+	var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
+	var sessionid = cookies['connect.sid'];
+	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
+		if (err) throw err;
+	});
+	socket.on("changeprofile_pic", function (data) {
+		data.picture = data.picture.replace("https://localhost:4422/", "");
+		connection.query("UPDATE users SET profil_pic = ? WHERE sessionID = ?", [data.picture, sessionid], function (err) {
+			if (err) throw err;
+		});
+	});
+});
