@@ -2,28 +2,34 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Hypertube | Create Account</title>
-	<link href="/stylesheets/main.css" rel="stylesheet">
-	<link href="/stylesheets/create_account.css" rel="stylesheet"> </head>
+    <meta charset="utf-8">
+    <title>Hypertube | Create Account</title>
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <link href="stylesheets/create_account.css" rel="stylesheet">
+</head>
 
 <body>
-	<div class="site-content" align="center">
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="form-header"> <img class="form-img" src="/img/cinema-3.png" alt="cinema"> </div>
-		<form class="inscription-form" method="post" action="">
-			<input class="input" type="text" name="firstname" placeholder="Firstname">
-			<input class="input" type="text" name="lastname" placeholder="Lastname">
-			<input class="input" type="text" name="username" placeholder="Username">
-			<input class="input" type="password" name="password" placeholder="Password">
-			<input class="input" type="password" name="confirmpassword" placeholder="Confirmation">
-			<input class="input" type="email" name="email" Placeholder="Email">
-			<input class="submit" type="submit" name="ok" value="Confirm"> </form>
-		<div class="message">{{message}}</div>
-		<div class="no-account"><a href="/">Go back to signup page</a></div>
-	</div>
+    <div class="site-content" align="center">
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <form class="inscription-form" method="post" action="">
+            <img class="form-img" src="/img/hypertube-logo.png" alt="cinema">
+            <div class="header-form">Create Account</div>
+            <div class="omniauth-band">
+                <div class="facebook"><img class="omniauth-logo" src="/img/facebookomniauth.png"></div>
+                <div class="google"><img class="omniauth-logo" src="/img/googleomniauth.png"></div>
+                <div class="intra"><img class="omniauth-logo" src="/img/42omniauth.png"></div>
+            </div>
+            <input class="input" type="text" name="firstname" placeholder="Firstname">
+            <input class="input" type="text" name="lastname" placeholder="Lastname">
+            <input class="input" type="text" name="username" placeholder="Username">
+            <input class="input" type="password" name="password" placeholder="Password">
+            <input class="input" type="password" name="confirm-password" placeholder="Confirmation">
+            <input class="input input-fix" type="email" name="email" Placeholder="Email">
+            <input class="submit" type="submit" name="ok" value="Confirm">
+        </form>
+    </div>
 </body>
 
 </html>

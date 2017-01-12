@@ -2,27 +2,33 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Hypertube | connexion</title>
-	<link href="stylesheets/main.css" rel="stylesheet">
-	<link href="stylesheets/index.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet"> </head>
+    <meta charset="utf-8">
+    <title>Hypertube | connexion</title>
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+</head>
 
 <body>
-	<div class="site-content" align="center">
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="header-form"> <img id="logo" src="/img/hypertube-logo.png" alt="logo"> </div>
-		<form class="sign-in" method="post" action="">
-			<div class="form-left">
-				<input class="input inpt-top" type="text" name="username" placeholder="Username">
-				<input class="input inpt-bot" type="password" name="password" placeholder="Password"> </div>
-			<input class="input-btn" type="submit" value="Sign in"> </form>
-		<div class="message">{{message}}</div>
-		<div class="no-account"><a href="/create_account.html">New to Hypertube ? Create an account here</a></div>
-		<div class="no-account"><a href="/reset_request.html">Forgot your password ?</a></div>
-	</div>
+    <div class="site-content" align="center">
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <div class="header-form">
+            <img id="logo" src="img/hypertube-logo.png" alt="logo">
+        </div>
+        <form class="sign-in" method="post" action="">
+            <div class="form-left">
+                <input class="input inpt-top" type="text" name="username" placeholder="Username">
+                <input class="input inpt-bot" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="input-btn" type="submit" value="Sign in">
+        </form>
+        <div class="no-account"><a href="/create_account.html">New to Hypertube ? Create an account here</a>
+            <br>
+            <a href="/reset_request.html">Forgot your password ?</a>
+        </div>
+    </div>
 </body>
 
 </html>
