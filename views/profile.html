@@ -46,17 +46,23 @@
 								<input class="input" type="text" name="new_lastname" placeholder="Lastname">
 								<input class="input" type="text" name="new_username" placeholder="Username">
 								<input class="input" type="email" name="new_email" placeholder="Email">
-								<input class="submit" type="submit" value="Change"> </form>
+								<input class="submit" type="submit" value="Change">
+								<div class="message">{{messageprofil}}</div>
+							</form>
 							<form class="right-form" method="post" enctype="multipart/form-data" action="/upload">
 								<div class="header-form">Profil Picture</div>
 								<div class="container-preview">
 									<div class="fix"></div> <img id="photodisplay">
 									<input class="input-file" type="file" name="file" onchange="previewFile()"> </div>
-								<input class="submit" type="submit" value="Upload"> </form>
+								<input class="submit" type="submit" value="Upload">
+								<div class="message">{{messagephoto}}</div>
+							</form>
 							<div class="reset-password">
 								<form class="form-bar" action="/email_confirmation" method="post">
 									<div class="reset-infos">Reset password mail confirmation</div>
-									<input class="bar-submit" type="submit" name="Sendmail" value="Send Mail"> </form>
+									<input class="bar-submit" type="submit" name="Sendmail" value="Send Mail">
+									<div class="message">{{messagereset}}</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -64,6 +70,7 @@
 			</div>
 		</div>
 	</div>
+	<script language="javascript" src="/js/previewFile.js"></script>
 	<script language="javascript" src="/js/displaySettings.js"></script>
 	<script language="javascript" src="/js/menu.js"></script>
 </body>

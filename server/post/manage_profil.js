@@ -124,16 +124,27 @@ var new_lastname = function (req, callback) {
 	}
 }
 var manage_profil = function (req, res) {
-	var result = {};
+	var result = '';
 	new_email(req, function (infos) {
-		result.newEmail = infos;
+		if (infos) {
+			result = infos;
+		}
 		new_username(req, function (infos1) {
-			result.newUsername = infos1;
+			if (infos1) {
+				result += infos1;
+			}
 			new_lastname(req, function (infos2) {
-				result.newLastname = infos2;
+				if (infos2) {
+					result += infos2;
+				}
 				new_firstname(req, function (infos3) {
-					result.newFirstname = infos3;
-					res.redirect(req.get('referer'));
+					if (infos3) {
+						result += infos3;
+					}
+					res.render('profile', {
+						infos: req.session
+						, messageprofil: result
+					});
 				})
 			})
 		})
@@ -176,7 +187,10 @@ var upload_picture = function (req, res) {
 			}
 		})
 	})(function (infos) {
-		res.redirect(req.get('referer'));
+		res.render('profile', {
+			infos: req.session
+			, messagephoto: infos.messagephoto
+		});
 	})
 }
 var email_confirmation = function (req, res) {
@@ -189,13 +203,15 @@ var email_confirmation = function (req, res) {
 		}
 		smtpTransport.sendMail(mail, function (error, response) {
 			if (error) {
-				res.render('manage_profil.html', {
-					'message': 'A problem occurs : Sending email failed'
+				res.render('profile', {
+					infos: req.session
+					, messagereset: 'An error occured please try again'
 				})
 			}
 			else {
-				res.render('manage_profil.html', {
-					'message': 'Email sended'
+				res.render('profile', {
+					infos: req.session
+					, messagereset: 'Email sended'
 				})
 			}
 			smtpTransport.close();

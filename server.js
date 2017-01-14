@@ -83,10 +83,5 @@ io.on('connection', function (socket) {
 	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
 		if (err) throw err;
 	});
-	socket.on("changeprofile_pic", function (data) {
-		data.picture = data.picture.replace("https://localhost:4422/", "");
-		connection.query("UPDATE users SET profil_pic = ? WHERE sessionID = ?", [data.picture, sessionid], function (err) {
-			if (err) throw err;
-		});
-	});
+	
 });
