@@ -141,10 +141,10 @@ var manage_profil = function (req, res) {
 					if (infos3) {
 						result += infos3;
 					}
-					res.render('profile', {
-						infos: req.session
-						, messageprofil: result
-					});
+					req.session.messageprofil = result;
+					req.session.contents = "none";
+					req.session.settings = "block";
+					res.redirect("/profile.html");
 				})
 			})
 		})
@@ -175,6 +175,7 @@ var upload_picture = function (req, res) {
 							connection.query("UPDATE users SET profil_pic = ? WHERE id = ?", [cropped, req.session.id_user], function (err) {
 								if (err) throw err;
 							})
+							infos.messagephoto = "Your profil picture has been updated"
 							req.session.profil_pic = cropped;
 							callback(infos);
 						}
@@ -187,13 +188,14 @@ var upload_picture = function (req, res) {
 			}
 		})
 	})(function (infos) {
-		res.render('profile', {
-			infos: req.session
-			, messagephoto: infos.messagephoto
-		});
+		req.session.messagephoto = infos.messagephoto;
+		req.session.contents = "none";
+		req.session.settings = "block";
+		res.redirect("/profile.html");
 	})
 }
 var email_confirmation = function (req, res) {
+	var infos = {};
 	if (req.body.Sendmail) {
 		var mail = {
 			from: 'noreply.mhypertube@gmail.com'
@@ -203,16 +205,16 @@ var email_confirmation = function (req, res) {
 		}
 		smtpTransport.sendMail(mail, function (error, response) {
 			if (error) {
-				res.render('profile', {
-					infos: req.session
-					, messagereset: 'An error occured please try again'
-				})
+				req.session.messagereset = 'An error occured please try again';
+				req.session.contents = "none";
+				req.session.settings = "block";
+				res.redirect("/profile.html");
 			}
 			else {
-				res.render('profile', {
-					infos: req.session
-					, messagereset: 'Email sended'
-				})
+				req.session.messagereset = 'Email sended';
+				req.session.contents = "none";
+				req.session.settings = "block";
+				res.redirect("/profile.html");
 			}
 			smtpTransport.close();
 		});

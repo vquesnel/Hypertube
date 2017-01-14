@@ -1,4 +1,6 @@
 var https = require('https');
+var passport = require('passport');
+var facebook = require('passport-facebook').Strategy;
 var fs = require('fs');
 var connection = require('./config/db_config');
 var bodyParser = require('body-parser');
@@ -19,6 +21,30 @@ var options = {
 	, cert: fs.readFileSync('certificates/server.crt')
 	, ca: fs.readFileSync('certificates/server.csr')
 , };
+passport.use(new facebook({
+	clientID: '236950966755505'
+	, clientSecret: '31244054657ad23cf6556728a05d632b'
+	, callbackURL: 'https://localhost:4422/login/facebook/return'
+	, profileFields: ['id', 'first_name', 'picture', 'email', 'last_name']
+}, function (accessToken, refreshToken, profile, cb) {
+	// In this example, the user's Facebook profile is supplied as the user
+	// record.  In a production-quality application, the Facebook profile should
+	// be associated with a user record in the application's database, which
+	// allows for account linking and authentication with other identity
+	// providers.
+	return cb(null, profile);
+}));
+passport.serializeUser(function (user, cb) {
+	console.log("user");
+	console.log(user);
+	console.log("------------------");
+	cb(null, user);
+});
+passport.deserializeUser(function (obj, cb) {
+	cb(null, obj);
+});
+app.use(passport.initialize());
+app.use(passport.session());
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views/');
@@ -35,8 +61,7 @@ logout = require('./server/get/logout');
 reset_request = require('./server/get/reset_request');
 reset_password = require("./server/get/reset_password");
 reset_password2 = require("./server/get/reset_password2")
-
-//================POST======================\\
+	//================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
@@ -54,7 +79,15 @@ app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
 app.get("/reset_password.html", reset_password2);
-
+app.get('/login/facebook', passport.authenticate('facebook'));
+app.get('/login/facebook/return', passport.authenticate('facebook', {
+	failureRedirect: '/'
+}), function (req, res) {
+	req.session.username = "totot";
+	req.session.contents = "";
+	req.session.settings = "";
+	res.redirect('/profile.html');
+});
 //			\\
 // 	 POST	\\
 //			\\
@@ -83,5 +116,4 @@ io.on('connection', function (socket) {
 	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
 		if (err) throw err;
 	});
-	
 });
