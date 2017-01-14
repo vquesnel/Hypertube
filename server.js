@@ -35,13 +35,13 @@ logout = require('./server/get/logout');
 reset_request = require('./server/get/reset_request');
 reset_password = require("./server/get/reset_password");
 reset_password2 = require("./server/get/reset_password2")
-manage_profil = require("./server/get/manage_profil");
+
 //================POST======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
 reset_pw = require("./server/post/reset_password");
-manage_profil2 = require("./server/post/manage_profil").manage_profil;
+manage_profil = require("./server/post/manage_profil").manage_profil;
 upload_picture = require("./server/post/manage_profil").upload_picture;
 email_confirmation = require("./server/post/manage_profil").email_confirmation;
 //			\\
@@ -54,7 +54,7 @@ app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
 app.get("/reset_password.html", reset_password2);
-app.get("/manage_profil.html", manage_profil);
+
 //			\\
 // 	 POST	\\
 //			\\
@@ -62,7 +62,7 @@ app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
 app.post("/reset_password.html", reset_pw);
-app.post("/manage_profil.html", manage_profil2);
+app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
 //				\\

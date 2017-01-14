@@ -7,6 +7,7 @@
 	<link href="stylesheets/main.css" rel="stylesheet">
 	<link href="stylesheets/menu.css" rel="stylesheet">
 	<link href="stylesheets/profile.css" rel="stylesheet">
+	<link href="stylesheets/settings.css" rel="stylesheet">
 	<link rel="icon" type="image/png" href="/img/hypertube-logo.png" /> </head>
 
 <body>
@@ -27,15 +28,35 @@
 						<div class="separator"></div>
 						<div class="separator"></div>
 						<div class="separator"></div>
-						<div class="hud">
-							<div class="profile-pic"><img src="https://scontent-cdg2-1.cdninstagram.com/t51.2885-19/s150x150/13827417_1560625020913130_935672121_a.jpg"> </div>
+						<div class="hud">{{#infos}}
+							<div class="profile-pic"> <img src="{{profil_pic}}"> </div>
 							<div class="usr-infos">
-								<div class="firstname">Kiefer</div>
-								<div class="lastname">Wiessler</div>
-								<div class="username">kieferlaterreur</div>
-								<div class="settings">
-									<a href="/manage_profil.html"><img id="settigns" src="/img/settings.png"></a>
+								<div class="firstname">{{firstname}}</div>
+								<div class="lastname">{{lastname}}</div>
+								<div class="username">{{username}}</div> {{/infos}}
+								<div class="settings"> <img id="settigns" src="/img/settings.png" onclick="displaySettings()"></a>
 								</div>
+							</div>
+						</div>
+						<div id="infos"></div>
+						<div class="main" id="settings" style="display:none">
+							<form class="left-form" method="post" action="">
+								<div class="header-form">Update Profil</div>
+								<input class="input" type="text" name="new_firstname" placeholder="Firstname">
+								<input class="input" type="text" name="new_lastname" placeholder="Lastname">
+								<input class="input" type="text" name="new_username" placeholder="Username">
+								<input class="input" type="email" name="new_email" placeholder="Email">
+								<input class="submit" type="submit" value="Change"> </form>
+							<form class="right-form" method="post" enctype="multipart/form-data" action="/upload">
+								<div class="header-form">Profil Picture</div>
+								<div class="container-preview">
+									<div class="fix"></div> <img id="photodisplay">
+									<input class="input-file" type="file" name="file" onchange="previewFile()"> </div>
+								<input class="submit" type="submit" value="Upload"> </form>
+							<div class="reset-password">
+								<form class="form-bar" action="/email_confirmation" method="post">
+									<div class="reset-infos">Reset password mail confirmation</div>
+									<input class="bar-submit" type="submit" name="Sendmail" value="Send Mail"> </form>
 							</div>
 						</div>
 					</div>
@@ -43,6 +64,7 @@
 			</div>
 		</div>
 	</div>
+	<script language="javascript" src="/js/displaySettings.js"></script>
 	<script language="javascript" src="/js/menu.js"></script>
 </body>
 
