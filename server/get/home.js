@@ -9,7 +9,7 @@ var home = function (req, res) {
 	req.session.messagereset = null;
 	req.session.settings = "none";
 	req.session.contents = "block";
-	console.log(req.session);
+	//console.log(req.session);
 	if (req.session.username) {
 		res.render('profile', {
 			infos: req.session
