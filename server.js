@@ -50,6 +50,7 @@ reset_pw = require("./server/post/reset_password");
 manage_profil = require("./server/post/manage_profil").manage_profil;
 upload_picture = require("./server/post/manage_profil").upload_picture;
 email_confirmation = require("./server/post/manage_profil").email_confirmation;
+searchmovies = require("./server/post/searchmovies");
 //			\\
 // 	  GET 	\\
 //			\\
@@ -75,11 +76,15 @@ app.get('/login/github/return', passport.authenticate('github', {
 	failureRedirect: '/'
 }), passportgithub);
 app.get('/login/google', passport.authenticate('google', {
-	scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']
+	scope: ['https://www.googleapis.com/auth/plus.login'
+      , 'https://www.googleapis.com/auth/plus.profile.emails.read']
 }));
 app.get('/login/google/return', passport.authenticate('google', {
 	failureRedirect: '/'
 }), passportgoogle);
+app.get("/search.html", function (req, res) {
+	res.render('search.html');
+});
 //			\\
 // 	 POST	\\
 //			\\
@@ -90,6 +95,7 @@ app.post("/reset_password.html", reset_pw);
 app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
+app.post("/searchmovies", searchmovies);
 //				\\
 //  SERVER PORT	\\
 // 				\\

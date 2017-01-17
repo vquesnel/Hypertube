@@ -2,7 +2,7 @@ var passport = require('passport');
 var facebook = require('passport-facebook').Strategy;
 var school = require('passport-42').Strategy;
 var github = require('passport-github2').Strategy;
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var GoogleStrategy = require('passport-google-oauth2').Strategy;;
 passport.use(new facebook({
 	clientID: '236950966755505'
 	, clientSecret: '31244054657ad23cf6556728a05d632b'
@@ -34,15 +34,8 @@ passport.use(new GoogleStrategy({
 	, clientSecret: 'wzHTRvRlfPena8Ai1llS3vef'
 	, callbackURL: "https://localhost:4422/login/google/return"
 	, passReqToCallback: true
-}, function (accessToken, refreshToken, profile, cb) {
-	process.nextTick(function () {
-		console.log(profile);
-		// To keep the example simple, the user's Google profile is returned to
-		// represent the logged-in user.  In a typical application, you would want
-		// to associate the Google account with a user record in your database,
-		// and return that user instead.
-		return done(null, profile);
-	});
+}, function (request, accessToken, refreshToken, profile, done) {
+	return done(null, profile);
 }));
 passport.use(new github({
 	clientID: '3d87c62871a41ec20a60'

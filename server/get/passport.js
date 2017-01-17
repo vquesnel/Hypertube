@@ -123,11 +123,53 @@ var github = function (req, res) {
 	})
 }
 var google = function (req, res) {
-	console.log(req.user);
-	req.session.username = "tsfgf";
-	req.session.contents = "block";
-	req.session.settings = "none";
-	res.redirect("/profile.html");
+	console.log(req.user._json.emails[0].value);
+	connection.query("SELECT * FROM users WHERE google_id = ? OR email = ?", [req.user._json.id, req.user._json.emails[0].value], function (err, rows) {
+		if (err) throw err;
+		if (rows[0]) {
+			connection.query("UPDATE users SET sessionID = ? WHERE id =?", [req.sessionID, rows[0].id], function (err) {
+				if (err) throw err;
+			})
+			req.session.id_user = rows[0].id;
+			req.session.profil_pic = rows[0].profil_pic;
+			req.session.firstname = rows[0].firstname;
+			req.session.lastname = rows[0].lastname;
+			req.session.username = rows[0].username;
+			req.session.email = rows[0].email;
+			req.session.token = rows[0].token;
+			req.session.contents = "block";
+			req.session.settings = "none";
+			res.redirect('/profile.html');
+		}
+		else {
+			var token = uniqid();
+			if (!req.user._json.name.familyName) {
+				req.user._json.name.familyName = "N/A";
+			}
+			if (!req.user._json.name.givenName) {
+				req.user._json.name.givenName = "N/A";
+			}
+			if (!req.user._json.language) {
+				req.user._json.language = "english";
+			}
+			connection.query("INSERT INTO users(firstname, lastname, username, email,password, token, google_id, profil_pic, sessionID, languague) VALUES (?,?,?,?,?,?,?,?,?, ?)", [req.user._json.name.givenName, req.user._json.name.familyName, req.user._json.name.givenName + req.user._json.name.familyName, req.user._json.emails[0].value, sha256(uniqid()), token, req.user._json.id, req.user._json.image.url, req.sessionID, req.user._json.language], function (err, rows) {
+				if (err) throw err;
+				else {
+					req.session.id_user = rows.insertId;
+					req.session.profil_pic = req.user._json.image.url;
+					req.session.firstname = req.user._json.name.givenName;
+					req.session.lastname = req.user._json.name.familyName;
+					req.session.username = req.user._json.name.givenName + req.user._json.name.familyName;
+					req.session.email = req.user._json.emails.value;
+					req.session.token = token;
+					req.session.language = req.user._json.language;
+					req.session.contents = "block";
+					req.session.settings = "none";
+					res.redirect('/profile.html');
+				}
+			})
+		}
+	})
 }
 module.exports = {
 	fb: fb
