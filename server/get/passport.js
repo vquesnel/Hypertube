@@ -3,7 +3,6 @@ var uniqid = require("uniqid");
 var sha256 = require("sha256");
 var connection = require("../../config/db_config");
 var fb = function (req, res) {
-	console.log(req.user);
 	connection.query("SELECT * FROM users WHERE fb_id = ? OR email = ?", [req.user._json.id, req.user._json.email], function (err, rows) {
 		if (err) throw err;
 		if (rows[0]) {
@@ -152,7 +151,7 @@ var google = function (req, res) {
 			if (!req.user._json.language) {
 				req.user._json.language = "english";
 			}
-			connection.query("INSERT INTO users(firstname, lastname, username, email,password, token, google_id, profil_pic, sessionID, languague) VALUES (?,?,?,?,?,?,?,?,?, ?)", [req.user._json.name.givenName, req.user._json.name.familyName, req.user._json.name.givenName + req.user._json.name.familyName, req.user._json.emails[0].value, sha256(uniqid()), token, req.user._json.id, req.user._json.image.url, req.sessionID, req.user._json.language], function (err, rows) {
+			connection.query("INSERT INTO users(firstname, lastname, username, email,password, token, google_id, profil_pic, sessionID, language) VALUES (?,?,?,?,?,?,?,?,?, ?)", [req.user._json.name.givenName, req.user._json.name.familyName, req.user._json.name.givenName + req.user._json.name.familyName, req.user._json.emails[0].value, sha256(uniqid()), token, req.user._json.id, req.user._json.image.url, req.sessionID, req.user._json.language], function (err, rows) {
 				if (err) throw err;
 				else {
 					req.session.id_user = rows.insertId;

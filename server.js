@@ -85,6 +85,7 @@ app.get('/login/google/return', passport.authenticate('google', {
 app.get("/search.html", function (req, res) {
 	res.render('search.html');
 });
+app.get("/searchmovies", searchmovies);
 //			\\
 // 	 POST	\\
 //			\\
@@ -95,7 +96,7 @@ app.post("/reset_password.html", reset_pw);
 app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
-app.post("/searchmovies", searchmovies);
+
 //				\\
 //  SERVER PORT	\\
 // 				\\
