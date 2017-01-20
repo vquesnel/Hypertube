@@ -1,6 +1,6 @@
 $radius: 10px;
 .form-img {
-    width: 272px;
+    width: 270px;
     background: #ddd;
     padding: 10px;
     padding-bottom: 20px;
@@ -13,13 +13,14 @@ $radius: 10px;
     border-radius: 10px;
 }
 .header-form {
-    width: 292px;
+    width: 290px;
     height: 40px;
     line-height: 40px;
     font-size: 20px;
-    color: #646464;
+    color: #221F20;
     background: #ddd;
     padding-bottom: 10px;
+    margin-bottom: 6px;
 }
 .input {
     height: 40px;
@@ -31,47 +32,11 @@ $radius: 10px;
     border-bottom: 3px solid #969696;
     outline: none;
     font-size: 15px;
-    color: #646464;
-    text-align: center;
+    color: #383838;
     background: #dedede;
 }
 .input-fix {
     border: none;
-}
-.omniauth-band {
-    width: 292px;
-    height: 40px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
-.facebook {
-    background: #3A5597;
-    margin-right: 8px;
-}
-.google {
-    background: #dd4B39;
-    margin-right: 8px;
-}
-.intra {
-    background: #00BABC;
-}
-.google:hover {
-    background: #de6b5d;
-}
-.intra:hover {
-    background: #01ecef;
-}
-.facebook,
-.google,
-.intra {
-    display: inline-block;
-    width: 92px;
-    height: 40px;
-    line-height: 40px;
-    vertical-align: middle;
-}
-.facebook:hover {
-    background: #4c649f;
 }
 .submit {
     margin-top: 6px;
@@ -84,10 +49,12 @@ $radius: 10px;
     background: #61AEFF;
     color: white;
 }
+::-webkit-input-placeholder {
+    color: #6d6d6d;
+}
 .submit:hover {
     background: #74b7ff;
 }
-.omniauth-logo {
-    height: 20px;
-    vertical-align: middle;
+.no-account {
+    margin-top: 20px;
 }

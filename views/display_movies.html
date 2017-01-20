@@ -1,0 +1,14 @@
+{{#display_movies.infos}}
+<div>
+	<a href="/movie.html/{{imdb_code}}"> <img src={{medium_cover_image}}>
+		<div>{{title}}</div>
+		<div>{{rating}}</div>
+		<div>{{year}}</div>
+	</a>
+</div>{{/display_movies.infos}} {{#display_one_movie.infos}} <img src="{{medium_cover_image}}">
+<div>TITLE : {{title}}</div>
+<div>Imdb rate: {{rating}}</div>
+<div>Year: {{year}}</div>
+<div>Summary: {{summary}}</div>{{#torrents}}
+<div>Quality: {{quality}}
+	<div><a href="/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}">{{magnet}}</div></a> </div> {{/torrents}} {{/display_one_movie.infos}}

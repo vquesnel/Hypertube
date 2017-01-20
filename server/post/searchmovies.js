@@ -1,12 +1,7 @@
 var yts = require('../../medias/yts');
-var piratebay = require('thepiratebay');
-//var Client = require('node-torrent');
 var urlencode = require('urlencode');
 var fs = require('fs');
 var torrentStream = require('torrent-stream');
-//var client = new Client({
-//	logLevel: 'DEBUG'
-//});
 var searchmovies = function (req, res) {
 	(function (callback) {
 		yts.listMovies({
@@ -23,7 +18,7 @@ var searchmovies = function (req, res) {
 			}
 		});
 	})(function (magnet) {
-		var engine = torrentStream(magnet, {
+		var engine = torrentStream('magnet:?xt=urn:btih:6BA528A60AB22E9F037611693356211BB9AA76E8& dn=Jack%20Reacher%3A%20Never%20Go%20Back%20(2016)%20%5B720p%5D%20%5BYTS.AG%5D', {
 			connections: 1000, // Max amount of peers to be connected to. 
 			uploads: 10, // Number of upload slots. 
 			tmp: 'public/movies/', // Root folder for the files storage. 
@@ -56,16 +51,5 @@ var searchmovies = function (req, res) {
 			}
 		});
 	});
-	piratebay.search('Game of Thrones', {
-		category: 'video', // default - 'all' | 'all', 'audio', 'video', 'xxx','applications	, 'games', 'other'
-		//You can also use the category number:
-		// `/search/0/99/{category_number}`
-		orderBy: 'seeds', // default - name, date, size, seeds, leeches
-		sortBy: 'desc' // default - desc, asc
-	}).then(function (result) {
-		//console.log(result);
-	}).catch(function (err) {
-		console.log(err);
-	})
 }
 module.exports = searchmovies;

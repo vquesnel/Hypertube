@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({
 //================GET=======================\\
 var index = require('./server/get/index');
 create_account = require('./server/get/create_account');
+profile = require('./server/get/profile');
 home = require('./server/get/home');
 logout = require('./server/get/logout');
 reset_request = require('./server/get/reset_request');
@@ -42,6 +43,9 @@ passportfb = require("./server/get/passport").fb;
 passportschool = require("./server/get/passport").school;
 passportgithub = require("./server/get/passport").github;
 passportgoogle = require("./server/get/passport").google;
+movie = require("./server/get/movie");
+watchmovie = require("./server/get/watchmovie");
+streamer = require("./server/get/streamer");
 //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
@@ -56,7 +60,10 @@ searchmovies = require("./server/post/searchmovies");
 //			\\
 app.get("/", index);
 app.get("/create_account.html", create_account);
-app.get("/profile.html", home);
+app.get("/profile.html", profile);
+app.get("/home.html", home);
+app.get("/movie.html/:imdb_code", movie);
+app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
 app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
@@ -86,6 +93,7 @@ app.get("/search.html", function (req, res) {
 	res.render('search.html');
 });
 app.get("/searchmovies", searchmovies);
+app.get("/player.html", streamer);
 //			\\
 // 	 POST	\\
 //			\\
@@ -96,7 +104,6 @@ app.post("/reset_password.html", reset_pw);
 app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
-
 //				\\
 //  SERVER PORT	\\
 // 				\\
