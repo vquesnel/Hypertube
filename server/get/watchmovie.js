@@ -25,37 +25,39 @@ var watchmovie = function (req, res) {
 , 'udp://tracker.internetwarriors.net:1337'
 			]
 			});
+			//			engine.files.forEach(function (file) {
+			//				console.log("PUTUUUUTE");
+			//			});
 			engine.on('ready', function () {
-				for (var k in engine.files) {
-					let checker = engine.files[k].name.split(".");
-					let verif = checker[checker.length - 1];
-					if (verif === "mp4" || verif === "avi") {
-						currentTorrent = engine.files[k].name;
-						path = engine.files[k].path.split(engine.files[k].name)[0];
-						res.writeHead(200, {
-							'Content-Type': 'video/mp4'
-						});
-						res.render("player.html", {
-							path: engine.files[k].path
+				engine.files.forEach(function (file) {
+					var checker = file.name.split(".");
+					if (checker[checker.length - 1] === "mp4") {
+						//						res.writeHead(200, {
+						//							'Content-Type': 'video/mp4'
+						//						});
+						file.select();
+						currentTorrent = file.path;
+						var stream = fs.createReadStream("/movies" + file.path)
+						res.render('player.html', {
+							path: '/movies/' + file.path
 						})
 					}
-				}
+				});
 			});
-			engine.on('torrent', function () {
-				console.log('meta');
-			})
+			engine.on('download', function () {
+				console.log(engine.swarm.downloaded);
+			});
 			engine.on('idle', function () {
 				console.log("done");
-				console.log(req.params);
-				console.log(path);
-				connection.query("INSERT INTO movies (path, imdbid, quality) VALUES(?,?,?)", [path + currentTorrent, req.params.imdb_code, req.params.quality], function (err) {
+				engine.destroy();
+				connection.query("INSERT INTO movies (path, imdbid, quality) VALUES(?,?,?)", ["/movies/" + currentTorrent, req.params.imdb_code, req.params.quality], function (err) {
 					if (err) throw err;
 				})
 			})
 		}
 		else {
 			res.render("player.html", {
-				path: rows[0].path
+				path: "/" + rows[0].path
 			})
 		}
 	})
