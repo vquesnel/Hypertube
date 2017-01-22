@@ -1,81 +1,78 @@
 .container {
-  margin: 0 20px;
+    margin: 0 20px;
 }
 
 #menu-logo {
-  height: 50px;
-  margin-top: 8px;
+    height: 50px;
+    margin-top: 8px;
 }
 
 .menu-img {
-  height: 30px;
-  vertical-align: middle;
+    height: 30px;
+    vertical-align: middle;
 }
 
 .header {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 66px;
-  line-height: 66px;
-  color: #fff;
-  background: #333333;
-  z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 66px;
+    line-height: 66px;
+    color: #fff;
+    background: #333333;
+    z-index: 1;
 }
 
 .header__logo {
-  font-weight: bold;
-  padding: 0 25px;
-  float: left;
-  width: 20px;
+    font-weight: bold;
+    padding: 0 25px;
+    float: left;
+    width: 20px;
 }
 
 .menu {
-  float: right;
+    float: right;
 }
 
 .menu p {
-  display: inline-block;
-  font-size: 15px;
-  line-height: 33px;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 33px;
 }
 
 .menu a {
-  padding: 0 10px;
-  color: white;
-  margin-right: 10px;
-  font-weight: 100;
+    padding: 0 10px;
+    color: white;
+    margin-right: 10px;
+    font-weight: 100;
 }
 
 .menu a:hover {
-  color: skyblue;
-  text-decoration: none;
+    color: skyblue;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 870px) {
-  .site-container {
-    height: 100%;
-    overflow: scroll;
-    position: inherit;
-  }
-
-  .site-pusher {
-    height: 100%;
-    -moz-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -moz-transform: translateX(0px);
-    -ms-transform: translateX(0px);
-    -webkit-transform: translateX(0px);
-    transform: translateX(0px);
-  }
-
-  .header {
-    position: static;
-  }
-
-  /*  .site-content {
+    .site-container {
+        height: 100%;
+        overflow: scroll;
+        position: inherit;
+    }
+    .site-pusher {
+        height: 100%;
+        -moz-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -moz-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    .header {
+        position: static;
+    }
+    /*  .site-content {
       position: absolute;
       top: 66px;
       right: 0;
@@ -85,95 +82,84 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
   }*/
-  .header__icon {
-    position: relative;
-    display: block;
-    float: left;
-    width: 66px;
-    height: 66px;
-    cursor: pointer;
-  }
-
-  .header__icon:after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 1em;
-    height: 0;
-    top: 16px;
-    left: 23px;
-    -webkit-box-shadow: 0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff;
-    box-shadow: 0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff;
-  }
-
-  .logo-menu {
-    vertical-align: middle;
-  }
-
-  .menu {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    background-color: #424242;
-    width: 250px;
-    -moz-transform: translateX(-250px);
-    -ms-transform: translateX(-250px);
-    -webkit-transform: translateX(-250px);
-    transform: translateX(-250px);
-    -moz-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    overflow-y: scroll;
-  }
-
-  .menu a,
-  .menu div,
-  .menu p {
-    display: block;
-    height: 40px;
-    text-align: center;
-    padding-top: 8px;
-    line-height: 33px;
-    margin-right: 0px;
-  }
-
-  .menu a {
-    padding-bottom: 0px;
-  }
-
-  .menu div {
-    height: 58px;
-  }
-
-  .width--sidebar .site-pusher {
-    -moz-transform: translateX(250px);
-    -ms-transform: translateX(250px);
-    -webkit-transform: translateX(250px);
-    transform: translateX(250px);
-  }
-
-  .width--sidebar .site-cache {
-    cursor: pointer;
-    position: absolute;
-    top: 66px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-
-  .a1 {
-    background-color: #424242;
-  }
-
-  .a2 {
-    background-color: #373737;
-  }
-
-  .a0 {
-    background: #424242;
-  }
+    .header__icon {
+        position: relative;
+        display: block;
+        float: left;
+        width: 66px;
+        height: 66px;
+        cursor: pointer;
+    }
+    .header__icon:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 1em;
+        height: 0;
+        top: 16px;
+        left: 23px;
+        -webkit-box-shadow: 0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff;
+        box-shadow: 0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff;
+    }
+    .logo-menu {
+        vertical-align: middle;
+    }
+    .menu {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #424242;
+        width: 250px;
+        -moz-transform: translateX(-250px);
+        -ms-transform: translateX(-250px);
+        -webkit-transform: translateX(-250px);
+        transform: translateX(-250px);
+        -moz-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        overflow-y: scroll;
+    }
+    .menu a,
+    .menu div,
+    .menu p {
+        display: block;
+        height: 40px;
+        text-align: center;
+        padding-top: 8px;
+        line-height: 33px;
+        margin-right: 0px;
+    }
+    .menu a {
+        padding-bottom: 0px;
+    }
+    .menu div {
+        height: 58px;
+    }
+    .width--sidebar .site-pusher {
+        -moz-transform: translateX(250px);
+        -ms-transform: translateX(250px);
+        -webkit-transform: translateX(250px);
+        transform: translateX(250px);
+    }
+    .width--sidebar .site-cache {
+        cursor: pointer;
+        position: absolute;
+        top: 66px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    .a1 {
+        background-color: #424242;
+    }
+    .a2 {
+        background-color: #373737;
+    }
+    .a0 {
+        background: #424242;
+    }
 }

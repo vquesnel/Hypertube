@@ -2,39 +2,30 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Hypertube | Create Account</title>
-	<link href="stylesheets/main.css" rel="stylesheet">
-	<link href="stylesheets/create_account.css" rel="stylesheet"> </head>
+    <meta charset="utf-8">
+    <title>Hypertube | Create Account</title>
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <link href="stylesheets/create_account.css" rel="stylesheet"> </head>
 
 <body>
-	<div class="site-content" align="center">
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<form class="inscription-form" method="post" action=""> <img class="form-img" src="/img/hypertube-logo.png" alt="cinema">
-			<div class="header-form">Create Account</div>
-			<div class="omniauth-band">
-				<div class="facebook">
-					<a href="/login/facebook"><img class="omniauth-logo" src="/img/facebookomniauth.png"></a>
-				</div>
-				<div class="google">
-					<a href='/login/google'><img class="omniauth-logo" src="/img/googleomniauth.png"></a>
-				</div>
-				<div class="intra">
-					<a href="/login/42"><img class="omniauth-logo" src="/img/42omniauth.png"></a>
-				</div>
-			</div>
-			<input class="input" type="text" name="firstname" placeholder="Firstname">
-			<input class="input" type="text" name="lastname" placeholder="Lastname">
-			<input class="input" type="text" name="username" placeholder="Username">
-			<input class="input" type="password" name="password" placeholder="Password">
-			<input class="input" type="password" name="confirmpassword" placeholder="Confirmation">
-			<input class="input input-fix" type="email" name="email" Placeholder="Email">
-			<input class="submit" type="submit" name="ok" value="Confirm"> </form>
-		<div class="no-account"><a href="/">Go back to signin</a></div>
-		<div class="message">{{message}}</div>
-	</div>
+    <div class="site-content" align="center">
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <div class="separator"></div>
+        <form class="inscription-form" method="post" action="">
+            <img class="form-img" src="/img/hypertube-logo.png" alt="cinema">
+            <div class="header-form">Create Account</div>
+            <input class="input" type="text" name="firstname" placeholder="Firstname">
+            <input class="input" type="text" name="lastname" placeholder="Lastname">
+            <input class="input" type="text" name="username" placeholder="Username">
+            <input class="input" type="password" name="password" placeholder="Password">
+            <input class="input" type="password" name="confirmpassword" placeholder="Confirmation">
+            <input class="input input-fix" type="email" name="email" Placeholder="Email">
+            <input class="submit" type="submit" name="ok" value="Confirm">
+        </form>
+        <div class="no-account"><a href="/">Go back to Sign in</a></div>
+        <div class="message">{{message}}</div>
+    </div>
 </body>
 
 </html>

@@ -1,14 +1,16 @@
 $radius:10px;
 .sign-in {
     margin-top: 40px;
-    box-shadow: 0px 0px 20px 10px #3c3c3c;
+    box-shadow: 0px 0px 20px 3px #333333;
     width: 280px;
     border-radius: $radius;
 }
+
 .form-left {
     display: inline-block;
     vertical-align: middle;
 }
+
 .input {
     height: 40px;
     width: 200px;
@@ -20,6 +22,7 @@ $radius:10px;
     outline: none;
     font-size: 15px;
 }
+
 .input-btn {
     display: inline-block;
     border: none;
@@ -34,44 +37,54 @@ $radius:10px;
     background: #61AEFF;
     box-shadow: inset 0px 0px 50px 10px #469fff;
 }
+
 .input-btn:hover {
     background: #74b7ff;
 }
+
 .inpt-top {
     border-top-left-radius: $radius;
 }
+
 .inpt-bot {
     border-bottom-left-radius: $radius;
 }
+
 #logo {
     width: 100%;
 }
+
 .header-form {
     width: 300px;
 }
+
 .no-account {
     margin-top: 20px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 100;
     font-size: 13px;
 }
+
 .title {
     margin-top: 40px;
     font-size: 20px;
     color: white;
     font-weight: 100;
 }
+
 .smart-login {
     margin-top: 40px;
-    box-shadow: 0px 0px 20px 10px #3c3c3c;
+    box-shadow: 0px 0px 20px 3px #333333;
     width: 280px;
     height: 80px;
     border-radius: $radius;
 }
+
 .smart-login a {
     text-decoration: none;
     color: white;
 }
+
 .facebook,
 .github,
 .google,
@@ -83,102 +96,127 @@ $radius:10px;
     font-size: 0;
     color: white;
 }
+
 .github a {
     color: #0E2635;
 }
+
 .logo-auth {
     width: 40px;
     height: 40px;
     display: inline-block;
     font-size: 0;
-    vertical-align: middle;
+    vertical-align: top;
     margin-bottom: 5px;
 }
+
 .logo-auth img {
     height: 20px;
     display: inline-block;
     margin-top: 10px;
 }
+
 .name-auth {
     display: inline-block;
     height: 40px;
     font-size: 15px;
     line-height: 40px;
 }
+
 .facebook {
     background: #2f4571;
     border-top-left-radius: $radius;
 }
+
 .github {
     background: #dedede;
     border-top-right-radius: $radius;
 }
+
 .google {
     background: #a73f35;
     border-bottom-right-radius: $radius;
 }
+
 .intra {
     background: #169293;
     border-bottom-left-radius: $radius;
 }
+
 .logo-fb {
     background: #3d5A96;
     border-top-left-radius: $radius;
 }
+
 .logo-google {
     background: #DB4C3E;
 }
+
 .logo-intra {
     background: #1EBABB;
     border-bottom-left-radius: $radius;
 }
+
 .logo-github {
     background: #fff;
 }
+
 .facebook img {
     margin-left: 14px;
 }
+
 .intra img {
     margin-left: 5px;
 }
+
 .github img {
     margin-left: 10px;
 }
+
 .google img {
     margin-left: 4px;
 }
+
 .facebook .name-auth {
     margin-left: 15px;
 }
+
 .github .name-auth {
     margin-left: 15px;
 }
+
 .google .name-auth {
     margin-left: 15px;
 }
+
 .intra .name-auth {
     margin-left: 15px;
 }
+
 .facebook:hover {
     transition-duration: 1s;
     background: #3d5A96;
     background: linear-gradient(to right, #2f4571, #3d5A96);
 }
+
 .github:hover {
     transition-duration: 1s;
     background: #fff;
     background: linear-gradient(to right, #dedede, #ffffff);
 }
+
 .google:hover {
     transition-duration: 1s;
     background: #DB4C3E;
     background: linear-gradient(to right, #a73f35, #DB4C3E);
 }
+
 .intra:hover {
     transition-duration: 1s;
     background: #1EBABB;
     background: linear-gradient(to right, #169293, #1EBABB);
 }
+
 .header-omniauth {
     font-size: 20px;
     color: white;

@@ -1,14 +1,29 @@
 {{#display_movies.infos}}
-<div>
-	<a href="/movie.html/{{imdb_code}}"> <img src={{medium_cover_image}}>
-		<div>{{title}}</div>
-		<div>{{rating}}</div>
-		<div>{{year}}</div>
-	</a>
-</div>{{/display_movies.infos}} {{#display_one_movie.infos}} <img src="{{medium_cover_image}}">
-<div>TITLE : {{title}}</div>
-<div>Imdb rate: {{rating}}</div>
-<div>Year: {{year}}</div>
-<div>Summary: {{summary}}</div>{{#torrents}}
-<div>Quality: {{quality}}
-	<div><a href="/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}">{{magnet}}</div></a> </div> {{/torrents}} {{/display_one_movie.infos}}
+<div class="block">
+    <a class="link" href="/movie.html/{{imdb_code}}">
+        <img src={{medium_cover_image}}>
+    </a>
+    <div class="infos">
+        <div class="title">{{title}}</div>
+    </div>
+</div>
+{{/display_movies.infos}} {{#display_one_movie.infos}}
+<div class="poster">
+    <img src="{{medium_cover_image}}">
+</div>
+<div class="infos">
+    <div class="title">{{title}}</div>
+    <div class="imdb">Imdb : {{rating}}</div>
+    <div class="year">Year:{{year}}</div>
+    <div class="syno">Summary:
+        <br> {{summary}}</div>
+</div>
+{{#torrents}}
+<div class="link-block">
+    <a class="link" href="/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}">
+        <div class="quality">
+            {{quality}}
+        </div>
+    </a>
+</div>
+{{/torrents}} {{/display_one_movie.infos}}

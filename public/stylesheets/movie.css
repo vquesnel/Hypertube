@@ -1,0 +1,78 @@
+.hud-film {
+  max-width: 900px;
+  width: 90%;
+  padding-top: 100px;
+  padding-left: 40px;
+}
+
+.hud-film img {
+  display: inline-block;
+  border-radius: 15px;
+}
+
+body {
+  box-shadow: none;
+  background-image: linear-gradient(#1a1a1a, #000000);
+}
+
+.poster {
+  display: inline-block;
+  max-width: 250px;
+  vertical-align: bottom;
+}
+
+.infos {
+  width: 600px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 15px;
+  vertical-align: bottom;
+  margin-left: 20px;
+  padding: 5px;
+  color: white;
+  font-weight: 100;
+}
+
+.title,
+.imdb,
+.year,
+.syno {
+  font-size: 15px;
+  margin: 10px;
+}
+
+.title {
+  font-size: 25px;
+}
+
+.quality {
+  font-size: 15px;
+}
+
+.quality {
+  background: #959595;
+  width: 50px;
+  height: 20px;
+  text-align: center;
+  padding: 2px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.link {
+  color: black;
+  display: inline-block;
+  margin: 10px;
+  margin-left: 0;
+}
+
+.link-block {
+  margin: 0;
+  padding: 0;
+  width: 60px;
+  display: inline-block;
+}
+
+.link:hover .quality {
+  background: #3281ff;
+}
