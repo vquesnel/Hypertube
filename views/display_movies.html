@@ -3,7 +3,7 @@
     <a class="link" href="/movie.html/{{imdb_code}}">
         <img src={{medium_cover_image}}>
     </a>
-    <div class="infos">
+    <div class="infos" align="left">
         <div class="title">{{title}}</div>
     </div>
 </div>
@@ -11,6 +11,14 @@
 <div class="poster">
     <img src="{{medium_cover_image}}">
 </div>
+<style>
+    .hud-film {
+        background-image: url({{{background_image_original}}});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+</style>
 <div class="infos">
     <div class="title">{{title}}</div>
     <div class="imdb">Imdb : {{rating}}</div>
@@ -20,10 +28,10 @@
 </div>
 {{#torrents}}
 <div class="link-block">
-    <a class="link" href="/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}">
-        <div class="quality">
-            {{quality}}
-        </div>
+    <div class="quality{{quality}}">
+        /watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}
+
+    </div>
     </a>
 </div>
 {{/torrents}} {{/display_one_movie.infos}}

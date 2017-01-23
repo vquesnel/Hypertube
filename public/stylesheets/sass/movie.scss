@@ -1,80 +1,166 @@
 .hud-film {
-    max-width: 900px;
-    width: 90%;
-    padding-top: 100px;
-    //    background: rgba(255, 255, 255, 0.1);
-    padding-left: 40px;
+	max-width: 900px;
+	width: 100%;
+	padding-top: 100px;
+	//    background: rgba(255, 255, 255, 0.1);
+	padding-bottom: 20px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
 }
-
 .hud-film img {
-    display: inline-block;
-    border-radius: 15px;
+	display: inline-block;
+	border-radius: 15px;
 }
-
 body {
-    box-shadow: none;
-    background-image: linear-gradient(#1a1a1a, #000000);
-    //    height: 1100px;
+	box-shadow: none;
+	background-image: linear-gradient(#1a1a1a, #000000);
+	//    height: 1100px;
 }
-
 .poster {
-    display: inline-block;
-    max-width: 250px;
-    vertical-align: bottom;
+	display: inline-block;
+	max-width: 250px;
+	vertical-align: bottom;
 }
-
 .infos {
-    width: 600px;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.13);
-    border-radius: 15px;
-    vertical-align: bottom;
-    margin-left: 20px;
-    padding: 5px;
-    color: white;
-    font-weight: 100;
+	width: 600px;
+	display: inline-block;
+	background: rgba(255, 255, 255, 0.33);
+	border-radius: 15px;
+	vertical-align: bottom;
+	margin-left: 20px;
+	padding: 5px;
+	color: white;
+	font-weight: 100;
+	text-align: left;
 }
-
 .title,
 .imdb,
 .year,
 .syno {
-    font-size: 15px;
-    margin: 10px;
+	font-size: 15px;
+	margin: 10px;
 }
-
 .title {
-    font-size: 25px;
+	font-size: 25px;
 }
-
 .quality {
-    font-size: 15px;
+	font-size: 15px;
 }
-
-.quality {
-    background: #959595;
-    width: 50px;
-    height: 20px;
-    text-align: center;
-    padding: 2px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
 .link {
-    color: black;
-    display: inline-block;
-    margin: 10px;
-    margin-left: 0;
+	color: black;
+	display: inline-block;
+	margin: 10px;
+	margin-left: 0;
 }
-
 .link-block {
-    margin: 0;
-    padding: 0;
-    width: 60px;
-    display: inline-block;
+	margin: 0;
+	padding: 0;
+	width: 60px;
+	display: inline-block;
 }
-
 .link:hover .quality {
-    background: #3281ff;
+	background: #3281ff;
+}
+.onoffswitch {
+	position: relative;
+	width: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	width: 108px;
+}
+.onoffswitch-checkbox {
+	display: none;
+}
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #E3E3E3;
+	border-radius: 36px;
+}
+.onoffswitch-inner {
+	display: block;
+	width: 200%;
+	margin-left: -100%;
+	transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+	display: block;
+	float: left;
+	width: 50%;
+	height: 31px;
+	padding: 0;
+	line-height: 31px;
+	font-size: 16px;
+	color: white;
+	font-family: Trebuchet, Arial, sans-serif;
+	box-sizing: border-box;
+	font-size: 15px;
+	text-align: left;
+}
+.onoffswitch-inner:before {
+	content: "720p";
+	padding-left: 10px;
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+	content: "1080p";
+	padding-right: 10px;
+	background-color: transparent;
+	color: #fff;
+	text-align: right;
+}
+.onoffswitch-switch {
+	display: block;
+	width: 22px;
+	height: 22px;
+	background: #FFFFFF;
+	position: absolute;
+	margin-top: 4px;
+	margin-right: 4px;
+	top: 0px;
+	bottom: 0;
+	right: 73px;
+	border: 2px solid #E3E3E3;
+	border-radius: 22px;
+	transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	right: 0px;
+}
+.watch-bar {
+	background: rgba(255, 255, 255, 0.08);
+	height: 50px;
+	padding-top: 16px;
+	max-width: 900px;
+	text-align: left;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+.watch-btn {
+	height: 34px;
+	width: 120px;
+	line-height: 34px;
+	background: #578fe8;
+	border-radius: 5px;
+	text-align: center;
+}
+.watch-btn:hover {
+	background: #86b2f8;
+}
+.watch-btn a {
+	color: white;
+	text-decoration: none;
+	font-weight: 100;
+}
+.watch-bar div {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 20px;
 }

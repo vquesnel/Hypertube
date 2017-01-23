@@ -15,8 +15,9 @@ var movie = function (req, res) {
                 }
             });
         }
-        console.log(json.data.movies);
+        console.log(json.data.movies[0].torrents);
         res.render("movie", {
+            torrent: '/watchmovie.html/' + json.data.movies[0].imdb_code + '/' + json.data.movies[0].torrents[0].magnet + '/' + json.data.movies[0].torrents[0].quality,
             display_one_movie: {
                 infos: json.data.movies
             }
