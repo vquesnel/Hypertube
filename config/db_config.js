@@ -5,6 +5,8 @@ var launch = function (connection) {
 	connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`history` ( `id_film` INT(5) NOT NULL , `last_watch` DATE NOT NULL) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
 	connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`comment` ( `id_film` INT(5) NOT NULL , `id_users` INT(5) NOT NULL , `content` LONGTEXT NOT NULL, `when` DATE NOT NULL) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
 	connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`subtitles` ( `id_film` INT(5) NOT NULL , `language` VARCHAR(255) NOT NULL, `path` VARCHAR(255) NOT NULL ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
+	
+	
 }
 var mysql = require('mysql');
 var connection = mysql.createConnection({
