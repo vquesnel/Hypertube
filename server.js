@@ -10,16 +10,16 @@ var app = express();
 var mustacheExpress = require('mustache-express');
 var session = require('express-session');
 var sess = {
-    secret: 'keyboard cat',
-    cookie: {},
-    resave: false,
-    saveUninitialized: false
+	secret: 'keyboard cat'
+	, cookie: {}
+	, resave: false
+	, saveUninitialized: false
 }
 var options = {
-    key: fs.readFileSync('certificates/server.key'),
-    cert: fs.readFileSync('certificates/server.crt'),
-    ca: fs.readFileSync('certificates/server.csr'),
-};
+	key: fs.readFileSync('certificates/server.key')
+	, cert: fs.readFileSync('certificates/server.crt')
+	, ca: fs.readFileSync('certificates/server.csr')
+, };
 app.use(passport.initialize());
 app.use(passport.session());
 app.engine('html', mustacheExpress());
@@ -28,7 +28,7 @@ app.set('views', __dirname + '/views/');
 app.use(express.static('public'));
 app.use(session(sess));
 app.use(bodyParser.urlencoded({
-    extended: true
+	extended: true
 }));
 //================GET=======================\\
 var index = require('./server/get/index');
@@ -69,28 +69,28 @@ app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
 app.get("/reset_password.html", reset_password2);
 app.get('/login/facebook', passport.authenticate('facebook', {
-    scope: ['email']
+	scope: ['email']
 }));
 app.get('/login/facebook/return', passport.authenticate('facebook', {
-    failureRedirect: '/'
+	failureRedirect: '/'
 }), passportfb);
 app.get('/login/42/', passport.authenticate('42'));
 app.get('/login/42/return', passport.authenticate('42', {
-    failureRedirect: '/'
+	failureRedirect: '/'
 }), passportschool);
 app.get('/login/github/', passport.authenticate('github'));
 app.get('/login/github/return', passport.authenticate('github', {
-    failureRedirect: '/'
+	failureRedirect: '/'
 }), passportgithub);
 app.get('/login/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login'
+	scope: ['https://www.googleapis.com/auth/plus.login'
       , 'https://www.googleapis.com/auth/plus.profile.emails.read']
 }));
 app.get('/login/google/return', passport.authenticate('google', {
-    failureRedirect: '/'
+	failureRedirect: '/'
 }), passportgoogle);
 app.get("/search.html", function (req, res) {
-    res.render('search.html');
+	res.render('search.html');
 });
 app.get("/searchmovies", searchmovies);
 app.get("/player.html", streamer);
@@ -108,7 +108,7 @@ app.post("/upload", upload_picture);
 //  SERVER PORT	\\
 // 				\\
 var httpsServer = https.createServer(options, app, function (req, res) {
-    res.writeHead(200);
+	res.writeHead(200);
 });
 httpsServer.listen(4422);
 console.log("server listenning to port 4422");
@@ -117,41 +117,9 @@ console.log("server listenning to port 4422");
 //				\\
 var io = require('socket.io').listen(httpsServer.listen(4422));
 io.on('connection', function (socket) {
-    var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
-    var sessionid = cookies['connect.sid'];
-    connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
-        if (err) throw err;
-    });
+	var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
+	var sessionid = cookies['connect.sid'];
+	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
+		if (err) throw err;
+	});
 });
-//const rarbg = require('rarbg')
-//	// Searching by various parameters 
-//rarbg.search({
-//	search_imdb: 'tt0903747'
-//	, category: 'tv'
-//	, limit: 100
-//}).then(response => {
-//	console.log(response)
-//		// Output: 
-//		// [ 
-//		//   { 
-//		//     "filename": "Star.Wars.Episode.VII.The.Force.Awakens.2015.1080p.BluRay.H264.AAC-RARBG", 
-//		//     "category": "Movies/x264/1080", 
-//		//     "download": "magnet:?xt=urn:btih:..." 
-//		//   }, 
-//		//   { 
-//		//     "filename": "Star.Wars.Episode.VII.The.Force.Awakens.2015.1080p.BluRay.x264-Replica", 
-//		//     "category": "Movies/x264/1080", 
-//		//     "download": "magnet:?xt=urn:btih:..." 
-//		//   } 
-//		// ] 
-//}).catch(err => console.error(err))
-var eztv = require('./medias/eztv');
-eztv.getShows({
-    query: 'a'
-}, function (error, results) {
-    for (var k in results) {}
-    console.log(results);
-});
-//            eztv.getShowEpisodes('23', function (err, result) {
-//                console.log(result.episodes);
-//            })

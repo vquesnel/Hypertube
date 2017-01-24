@@ -1,16 +1,11 @@
-//var piratebay = require('thepiratebay');
-var urlencode = require('urlencode');
-var yts = require('../../medias/yts');
+var connection = require("../../config/db_config");
 var home = function (req, res) {
-    yts.listMovies({
-        limit: 50,
-        page: 3
-    }, function (err, json) {
-        res.render("home", {
-            display_movies: {
-                infos: json.data.movies
-            }
-        })
-    });
+	connection.query("SELECT * FROM movies", function (err, list) {
+		res.render("home", {
+			display_movies: {
+				infos: list
+			}
+		});
+	});
 }
 module.exports = home;
