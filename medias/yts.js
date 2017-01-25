@@ -2,18 +2,22 @@
 var request = require('request');
 var baseUrl = 'https://yts.ag/api/v2/';
 var doRequest = function (url, options, callback) {
-	request({
-		url: url
-		, qs: options
-	}, function (err, res, body) {
-		if (!err && res.statusCode === 200) {
-			var json = JSON.parse(body);
-			callback(null, json);
-		}
-		else {
-			callback(err, null);
-		}
-	});
+	function run() {
+		request({
+			url: url
+			, qs: options
+		}, function (err, res, body) {
+			if (!err && res.statusCode === 200) {
+				var json = JSON.parse(body);
+				callback(null, json);
+			}
+			else {
+				setTimeout(run, 10);
+				return false;
+			}
+		});
+	}
+	run();
 };
 exports.listMovies = function (options, callback) {
 	doRequest(baseUrl + "list_movies.json", options, callback);

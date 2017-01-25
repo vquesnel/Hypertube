@@ -4,47 +4,75 @@ var S = require('string');
 var urlRoot = "http://eztv.ch/";
 //var urlRoot = "https://eztv-proxy.net/";
 var self = module.exports;
+
+function search(nameKey, myArray) {
+	for (var i = 0; i < myArray.length; i++) {
+		if (myArray[i].title === nameKey) {
+			return myArray[i].title;
+		}
+	}
+}
 self.getShows = function (options, callback) {
-	request(urlRoot + "showlist/", function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			var list = [];
-			var $ = cheerio.load(body);
-			var $elements = $("table.forum_header_border tr[name=hover]");
-			$elements.each(function (i, e) {
-				var show = {};
-				show.url = $(e).find("td").eq(0).find("a").attr("href");
-				if (!show.url) {
-					return;
-				}
-				var regex = show.url.match(/\/shows\/(\d+)\/([^\/]+)/);
-				if (!regex) {
-					console.log("Unparsed show: " + show.url + " Number --> " + i);
-					return;
-				}
-				show.id = parseInt(regex[1]);
-				show.slug = regex[2];
-				var title = $(e).find("td").eq(0).text();
-				if (S(title).endsWith(", The")) {
-					title = "The " + S(title).chompRight(", The").s;
-				}
-				show.title = title;
-				show.status = $(e).find("td").eq(1).find("font").attr("class");
-				if (options && options.query) {
-					if (show.title.toLowerCase().search(options.query.toLowerCase()) >= 0) {
-						list.push(show);
+	var list = [];
+
+	function run() {
+		request(urlRoot + "showlist/", function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var $ = cheerio.load(body);
+				var $elements = $("table.forum_header_border tr[name=hover]");
+				$elements.each(function (i, e) {
+					var show = {};
+					show.url = $(e).find("td").eq(0).find("a").attr("href");
+					if (!show.url) {
+						return;
 					}
+					var regex = show.url.match(/\/shows\/(\d+)\/([^\/]+)/);
+					if (!regex) {
+						setTimeout(run, 10);
+						return false;
+					}
+					else {
+						show.id = parseInt(regex[1]);
+						show.slug = regex[2];
+						var title = $(e).find("td").eq(0).text();
+						if (S(title).endsWith(", The")) {
+							title = "The " + S(title).chompRight(", The").s;
+						}
+						show.title = title.split("(")[0].trim();
+						show.status = $(e).find("td").eq(1).find("font").attr("class");
+						var votes = $(e).find("td").eq(2).find("span").text();
+						var regexVotes = votes.match(/(\d+\,?\d*\,?\d*)/);
+						if (!regexVotes) {
+							console.log("No Votes: " + show.title);
+						}
+						show.votes = regexVotes[0];
+						show.votes = show.votes.replace(/,/g, "");
+						if (Number(show.votes) >= 100000) {
+							var verif = search(show.title, list);
+							if (!verif)
+								if (options && options.query) {
+									if (show.title.toLowerCase().search(options.query.toLowerCase()) >= 0) {
+										list.push(show);
+										console.log(list);
+									}
+								}
+								else {
+									list.push(show);
+								}
+						}
+					}
+				});
+				if (callback) {
+					callback(null, list);
 				}
-				else {
-					list.push(show);
-				}
-			});
-			if (callback) callback(null, list);
-		}
-		else {
-			console.log("Error getting shows", error, response);
-			if (callback) callback(new Error("Error getting shows"), null);
-		}
-	});
+			}
+			else {
+				console.log("Error getting shows", error, response);
+				if (callback) callback(new Error("Error getting shows"), null);
+			}
+		});
+	}
+	run();
 };
 self.getShowEpisodes = function (showId, callback) {
 	request(urlRoot + "shows/" + showId + "/", function (error, response, body) {

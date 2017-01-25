@@ -46,6 +46,7 @@ passportgoogle = require("./server/get/passport").google;
 movie = require("./server/get/movie");
 watchmovie = require("./server/get/watchmovie");
 streamer = require("./server/get/streamer");
+tvShows = require("./server/get/tvShows");
 //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
@@ -62,6 +63,7 @@ app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile.html", profile);
 app.get("/home.html", home);
+app.get("/tvShows.html", tvShows);
 app.get("/movie.html/:imdb_code", movie);
 app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
 app.get("/logout.html", logout);
@@ -92,6 +94,12 @@ app.get('/login/google/return', passport.authenticate('google', {
 app.get("/search.html", function (req, res) {
 	res.render('search.html');
 });
+app.get("/autoload/:limit", function (req, res) {
+//	connection.query("SELECT * FROM movies", [req.params.limit], function (err, rows) {
+			//		if (err) throw err;
+			//		res.send(rows);
+			//	})
+})
 app.get("/searchmovies", searchmovies);
 app.get("/player.html", streamer);
 //			\\
