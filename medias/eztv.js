@@ -75,43 +75,49 @@ self.getShows = function (options, callback) {
 	run();
 };
 self.getShowEpisodes = function (showId, callback) {
-	request(urlRoot + "shows/" + showId + "/", function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			var result = {
-				id: showId
-				, episodes: []
-			};
-			var $ = cheerio.load(body);
-			result.title = $("td.section_post_header").eq(0).find("b").text();
-			var $episodes = $("table.forum_header_noborder tr[name=hover]");
-			$episodes.each(function (i, e) {
-				var episode = {};
-				episode.url = $(e).find("td").eq(1).find("a").attr("href");
-				if (!episode.url) return;
-				var urlRegex = episode.url.match(/\/ep\/(\d+)\/.*/);
-				episode.id = parseInt(urlRegex[1]);
-				episode.title = $(e).find("td").eq(1).find("a").text();
-				var titleRegex = episode.title.match(/(.+) s?(\d+)[ex](\d+)(e(\d+))?(.*)/i);
-				if (titleRegex) {
-					episode.show = titleRegex[1];
-					episode.seasonNumber = parseInt(titleRegex[2]);
-					episode.episodeNumber = parseInt(titleRegex[3]);
-					episode.episodeNumber2 = parseInt(titleRegex[5]);
-					episode.extra = titleRegex[6].trim();
-					episode.proper = episode.extra.toLowerCase().indexOf("proper") >= 0;
-					episode.repack = episode.extra.toLowerCase().indexOf("repack") >= 0;
-				}
-				else {
-					//console.log("unparsed episode: " + episode.title);
-				}
-				episode.magnet = $(e).find("td").eq(2).find("a.magnet").attr("href");
-				episode.torrentURL = $(e).find("td").eq(2).find("a.download_1").attr("href");
-				result.episodes.push(episode);
-			});
-			if (callback) callback(null, result);
-		}
-		else {
-			if (callback) callback(new Error("Error getting show episodes"), null);
-		}
-	});
+	function run() {
+		request(urlRoot + "shows/" + showId + "/", function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var result = {
+					id: showId
+					, episodes: []
+				};
+				var $ = cheerio.load(body);
+				result.title = $("td.section_post_header").eq(0).find("b").text();
+				var $episodes = $("table.forum_header_noborder tr[name=hover]");
+				$episodes.each(function (i, e) {
+					var episode = {};
+					episode.url = $(e).find("td").eq(1).find("a").attr("href");
+					if (!episode.url) return;
+					var urlRegex = episode.url.match(/\/ep\/(\d+)\/.*/);
+					episode.id = parseInt(urlRegex[1]);
+					episode.title = $(e).find("td").eq(1).find("a").text();
+					var titleRegex = episode.title.match(/(.+[. | ])?[ |.]?s?(\d+)[.]?[ex](\d+)[.]?(e(\d+))?(.*)/i);
+					if (titleRegex) {
+						episode.seasonNumber = parseInt(titleRegex[2]);
+						episode.episodeNumber = parseInt(titleRegex[3]);
+						episode.episodeNumber2 = parseInt(titleRegex[5]);
+						var quality720 = titleRegex[6].trim().match(/(720p){1}/i);
+						var quality480 = titleRegex[6].trim().match(/(HDTV|DVDSCR|WEBrip|DSR|PDTV){1}/i);
+						if (quality720) {
+							episode.quality = "720p"
+						}
+						else if (quality480) {
+							episode.quality = "480p"
+						}
+						episode.magnet = $(e).find("td").eq(2).find("a.magnet").attr("href");
+						if (episode.seasonNumber && episode.quality && episode.magnet) result.episodes.push(episode);
+					}
+					else {
+						return false;
+					}
+				});
+				if (callback) callback(null, result);
+			}
+			else {
+				if (callback) callback(new Error("Error getting show episodes"), null);
+			}
+		});
+	}
+	run();
 }
