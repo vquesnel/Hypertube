@@ -84,7 +84,6 @@ launch(connection, function () {
 							omdb.get({
 								imdb: movie[k].imdb
 							}, function (err, movies) {
-								console.log(movies);
 								if (err) console.log(err);
 								else {
 									var genres = "N/A"
@@ -106,16 +105,15 @@ launch(connection, function () {
 												if (err) throw err;
 												else {
 													eztv.getShowEpisodes(show.id, function (err, torrents) {
-														torrents.episodes.forEach(function (torrent) {
-															if (!torrent.magnet) {
-																console.log(torrent);
-															}
-															connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality) VALUES(?,?,?,?,?)", [rows.insertId, torrent.seasonNumber, torrent.episodeNumber, torrent.magnet, torrent.quality], function (err) {
-																if (err) {
-																	console.log(torrent)
-																}
-															})
-														});
+														if (torrents) {
+															torrents.episodes.forEach(function (torrent) {
+																connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality) VALUES(?,?,?,?,?)", [rows.insertId, torrent.seasonNumber, torrent.episodeNumber, torrent.magnet, torrent.quality], function (err) {
+																	if (err) {
+																		console.log(torrent)
+																	}
+																})
+															});
+														}
 													})
 												}
 											})
@@ -130,6 +128,14 @@ launch(connection, function () {
 		})
 	});
 });
+//var addic7edApi = require('addic7ed-api');
+//addic7edApi.search('South Park', 19, 6).then(function (subtitlesList) {
+//	var subInfo = subtitlesList[0];
+//	console.log(subtitlesList);
+//	if (subInfo) {
+//		console.log(subInfo.referer);
+//	}
+//});
 connection = mysql.createPool({
 	connectionLimit: 100
 	, port: 3307

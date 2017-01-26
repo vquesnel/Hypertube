@@ -4,6 +4,7 @@
   "description": "Web Application like PopcornTime",
   "main": "server.js",
   "dependencies": {
+    "addic7ed-api": "^1.3.2",
     "body-parser": "^1.15.2",
     "cheerio": "^0.22.0",
     "cookie": "^0.3.1",

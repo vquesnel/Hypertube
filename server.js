@@ -59,12 +59,12 @@ searchmovies = require("./server/post/searchmovies");
 //			\\
 // 	  GET 	\\
 //			\\
-connection.query("SELECT COUNT(*) AS NBR_DOUBLES, id_film FROM movies_torrents GROUP  BY magnet HAVING COUNT(*) > 1", function (err, rows) {
-	console.log(rows);
-})
-connection.query("SELECT COUNT(*) AS NBR_DOUBLES, id FROM movies GROUP  BY year HAVING COUNT(*) > 1", function (err, rows) {
-	console.log(rows);
-})
+//connection.query("SELECT COUNT(*) AS NBR_DOUBLES, id_film FROM movies_torrents GROUP  BY magnet HAVING COUNT(*) > 1", function (err, rows) {
+//	console.log(rows);
+//})
+//connection.query("SELECT COUNT(*) AS NBR_DOUBLES, id FROM movies GROUP  BY year HAVING COUNT(*) > 1", function (err, rows) {
+//	console.log(rows);
+//})
 app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile.html", profile);
