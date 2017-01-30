@@ -1,14 +1,17 @@
 .container {
     margin: 0 20px;
 }
+
 #menu-logo {
-    height: 50px;
-    margin-top: 8px;
+    height: 35px;
+    margin-top: 14px;
 }
+
 .menu-img {
     height: 30px;
     vertical-align: middle;
 }
+
 .header {
     position: fixed;
     left: 0;
@@ -16,38 +19,44 @@
     height: 66px;
     line-height: 66px;
     color: #fff;
-    background: #333333;
-    z-index: 1;
+    background: #111111;
+    z-index: 30;
 }
+
 .header__logo {
     font-weight: bold;
     padding: 0 25px;
     float: left;
     width: 20px;
 }
+
 .menu {
     float: right;
 }
+
 .menu p {
     display: inline-block;
     font-size: 15px;
     line-height: 33px;
 }
+
 .menu a {
     padding: 0 10px;
     color: white;
     margin-right: 10px;
     font-weight: 100;
 }
+
 .menu a:hover {
     color: skyblue;
     text-decoration: none;
 }
+
 @media only screen and (max-width: 870px) {
     .site-container {
         height: 100%;
         overflow: scroll;
-        position: inherit;
+        //position: inherit;
     }
     .site-pusher {
         height: 100%;
@@ -59,9 +68,6 @@
         -ms-transform: translateX(0px);
         -webkit-transform: translateX(0px);
         transform: translateX(0px);
-    }
-    .header {
-        position: static;
     }
     /*  .site-content {
         position: absolute;
@@ -95,8 +101,11 @@
     .logo-menu {
         vertical-align: middle;
     }
+    header {
+        position: fixed;
+    }
     .menu {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
         bottom: 0;
@@ -136,7 +145,7 @@
     }
     .width--sidebar .site-cache {
         cursor: pointer;
-        position: absolute;
+        //position: absolute;
         top: 66px;
         left: 0;
         right: 0;

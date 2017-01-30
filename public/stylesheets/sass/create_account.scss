@@ -1,60 +1,65 @@
-$radius: 10px;
+$radius: 15px;
+::-webkit-input-placeholder {
+	color: white;
+	font-weight: 100;
+}
 .form-img {
-    width: 270px;
-    background: #ddd;
-    padding: 10px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+	width: 300px;
 }
 .inscription-form {
-    width: 292px;
-    border-radius: 10px;
+	width: 100%;
+	max-width: 700px;
+	height: 400px;
+	background: #252525;
+	border-radius: $radius;
 }
 .header-form {
-    width: 290px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 20px;
-    color: #221F20;
-    background: #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 6px;
+	font-size: 30px;
+	color: white;
+	font-weight: 100;
+	padding: 20px;
 }
 .input {
-    height: 40px;
-    width: 270px;
-    padding-left: 10px;
-    padding-right: 10px;
-    line-height: 40px;
-    display: block;
-    border-bottom: 3px solid #969696;
-    outline: none;
-    font-size: 15px;
-    color: #383838;
-    background: #dedede;
+	width: 260px;
+	height: 30px;
+	margin-left: 15px;
+	margin-right: 15px;
+	line-height: 30px;
+	font-size: 15px;
+	padding: 5px;
+	padding-left: 10px;
+	outline: none;
+	border-radius: 7.5px;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	font-weight: 100;
 }
-.input-fix {
-    border: none;
+.return {
+	width: 275px;
+	height: 40px;
+	display: inline-block;
+	margin-left: 15px;
+	margin-right: 15px;
+	font-size: 13px;
+	line-height: 40px;
+	margin-top: 0;
+	vertical-align: bottom;
 }
-.submit {
-    margin-top: 6px;
-    width: 292px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 15px;
-    border-bottom-left-radius: $radius;
-    border-bottom-right-radius: $radius;
-    background: #61AEFF;
-    color: white;
+.input-submit {
+	font-size: 15px;
+	display: block;
+	border: none;
+	padding: 10px;
+	border-radius: 7.5px;
+	margin-top: 40px;
+	background-image: linear-gradient(#61AEFF, #61AEFF);
+	color: white;
+	font-weight: 100;
+	outline: none;
 }
-::-webkit-input-placeholder {
-    color: #6d6d6d;
-}
-.submit:hover {
-    background: #74b7ff;
+.input-submit:hover {
+	background-image: linear-gradient(#8dc5ff, #8dc5ff);
 }
 .no-account {
-    margin-top: 20px;
+	margin-top: 30px;
 }

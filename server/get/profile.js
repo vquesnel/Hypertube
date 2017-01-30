@@ -12,15 +12,14 @@ var home = function (req, res) {
 	//console.log(req.session);
 	if (req.session.username) {
 		res.render('profile', {
-			infos: req.session
-			, messageprofil: messageprofil
-			, messagephoto: messagephoto
-			, messagereset: messagereset
-			, settings: settings
-			, contents: contents
+			infos: req.session,
+			messageprofil: messageprofil,
+			messagephoto: messagephoto,
+			messagereset: messagereset,
+			settings: settings,
+			contents: contents
 		})
-	}
-	else {
+	} else {
 		res.redirect("/");
 	}
 }

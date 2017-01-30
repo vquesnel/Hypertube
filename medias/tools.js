@@ -6,7 +6,7 @@ var tools = {
 		return (message);
 	}
 	, isValidName: function (name) {
-		var regex = /^([a-zA-Z\-èêéàôîïùñç]{2,17})$/;
+		var regex = /^([a-zA-Z\-èêéàôîïùñç]{2,30})$/;
 		return regex.test(name);
 	}
 	, isValidEmail: function (email) {

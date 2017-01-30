@@ -1,77 +1,71 @@
 .hud {
-	width: 100%;
-	max-width: 800px;
-	border-bottom: 5px solid rgba(255, 255, 255, 0.2);
-	padding-bottom: 20px;
-	height: 210px;
+  width: 100%;
+  max-width: 800px;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 20px;
+  height: 210px;
 }
 
 .profile-pic {
-	width: 200px;
-	height: 200px;
-	height: 30px;
-	border-radius: 50%;
-	display: inline-block;
+  width: 200px;
+  height: 200px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .profile-pic img {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	border: 5px solid rgba(255, 255, 255, 0.2);
-	vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  vertical-align: middle;
 }
 
 .usr-infos {
-	width: 300px;
-	background: rgba(255, 255, 255, 0.2);
-	border-radius: 10px;
-	display: inline-block;
-	margin-left: 40px;
-	vertical-align: middle;
-	padding: 20px;
-	box-shadow: 0px 0px 300px 20px #2e2e2e;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: inline-block;
+  margin-left: 40px;
+  vertical-align: middle;
+  padding: 20px;
+  box-shadow: 0px 0px 300px 20px #2e2e2e;
 }
 
 .firstname,
 .lastname {
-	display: inline-block;
-	font-size: 35px;
-	font-weight: 100;
-	margin-right: 10px;
-	color: white;
-	margin-bottom: 10px;
+  display: inline-block;
+  font-size: 35px;
+  font-weight: 100;
+  margin-right: 10px;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .username {
-	font-size: 18px;
-	font-weight: 100;
-	color: white;
-	margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 100;
+  color: white;
+  margin-bottom: 10px;
 }
 
 #settigns {
-	width: 30px;
-	float: right;
+  width: 30px;
+  float: right;
 }
 
 .baiserie {
-	display: none;
-}
-
-#infos {
-	width: 100%;
-	max-width: 800px;
-	height: 100px;
-	background: red;
+  display: none;
 }
 
 @media only screen and (max-width: 580px) {
-	.usr-infos {
-		margin-top: 200px;
-		margin-left: 0;
-	}
-	.hud {
-		height: 400px;
-	}
+  .usr-infos {
+    margin-top: 200px;
+    margin-left: 0;
+  }
+
+  .hud {
+    height: 400px;
+  }
 }
