@@ -1,11 +1,12 @@
+body,
+html {
+    background: black;
+}
+
 .hud-film {
     width: 90%;
     max-width: 900px;
-    background-blend-mode: darken;
-}
-
-.hud-film:before {
-    opacity: 0.5;
+    height: 500px;
 }
 
 .hud-film img {
@@ -16,8 +17,7 @@
 .cover {
     padding-bottom: 10px;
     background-size: cover;
-    width: 100%;
-    border-bottom: 20px solid #111;
+    height: 900px;
 }
 
 .poster {
@@ -25,6 +25,7 @@
     vertical-align: bottom;
     margin-right: 20px;
     margin-top: 30px;
+    box-shadow: 0px 0px 70px 3px rgba(100, 100, 100, 0.15);
 }
 
 .poster img {
@@ -34,33 +35,65 @@
 .infos {
     width: 600px;
     display: inline-block;
-    background: rgba(0, 0, 0, 0.6);
+    //background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
     vertical-align: bottom;
     margin-top: 20px;
-    padding: 10px;
+    //padding: 10px;
     color: white;
     font-weight: 100;
     text-align: left;
-    overflow: scroll;
     max-height: 362px;
+    //box-shadow: 0px 0px 70px 3px rgba(100, 100, 100, 0.15);
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+.actors,
 .genres,
-.title,
+.director,
+.time,
 .imdb,
 .year,
-.syno,
-.actors,
-.director{
+.syno {
     font-size: 15px;
-    margin: 10px;
-    z-index: 100px;
-    position: relative;
+    margin: 5px;
+}
+
+.year {
+    display: inline-block;
+    margin-top: 0;
+}
+
+.time {
+    //float: right;
+    //padding-top: 10px;
+    font-size: 12px;
+    margin-top: 0;
+    display: inline-block;
+}
+
+.suffix {
+    display: inline-block;
+}
+
+.syno {
+    overflow: scroll;
+    max-height: 180px;
+}
+
+.syni-ttl {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .title {
-    font-size: 25px;
+    font-size: 35px;
+    max-width: 500px;
+    margin-left: 5px;
 }
 
 .quality {
@@ -92,6 +125,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     width: 108px;
+    float: right;
 }
 
 .onoffswitch-checkbox {
@@ -171,13 +205,14 @@
 .watch-bar {
     height: 50px;
     padding-top: 16px;
-    width: 900px;
+    //width: 900px;
     text-align: left;
     border-radius: 15px;
-    background: rgba(0, 0, 0, 0.6);
+    //background: rgba(0, 0, 0, 0.7);
     margin: 25px;
     margin-left: 0;
     min-width: 600px;
+    //box-shadow: 0px 0px 70px 3px rgba(100, 100, 100, 0.15);
 }
 
 .watch-btn {
@@ -187,10 +222,11 @@
     background: #578fe8;
     border-radius: 5px;
     text-align: center;
+    float: right;
 }
 
 .watch-btn:hover {
-    background: #86b2f8;
+    background: #437edd;
 }
 
 .watch-btn a {
@@ -206,161 +242,219 @@
     margin-left: 10px;
 }
 
-.user-pic img {
+.middle-bar {
+    height: 60px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+}
+
+.comment-area {
+    font-size: 15px;
+    width: 450px;
+    display: inline-block;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+}
+
+#message-area {
+    height: 60px;
+    font-size: 15px;
+    width: 350px;
+    float: left;
+    outline: none;
+    background: black;
+    color: #666;
+    padding-left: 60px;
+}
+
+#message-area::-webkit-input-placeholder {
+    font-weight: 100;
+}
+
+.sender {
+    border: none;
+    font-size: 20px;
+    color: #555;
+    font-weight: 100;
     width: 40px;
-    border-radius: 50%;
-    border: 2px solid #AAA;
-}
-
-.comments-container {
-    width: 70%;
-    background: #181818;
-    width: 100%;
-    max-width: 620px;
-    padding: 20px;
-    padding-top: 0;
-    border-top: 25px #181818 solid;
-    max-height: auto;
-    overflow: scroll;
+    height: 20px;
     display: inline-block;
 }
 
-.comments-container div {
+.sender:hover {
+    cursor: default;
+    color: #94c9f5;
+}
+
+.comments-indicator,
+.viewers-indicator {
+    width: 80px;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
     display: inline-block;
+    color: white;
+    float: right;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+
+.comments-indicator img,
+.viewers-indicator img {
+    height: 20px;
     vertical-align: top;
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
-.global {
-    background: #181818;
+.comments-display {
+    width: 100%;
+    max-width: 900px;
+    overflow: scroll;
+    margin-top: 30px;
 }
 
 .comment {
+    margin: 10px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    //  height: 500px;
+    height: inherit;
+}
+
+.comment-infos {
+    height: 30px;
+    line-height: 30px;
     padding: 10px;
-    min-height: 44px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    max-width: 600px;
-    width: 100%;
 }
 
-.b1 {
-    background: #222;
-    border-radius: 15px;
-}
-
-.b2 {
-    background: #333;
-    border-radius: 15px;
-}
-
-.username {
+.comment-infos div {
+    display: inline-block;
     font-size: 15px;
-    color: #989898;
-    font-weight: 100;
-    margin-left: 10px;
-    max-width: 250px;
-    line-height: 44px;
-    height: 90%;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: left;
+    vertical-align: middle;
 }
 
-.date {
-    font-size: 15px;
-    height: 44px;
-    line-height: 44px;
+.comment img {
+    width: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+}
+
+.comment-user {
+    float: left;
+    margin-left: 20px;
+    color: white;
+}
+
+.comment-date {
     float: right;
-    color: #555;
-    margin-right: 20px;
+    color: #333;
 }
 
 .comment-value {
     font-size: 15px;
-    word-break: break-all;
-    font-weight: 100;
     color: white;
-    max-width: 720px;
-    width: 90%;
-    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 500px;
     text-align: justify;
-    margin: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-left: 10px;
-    border-radius: 15px;
-    padding: 20px;
-}
-
-.message-container {
-    vertical-align: top;
-    padding: 20px;
-    padding-top: 25px;
-    width: 580px;
+    z-index: 30;
+    margin-bottom: 20px;
+    font-weight: 100;
     padding-left: 20px;
-    padding-right: 20px;
-    background: #282828;
-    margin-top: 25px;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    padding-bottom: 40px;
-    margin-left: 20px;
 }
 
-.message {
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.06);
+.stars-container {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    margin-left: 10px;
+    letter-spacing: 3px;
+    vertical-align: bottom;
 }
 
-.textarea {
-    resize: none;
-    width: 300px;
-    height: 77px;
-    text-align: left;
-    background: #222;
-    border: none;
-    outline: none;
-    margin: 10px;
-    margin-right: 0;
-    text-align: left;
-    padding: 10px;
-    color: #999;
-    font-size: 15px;
-    font-weight: 100;
+.stars-container:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: lightgray;
 }
 
-.submit-message {
-    font-size: 20px;
-    color: white;
-    font-weight: 100;
-    border: none;
-    height: 100px;
-    margin-top: 10px;
-    vertical-align: top;
-    width: 100px;
-    outline: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-image: linear-gradient(#626262, #626262);
+.stars-container:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '★★★★★';
+    color: #94c9f5;
+    overflow: hidden;
 }
 
-.submit-message:hover {
-    background-image: linear-gradient(#8d8d8d, #8d8d8d);
+.stars-0:after {
+    width: 0%;
+}
+
+.stars-10:after {
+    width: 10%;
+}
+
+.stars-20:after {
+    width: 20%;
+}
+
+.stars-30:after {
+    width: 30%;
+}
+
+.stars-40:after {
+    width: 40%;
+}
+
+.stars-50:after {
+    width: 50%;
+}
+
+.stars-60:after {
+    width: 60%;
+}
+
+.stars-70:after {
+    width: 70%;
+}
+
+.stars-80:after {
+    width: 80%;
+}
+
+.stars-90:after {
+    width: 90%;
+}
+
+.stars-100:after {
+    width: 100;
 }
 
 @media only screen and (max-width: 1000px) {
     .cover {
         min-height: 1000px;
     }
-    .hud-film div {
-        display: block;
-    }
+    //        .hud-film div {
+    //        display: block;
+    //    }
     .poster {
+        margin-top: 70px;
         float: left;
     }
     .infos {
-        display: block;
-        margin-left: 0;
+        //display: block;
+        margin-right: 100px;
         float: left;
+    }
+    .sum-txt {
+        max-height: 100px;
     }
     .watch-bar {
         float: left;
@@ -368,6 +462,7 @@
     }
     .watch-bar div {
         display: inline-block;
+        float: left;
     }
     .separator {
         height: 15px;

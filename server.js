@@ -63,6 +63,7 @@ manage_profil = require("./server/post/manage_profil").manage_profil;
 upload_picture = require("./server/post/manage_profil").upload_picture;
 email_confirmation = require("./server/post/manage_profil").email_confirmation;
 searchmovies = require("./server/post/searchmovies");
+indicators = require("./server/ajax/indicators");
 //			\\
 // 	  GET 	\\
 //			\\
@@ -116,6 +117,7 @@ app.get('/wallpaper/:imdbid', wallpaper);
 app.get('/username_checker/:value', username_checker);
 app.get('/email_checker/:value', email_checker);
 app.get('handler/:context', handler);
+app.get('/indicators/:imdbID', indicators);
 
 
 //			\\
@@ -164,7 +166,7 @@ io.on('connection', function (socket) {
     });
     socket.on('check_message', function (imdbID) {
         var data = [];
-        connection.query("SELECT * FROM comment WHERE imdb_id = ?", [imdbID], function (err, rows) {
+        connection.query("SELECT comment.username,comment.imdb_id,comment.content,comment.date_message,users.username,users.profil_pic FROM comment LEFT JOIN users ON comment.username = users.id WHERE imdb_id = ? ORDER BY comment.id DESC", [imdbID], function (err, rows) {
             if (err) throw err;
             (function (callback) {
                 for (i = 0; i < rows.length; i++) {
@@ -173,6 +175,7 @@ io.on('connection', function (socket) {
                 callback(data);
             })(function (data) {
                 socket.emit('old_message', data);
+                console.log(data);
             })
         })
     });
@@ -182,12 +185,18 @@ io.on('connection', function (socket) {
                 if (err) throw err;
 
             })
-            io.sockets.emit("new_message", {
-                value: data.value,
-                username: data.username,
-                imdbID: data.imdbID,
-                date: data.date
-            });
+            connection.query("SELECT username, profil_pic FROM users WHERE id = ?", [data.username], function (err, user_pack) {
+                if (err) throw err;
+                else {
+                    io.sockets.emit("new_message", {
+                        value: data.value,
+                        username: user_pack[0].username,
+                        profil_pic: user_pack[0].profil_pic,
+                        imdbID: data.imdbID,
+                        date: data.date
+                    });
+                }
+            })
         }
 
     })
