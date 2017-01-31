@@ -30,7 +30,7 @@
                     $('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
                     $('<div class="title' + indexClass + '">' + data[k].title + '</div>').appendTo('.infos' + indexClass + '');
                     $('<div class="viewed"></div>').appendTo('.title' + indexClass + '');
-                    $('<div class="year">' + data[k].start + " " + data[k].end + '</div>').appendTo('.infos' + indexClass + '');
+                    $('<div class="year">' + data[k].year + '</div>').appendTo('.infos' + indexClass + '');
                     addScore(Math.round(data[k].rating) * 10, $('.infos' + indexClass + ''));
 
                     indexClass++;
@@ -53,7 +53,7 @@
                         $('<a class="link" href="/tv_show.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
                         $('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
                         $('<div class="title">' + data[k].title + '</div>').appendTo('.infos' + indexClass + '');
-                        $('<div class="year">' + data[k].start + " " + data[k].end + '</div>').appendTo('.infos' + indexClass + '');
+                        $('<div class="year">' + data[k].year + '</div>').appendTo('.infos' + indexClass + '');
                         addScore(Math.round(data[k].rating) * 10, $('.infos' + indexClass + ''));
                         indexClass++;
                     }
