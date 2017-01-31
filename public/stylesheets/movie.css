@@ -37,8 +37,7 @@ html {
   width: 600px;
   display: inline-block;
   border-radius: 15px;
-  vertical-align: bottom;
-  margin-top: 20px;
+  vertical-align: middle;
   color: white;
   font-weight: 100;
   text-align: left;
@@ -77,7 +76,7 @@ html {
 
 .syno {
   overflow: scroll;
-  max-height: 180px;
+  max-height: 80px;
 }
 
 .syni-ttl {
@@ -460,6 +459,10 @@ html {
 
   .separator {
     height: 15px;
+  }
+
+  .syno {
+    margin-bottom: 40px;
   }
 }
 @media only screen and (max-width: 1320px) {

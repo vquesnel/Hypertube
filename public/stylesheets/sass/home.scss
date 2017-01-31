@@ -1,323 +1,276 @@
     .library {
-        padding-top: 10px;
-        width: 90%;
-        max-width: 900px;
-        background: rgba(0, 0, 0, 0.5);
-        height: 100%;
-        padding-top: 50px;
+    	padding-top: 10px;
+    	width: 90%;
+    	max-width: 900px;
+    	background: rgba(0, 0, 0, 0.5);
+    	height: 100%;
+    	padding-top: 50px;
     }
-    
     .block {
-        display: inline-block;
-        width: 200px;
-        vertical-align: bottom;
-        margin: 10px;
+    	display: inline-block;
+    	width: 200px;
+    	vertical-align: bottom;
+    	margin: 10px;
     }
-    
     .block img {
-        width: 200px;
-        border-radius: 10px;
-        box-shadow: 0px 64px 49px -6px rgba(0, 0, 0, 0.3);
-        vertical-align: top;
+    	width: 200px;
+    	border-radius: 10px;
+    	box-shadow: 0px 64px 49px -6px rgba(0, 0, 0, 0.3);
+    	vertical-align: top;
     }
-    
     .infos {
-        margin-top: 10px;
-        font-size: 12px;
-        color: white;
-        font-weight: 100;
+    	margin-top: 10px;
+    	font-size: 12px;
+    	color: white;
+    	font-weight: 100;
     }
-    
     .titl {
-        font-size: 13px;
+    	font-size: 13px;
     }
-    
     .year {
-        float: right;
-        color: #727272;
-        padding-top: 10px;
-        vertical-align: bottom;
+    	float: right;
+    	color: #727272;
+    	padding-top: 10px;
+    	vertical-align: bottom;
     }
-    
     .infos div {
-        display: inline-block;
+    	display: inline-block;
     }
-    
     .options,
     .search {
-        top: 66px;
-        background: rgba(0, 0, 0, 0.95);
-        width: 100%;
-        height: 100px;
-        position: absolute;
-        font-size: 15px;
-        font-weight: 100;
-        color: aqua;
-        position: fixed;
-        z-index: 10;
-        text-align: center;
+    	top: 66px;
+    	background: rgba(0, 0, 0, 0.8);
+    	width: 100%;
+    	height: 100px;
+    	position: absolute;
+    	font-size: 15px;
+    	font-weight: 100;
+    	color: aqua;
+    	position: fixed;
+    	z-index: 10;
+    	text-align: center;
     }
-    
     .options {
-        display: none;
+    	display: none;
     }
-    
     .az {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
+    	display: inline-block;
+    	width: 30px;
+    	height: 30px;
+    	line-height: 30px;
     }
-    
     .maj {
-        font-size: 25px;
+    	font-size: 25px;
     }
-    
     .az div {
-        color: white;
-        display: inline-block;
+    	color: white;
+    	display: inline-block;
     }
-    
     .az:hover {
-        cursor: default;
+    	cursor: default;
     }
-    
     .az:hover div {
-        color: #94c9f5;
-        cursor: default;
+    	color: #94c9f5;
+    	cursor: default;
     }
-    
     .sorter {
-        font-size: 15px;
-        color: white;
-        display: inline-block;
-        margin-right: 20px;
-        margin-left: 20px;
+    	font-size: 15px;
+    	color: white;
+    	display: inline-block;
+    	margin-right: 20px;
+    	margin-left: 20px;
     }
-    
     select {
-        border: none;
-        width: 120px;
-        background: rgba(255, 255, 255, 0.3);
-        outline: none;
-        height: 30px;
-        margin-top: 35px;
-        color: white;
-        text-align: center;
+    	border: none;
+    	width: 120px;
+    	background: rgba(255, 255, 255, 0.3);
+    	outline: none;
+    	height: 30px;
+    	margin-top: 35px;
+    	color: white;
+    	text-align: center;
     }
-    
     .close {
-        position: absolute;
-        right: 32px;
-        top: 32px;
-        width: 32px;
-        height: 32px;
-        opacity: 0.3;
+    	position: absolute;
+    	right: 32px;
+    	top: 32px;
+    	width: 32px;
+    	height: 32px;
+    	opacity: 0.3;
     }
-    
     .close:hover {
-        opacity: 1;
+    	opacity: 1;
     }
-    
     .close:before,
     .close:after {
-        position: absolute;
-        left: 15px;
-        content: ' ';
-        height: 33px;
-        width: 2px;
-        background-color: #787878;
+    	position: absolute;
+    	left: 15px;
+    	content: ' ';
+    	height: 33px;
+    	width: 2px;
+    	background-color: #787878;
     }
-    
     .close:before {
-        transform: rotate(45deg);
+    	transform: rotate(45deg);
     }
-    
     .close:after {
-        transform: rotate(-45deg);
+    	transform: rotate(-45deg);
     }
-    
     .opt-show {
-        position: fixed;
-        top: 66px;
-        width: 100%;
-        height: 55px;
-        line-height: 55px;
-        background: rgba(0, 0, 0, 0.85);
-        display: none;
-        font-size: 15px;
-        color: white;
-        font-weight: 100;
-        z-index: 10;
-        text-align: center;
+    	position: fixed;
+    	top: 66px;
+    	width: 100%;
+    	height: 55px;
+    	line-height: 55px;
+    	background: rgba(0, 0, 0, 0.85);
+    	display: none;
+    	font-size: 15px;
+    	color: white;
+    	font-weight: 100;
+    	z-index: 10;
+    	text-align: center;
     }
-    
     .filter-btn:hover,
     .search-btn:hover {
-        color: #94c9f5;
-        cursor: default;
-        text-decoration: underline;
+    	color: #94c9f5;
+    	cursor: default;
+    	text-decoration: underline;
     }
-    
     .filter-btn,
     .search-btn {
-        width: 50px;
-        height: 20px;
-        margin-left: 10px;
-        margin-left: 10px;
-        vertical-align: middle;
-        line-height: 20px;
-        display: inline-block;
+    	width: 50px;
+    	height: 20px;
+    	margin-left: 10px;
+    	margin-left: 10px;
+    	vertical-align: middle;
+    	line-height: 20px;
+    	display: inline-block;
     }
-    
     .imdb-filter {
-        display: inline-block;
-        vertical-align: middle;
+    	display: inline-block;
+    	vertical-align: middle;
     }
-    
     .imdb-filter img {
-        height: 27px;
+    	height: 27px;
     }
-    
     .imdb-filter:hover img {
-        opacity: 0.5;
+    	opacity: 0.5;
     }
-    
     .stars-container {
-        position: relative;
-        display: inline-block;
-        color: transparent;
-        padding-top: 10px;
-        letter-spacing: 3px;
-        height: 30px;
-        line-height: 30px;
+    	position: relative;
+    	display: inline-block;
+    	color: transparent;
+    	padding-top: 10px;
+    	letter-spacing: 3px;
+    	height: 30px;
+    	line-height: 30px;
     }
-    
     .stars-container:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '★★★★★';
-        color: lightgray;
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	content: '★★★★★';
+    	color: lightgray;
     }
-    
     .stars-container:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '★★★★★';
-        color: #94c9f5;
-        overflow: hidden;
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	content: '★★★★★';
+    	color: #94c9f5;
+    	overflow: hidden;
     }
-    
     .stars-0:after {
-        width: 0%;
+    	width: 0%;
     }
-    
     .stars-10:after {
-        width: 10%;
+    	width: 10%;
     }
-    
     .stars-20:after {
-        width: 20%;
+    	width: 20%;
     }
-    
     .stars-30:after {
-        width: 30%;
+    	width: 30%;
     }
-    
     .stars-40:after {
-        width: 40%;
+    	width: 40%;
     }
-    
     .stars-50:after {
-        width: 50%;
+    	width: 50%;
     }
-    
     .stars-60:after {
-        width: 60%;
+    	width: 60%;
     }
-    
     .stars-70:after {
-        width: 70%;
+    	width: 70%;
     }
-    
     .stars-80:after {
-        width: 80%;
+    	width: 80%;
     }
-    
     .stars-90:after {
-        width: 90%;
+    	width: 90%;
     }
-    
     .stars-100:after {
-        width: 100;
+    	width: 100;
     }
-    
     #search-bar {
-        width: 130px;
-        height: 30px;
-        font-size: 15px;
-        color: white;
-        -webkit-transition: 0.4s ease-in-out;
-        border: none;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition: 0.4s ease-in-out;
-        background: url(../img/search.png) no-repeat scroll 7px 7px;
-        padding-left: 35px;
-        background-size: 15px;
-        outline: none;
-        font-weight: 100;
-        vertical-align: middle;
-        white-space: nowrap;
+    	width: 130px;
+    	height: 30px;
+    	font-size: 15px;
+    	color: white;
+    	-webkit-transition: 0.4s ease-in-out;
+    	border: none;
+    	border: 1px solid rgba(255, 255, 255, 0.3);
+    	transition: 0.4s ease-in-out;
+    	background: url(../img/search.png) no-repeat scroll 7px 7px;
+    	padding-left: 35px;
+    	background-size: 15px;
+    	outline: none;
+    	font-weight: 100;
+    	vertical-align: middle;
+    	white-space: nowrap;
     }
-    
     #search-bar:focus {
-        width: 230px;
-        border-color: #94c9f5;
+    	width: 230px;
+    	border-color: #94c9f5;
     }
-    
     #search-bar::-webkit-input-placeholder {
-        color: rgba(255, 255, 255, 0.3);
-        font-weight: 100;
+    	color: rgba(255, 255, 255, 0.3);
+    	font-weight: 100;
     }
-    
     .search-form {
-        display: inline-block;
-        height: 100px;
-        font-size: 20px;
-        width: 370px;
-        line-height: 100px;
+    	display: inline-block;
+    	height: 100px;
+    	font-size: 20px;
+    	width: 370px;
+    	line-height: 100px;
     }
-    
     #go {
-        height: 32px;
-        border: none;
-        width: 60px;
-        background: transparent;
-        line-height: 32px;
-        color: rgba(255, 255, 255, 0.3);
-        margin: 0;
-        font-weight: 100;
-        font-size: 15px;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 5px;
-        vertical-align: middle;
-        outline: none;
-        margin-left: 20px;
+    	height: 32px;
+    	border: none;
+    	width: 60px;
+    	background: transparent;
+    	line-height: 32px;
+    	color: rgba(255, 255, 255, 0.3);
+    	margin: 0;
+    	font-weight: 100;
+    	font-size: 15px;
+    	text-align: center;
+    	border: 1px solid rgba(255, 255, 255, 0.3);
+    	border-radius: 5px;
+    	vertical-align: middle;
+    	outline: none;
+    	margin-left: 20px;
     }
-    
     #go:hover {
-        color: #94c9f5;
-        border-color: #94c9f5;
+    	color: #94c9f5;
+    	border-color: #94c9f5;
     }
-    
     .viewed {
-        background: #4ce34c;
-        width: 10px;
-        height: 10px;
-        display: inline-block;
-        margin-left: 10px;
-        border-radius: 50%;
+    	background: #4ce34c;
+    	width: 10px;
+    	height: 10px;
+    	display: inline-block;
+    	margin-left: 10px;
+    	border-radius: 50%;
     }
