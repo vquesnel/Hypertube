@@ -1,36 +1,27 @@
 {{#display_movies.infos}}
 <div class="block">
-    <a class="link" href="/movie.html/{{imdb_code}}"> <img src={{cover}}> </a>
-    <div class="infos" align="left">
-        <div class="title">{{title}}</div>
-        <div class="year">{{year}}</div>
-    </div>
+	<a class="link" href="/movie.html/{{imdb_code}}"> <img src={{cover}}> </a>
+	<div class="infos" align="left">
+		<div class="title">{{title}}</div>
+		<div class="year">{{year}}</div>
+	</div>
 </div> {{/display_movies.infos}} {{#display_one_movie.infos}}
 <div class="poster"> <img src="{{cover}}"> </div>
 <div class="infos">
-    <div class="title">{{title}}</div>
-    <div class="time">{{runtime}} min</div>
-    <div class="year">{{year}}</div>
-    <div class="imdb">IMDb : </div>
-    <div class="director">
-        Director: {{director}}
-    </div>
-    <div class="actors">
-        Actors : {{actors}}
-    </div>
-    <div class="genres">
-        Genres : {{genre}}
-    </div>
-    <div class="syni-ttl">Synopsis</div>
-    <div class="syno">
-
-        <br>
-        <div class="sum-txt">{{summary}}</div>
-    </div>
-    <div class="rate-imdb">{{rating}}</div>
+	<div class="title">{{title}}</div>
+	<div class="time">{{runtime}} min</div>
+	<div class="year">{{year}}</div>
+	<div class="imdb">IMDb : </div>
+	<div class="director"> Director: {{director}} </div>
+	<div class="actors"> Actors : {{actors}} </div>
+	<div class="genres"> Genres : {{genre}} </div>
+	<div class="syni-ttl">Synopsis</div>
+	<div class="syno">
+		<br>
+		<div class="sum-txt">{{summary}}</div>
+	</div>
+	<div class="rate-imdb">{{rating}}</div>
 </div>{{/display_one_movie.infos}} {{#display_torrents.data}}
 <div class="link-block">
-    <div class="quality{{quality}}"> /watchmovie.html/{{id_film}}/{{magnet}}/{{quality}}
-    </div>
-
+	<div class="quality{{quality}}">/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}</div>
 </div> {{/display_torrents.data}}

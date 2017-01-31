@@ -160,6 +160,7 @@ var cookieParser = require('cookie-parser');
 
 
 io.on('connection', function (socket) {
+
 	var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
 	var sessionid = cookies['connect.sid'];
 	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {

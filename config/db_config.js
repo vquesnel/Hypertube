@@ -20,10 +20,10 @@ var launch = function (connection, callback) {
 }
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	port: 3307
-	, host: 'localhost'
-	, user: 'root'
-	, password: 'root'
+	port: 3307,
+	host: 'localhost',
+	user: 'root',
+	password: 'root'
 });
 connection.connect(function (err) {
 	if (err) throw err;
@@ -44,35 +44,42 @@ launch(connection, function () {
 	//    console.log("launch");
 	for (var page = 1; page < 121; page++) {
 		yts.listMovies({
-			limit: 50
-			, page: page
+			limit: 50,
+			page: page
 		}, function (err, json) {
 			if (err) {
 				console.log("error yts");
-			}
-			else {
+			} else {
 				json.data.movies.forEach(function (movie) {
-					imdb.getByID(movie.imdb_code, function (err, data) {
-						if (err) {
-							console.log("movie by id");
-						}
-						else {
-							var director = (data.Director ? data.Director : "N/A");
-							console.log(director);
-							var genres = "N/A"
-							if (data.Genre) {
-								genres = JSON.stringify(data.Genre);
-							}
-							var actors = 'N/A';
-							if (data.Actors) {
-								actors = JSON.stringify(data.Actors)
-							}
-							var writers = 'N/A'
-							if (data.Writer) {
-								writers = data.Writer.replace(/\(.*?\)/g, '');
-							}
-							verif(movie.imdb_code, function (result) {
-								if (!result.verif) {
+					verif(movie.imdb_code, function (result) {
+						if (!result.verif) {
+							imdb.getByID(movie.imdb_code, function (err, data) {
+								if (err) {
+									console.log("movie by id");
+								} else {
+									var directors = (data.Director ? data.Director : "N/A");
+									var director_tab = directors.split(',');
+									var director = '';
+									for (i = 0; i < 4; i++) {
+										if (director_tab[i]) director += director_tab[i];
+									}
+									var genres = "N/A"
+									if (data.Genre) {
+										genres = JSON.stringify(data.Genre);
+									}
+									var actors = 'N/A';
+									if (data.Actors) {
+										actors = JSON.stringify(data.Actors)
+									}
+									var writers = 'N/A'
+									if (data.Writer) {
+										writers = '';
+										writer = data.Writer.replace(/\(.*?\)/g, '');
+										var writer_tab = writer.split(',');
+										for (i = 0; i < 4; i++) {
+											if (writer_tab[i]) writers += writer_tab[i];
+										}
+									}
 									connection.query("INSERT INTO `hypertube`.`movies`(title, cover, director, writers, actors, year, rating, imdb_code, runtime, genre, summary) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [movie.title, movie.medium_cover_image, director, writers, actors, movie.year, movie.rating, movie.imdb_code, movie.runtime, genres, movie.description_full], function (err, firstQuery) {
 										if (err) {
 											console.log(err);
@@ -88,7 +95,7 @@ launch(connection, function () {
 										}
 									})
 								}
-							});
+							})
 						}
 					})
 				});
@@ -103,21 +110,26 @@ launch(connection, function () {
 					if (err) console.log("Error imdb--> getshows");
 					if (!movie) console.log("NOT FIND :" + show.title);
 					else if (movie.Type === "series") {
-						var genres = "N/A"
-						if (movie.Genre) {
-							genres = JSON.stringify(movie.Genre);
-						}
-						var actors = 'N/A';
-						if (movie.Actors) {
-							actors = JSON.stringify(movie.Actors)
-						}
-						var writers = 'N/A'
-						if (movie.Writer) {
-							writers = movie.Writer.replace(/\(.*?\)/g, '');
-						}
-						if (movie.imdbRating === 'N/A') movie.imdbRating = "N/A";
 						verifTV(movie.imdbID, function (result) {
 							if (!result.verif && movie.imdbRating) {
+								var genres = "N/A"
+								if (movie.Genre) {
+									genres = JSON.stringify(movie.Genre);
+								}
+								var actors = 'N/A';
+								if (movie.Actors) {
+									actors = JSON.stringify(movie.Actors)
+								}
+								var writers = 'N/A'
+								if (movie.Writer) {
+									writers = '';
+									writer = movie.Writer.replace(/\(.*?\)/g, '');
+									var writer_tab = writer.split(',');
+									for (i = 0; i < 4; i++) {
+										if (writer_tab[i]) writers += writer_tab[i];
+									}
+								}
+								if (movie.imdbRating === 'N/A') movie.imdbRating = "N/A";
 								connection.query("INSERT INTO `hypertube`.`tv_shows`(title, season, genres, director, writers, actors, summary, cover, imdb_code, rating, year, eztv_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [movie.Title, movie.totalSeasons ? movie.totalSeasons : "N/A", genres, movie.Director ? movie.Director : "N/A", writers, actors, movie.Plot ? movie.Plot : "N/A", movie.Poster ? movie.Poster : "N/A", movie.imdbID, movie.imdbRating ? movie.imdbRating : null, movie.Year ? movie.Year : 'N/A', show.id], function (err, rows) {
 									if (err) throw err;
 									else {
@@ -153,12 +165,12 @@ launch(connection, function () {
 //	}
 //});
 connection = mysql.createPool({
-	connectionLimit: 100
-	, port: 3307
-	, host: 'localhost'
-	, user: 'root'
-	, password: 'root'
-	, database: 'hypertube'
-	, charset: 'utf8mb4'
+	connectionLimit: 100,
+	port: 3307,
+	host: 'localhost',
+	user: 'root',
+	password: 'root',
+	database: 'hypertube',
+	charset: 'utf8mb4'
 });
 module.exports = connection

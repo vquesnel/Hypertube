@@ -1,83 +1,66 @@
 <!DOCTYPE html>
 
-
-
 <head>
-    <title>Hypertube | Home</title>
-    <meta charset="utf-8">
-    <link href="/stylesheets/main.css" rel="stylesheet">
-    <link href="/stylesheets/menu.css" rel="stylesheet">
-    <link href="/stylesheets/movie.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://localhost:4422/socket.io/socket.io.js"></script>
+	<title>Hypertube | Home</title>
+	<meta charset="utf-8">
+	<link href="/stylesheets/main.css" rel="stylesheet">
+	<link href="/stylesheets/menu.css" rel="stylesheet">
+	<link href="/stylesheets/movie.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="https://localhost:4422/socket.io/socket.io.js"></script>
+	<link rel='stylesheet prefetch' href='https://vjs.zencdn.net/5-unsafe/video-js.css'>
+	<link rel="stylesheet" href="/stylesheets/player.css">
+	<script src="/js/video.js"></script>
 </head>
 
 <body>
-    <div class="user">{{userID}}</div>
-    <div class="site-container" align="center">
-        <div class="site-pusher">
-            <header class="header">
-                <a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-                <a href="/home.html" class="header__logo">
-                    <img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo">
-                </a>
-                <nav class="menu">
-                    <div class="a0" class="fix">
-                    </div> <a href="/movies.html" class="">Movies</a>
-                    <a href="/tv_shows.html" class="">TV Shows</a>
-                    <a href="#" class="">Documentary</a>
-                    <a href="/profile.html" class="">
-                        <img class="menu-img" src="/img/user.png" alt="user">
-                    </a>
-                    <a href="/logout.html" class="">
-                        <img class="menu-img" src="/img/logout.png" alt="user">
-                    </a>
-                </nav>
-            </header>
-            <div class="cover">
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="hud-film">
-                    {{>display_movies}}
-
-                    <div class="watch-bar">
-                        <div class="watch-btn">
-                            <a id="watch" href="{{torrent}}">Watch it Now</a>
-                        </div>
-                        <div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                            <label class="onoffswitch-label" for="myonoffswitch">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="middle-bar">
-                <div class="comment-area">
-                    <input id="message-area" type="text" placeholder="Leave a comment ...">
-                    <div class="sender">Send</div>
-                </div>
-                <div class="viewers-indicator">
-                    35
-                    <img src="/img/viewers.png">
-                </div>
-                <div class="comments-indicator">
-                    42
-                </div>
-            </div>
-
-            <div class="comments-display">
-
-            </div>
-
-
-        </div>
-    </div>
-    <script type="text/javascript" src="/js/movie_tools.js"></script>
-    <script language="javascript" src="/js/menu.js"></script>
+	<div class="user">{{userID}}</div>
+	<div class="site-container" align="center">
+		<div class="site-pusher">
+			<header class="header">
+				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
+				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo"> </a>
+				<nav class="menu">
+					<div class="a0" class="fix"> </div> <a href="/movies.html" class="">Movies</a> <a href="/tv_shows.html" class="">TV Shows</a> <a href="#" class="">Documentary</a>
+					<a href="/profile.html" class=""> <img class="menu-img" src="/img/user.png" alt="user"> </a>
+					<a href="/logout.html" class=""> <img class="menu-img" src="/img/logout.png" alt="user"> </a>
+				</nav>
+			</header>
+			<div class="cover">
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="hud-film"> {{>display_movies}}
+					<div class="watch-bar">
+						<div class="watch-btn"> <a id="watch">Watch it Now</a> </div>
+						<div class="onoffswitch">
+							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+							<label class="onoffswitch-label" for="myonoffswitch"> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="comment" style="display:block">
+				<div class="middle-bar">
+					<div class="comment-area">
+						<input id="message-area" type="text" placeholder="Leave a comment ...">
+						<div class="sender">Send</div>
+					</div>
+					<div class="viewers-indicator"> 35 <img src="/img/viewers.png"> </div>
+					<div class="comments-indicator"> 42 </div>
+				</div>
+				<div class="comments-display"> </div>
+			</div>
+			<div id="instructions" style="display:none">
+				<video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px" controls preload="none" poster="" data-setup='{ "aspectRatio":"640:267"}'>
+					<source id="video_player" src="{{torrent}}" type='video/mp4' />
+					<track kind="captions" src="/uploads/tt3393786/fr/tt3393786-French.vtt" srclang="fr" label="french" default>
+				</video>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/movie_tools.js"></script>
+	<script language="javascript" src="/js/menu.js"></script>
 </body>
