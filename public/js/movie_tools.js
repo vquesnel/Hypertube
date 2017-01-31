@@ -36,7 +36,8 @@
             }
         })
     }
-
+    $('.actors').text($('.actors').text().replace(/\,/g, ' '));
+    $('.genres').text($('.genres').text().replace(/\,/g, ' '));
     updateIndicators();
 
     switcher.click(function () {
