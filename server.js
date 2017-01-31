@@ -1,3 +1,4 @@
+
 var https = require('https');
 var passport = require("./config/passport")
 var fs = require('fs');
@@ -175,7 +176,6 @@ io.on('connection', function (socket) {
                 callback(data);
             })(function (data) {
                 socket.emit('old_message', data);
-                console.log(data);
             })
         })
     });
