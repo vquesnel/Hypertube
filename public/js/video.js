@@ -15946,7 +15946,7 @@ var Tech = function (_Component) {
     if (manualCleanup !== true && manualCleanup !== false) {
       // deprecation warning
       _log2['default'].warn('Calling addRemoteTextTrack without explicitly setting the "manualCleanup" parameter to `true` is deprecated and default to `false` in future version of video.js');
-      manualCleanup = true;
+      manualCleanup = false;
     }
 
     // store HTMLTrackElement and TextTrack to remote list
