@@ -19,8 +19,7 @@ var getAllFilesFromFolder = function (dir) {
 		var stat = fs.statSync(file);
 		if (stat && stat.isDirectory()) {
 			results = results.concat(getAllFilesFromFolder(file))
-		}
-		else results.push(file);
+		} else results.push(file);
 	});
 	return (results);
 };
@@ -30,16 +29,15 @@ var prepareObject = function (object) {
 		var index = 0;
 		for (var i in object) {
 			parsed[index] = {
-				language: object[i].langName
-				, url: object[i].url
-				, code: i
+				language: object[i].langName,
+				url: object[i].url,
+				code: i
 			}
 			index++;
 		}
 		if (index = i) {
 			jobDone(parsed);
-		}
-		else {
+		} else {
 			jobFailure('JSON not Parsed');
 		}
 	});
@@ -71,8 +69,7 @@ var prepareDirectories = function (object, imdbID) {
 		}
 		if (index = j) {
 			dirOk('All Directories Created');
-		}
-		else {
+		} else {
 			dirFailure('Directories not Created');
 		}
 	});
@@ -85,8 +82,7 @@ var safeDownload = function (object, imdbID) {
 		}
 		if (index = j) {
 			Downloaded('All Files Downloaded');
-		}
-		else {
+		} else {
 			DownloadFailure('Download Failure');
 		}
 	});
@@ -99,8 +95,7 @@ var getSub = function (req) {
 		mkdirp(path + req.params.imdb_code, function (err) {
 			if (err) {
 				notCreated('"' + req.params.imdb_code + '" Diretory not created.');
-			}
-			else {
+			} else {
 				created(path + req.params.imdb_code);
 			}
 		})
@@ -173,8 +168,8 @@ var watchmovie = function (req, res) {
 		tmp: 'public/movies/', // Root folder for the files storage. 
 		// Defaults to '/tmp' or temp folder specific to your OS. 
 		// Each torrent will be placed into a separate folder under /tmp/torrent-stream/{infoHash} 
-		path: 'public/movies'
-		, trackers: [
+		path: 'public/movies',
+		trackers: [
 				'udp://glotorrents.pw:6969/announce'
 , 'udp://tracker.opentrackr.org:1337/announce'
 , 'udp://torrent.gresille.org:80/announce'
@@ -195,13 +190,14 @@ var watchmovie = function (req, res) {
 				file.select();
 				res.writeHead(200, {
 					'Content-Type': 'video/mp4'
+
 				})
 				currentTorrent = file.path;
 				var stream = file.createReadStream();
 				//getSub(req);
 				stream.pipe(res);
-			}
-			else {
+
+			} else {
 				file.deselect();
 			}
 		})

@@ -442,6 +442,7 @@ html {
 
 #instructions {
   position: inherit;
+  z-index: 100;
 }
 
 #watch:hover {
