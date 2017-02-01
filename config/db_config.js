@@ -20,10 +20,10 @@ var launch = function (connection, callback) {
 }
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	port: 3307,
-	host: 'localhost',
-	user: 'root',
-	password: 'root'
+	port: 3307
+	, host: 'localhost'
+	, user: 'root'
+	, password: 'root'
 });
 connection.connect(function (err) {
 	if (err) throw err;
@@ -44,19 +44,21 @@ launch(connection, function () {
 	//    console.log("launch");
 	for (var page = 1; page < 121; page++) {
 		yts.listMovies({
-			limit: 50,
-			page: page
+			limit: 50
+			, page: page
 		}, function (err, json) {
 			if (err) {
 				console.log("error yts");
-			} else {
+			}
+			else {
 				json.data.movies.forEach(function (movie) {
 					verif(movie.imdb_code, function (result) {
 						if (!result.verif) {
 							imdb.getByID(movie.imdb_code, function (err, data) {
 								if (err) {
 									console.log("movie by id");
-								} else {
+								}
+								else {
 									var directors = (data.Director ? data.Director : "N/A");
 									var director_tab = directors.split(',');
 									var director = '';
@@ -136,13 +138,17 @@ launch(connection, function () {
 										eztv.getShowEpisodes(show.id, function (err, torrents) {
 											if (err) console.log("error get episodes");
 											if (torrents) {
+//												console.log(torrents);
+												console.log("-----------------------------------------");
 												torrents.episodes.forEach(function (torrent) {
-													connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality) VALUES(?,?,?,?,?)", [rows.insertId, torrent.seasonNumber, torrent.episodeNumber, torrent.magnet, torrent.quality], function (err) {
-														if (err) {
-															console.log("----------------------------");
-															console.log(torrent)
-														}
-													})
+													if (torrent.quality === "480p") {
+														connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality) VALUES(?,?,?,?,?)", [rows.insertId, torrent.seasonNumber, torrent.episodeNumber, torrent.magnet, torrent.quality], function (err) {
+															if (err) {
+																console.log("----------------------------");
+																console.log(torrent)
+															}
+														})
+													}
 												});
 											}
 										})
@@ -165,12 +171,12 @@ launch(connection, function () {
 //	}
 //});
 connection = mysql.createPool({
-	connectionLimit: 100,
-	port: 3307,
-	host: 'localhost',
-	user: 'root',
-	password: 'root',
-	database: 'hypertube',
-	charset: 'utf8mb4'
+	connectionLimit: 100
+	, port: 3307
+	, host: 'localhost'
+	, user: 'root'
+	, password: 'root'
+	, database: 'hypertube'
+	, charset: 'utf8mb4'
 });
 module.exports = connection

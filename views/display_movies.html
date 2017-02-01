@@ -24,4 +24,7 @@
 </div>{{/display_one_movie.infos}} {{#display_torrents.data}}
 <div class="link-block">
 	<div class="quality{{quality}}">/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}</div>
-</div> {{/display_torrents.data}}
+</div> {{/display_torrents.data}} {{#display_tv_torrents.data}}
+<div class="link-block">
+	<div class="quality{{quality}} season{{season}} episode{{episode}} ">/watchmovie.html/{{imdb_code}}/{{magnet}}/{{quality}}</div>
+</div> {{/display_tv_torrents.data}} 

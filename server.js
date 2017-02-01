@@ -10,19 +10,17 @@ var app = express();
 var mustacheExpress = require('mustache-express');
 var session = require('express-session');
 var sess = {
-	secret: 'keyboard cat',
-	cookie: {},
-	resave: false,
-	saveUninitialized: false
+	secret: 'keyboard cat'
+	, cookie: {}
+	, resave: false
+	, saveUninitialized: false
 }
 var options = {
-	key: fs.readFileSync('certificates/server.key'),
-	cert: fs.readFileSync('certificates/server.crt'),
-	ca: fs.readFileSync('certificates/server.csr'),
-};
-
+	key: fs.readFileSync('certificates/server.key')
+	, cert: fs.readFileSync('certificates/server.crt')
+	, ca: fs.readFileSync('certificates/server.csr')
+, };
 var socketsLauncher = require('./server/sockets');
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.engine('html', mustacheExpress());
@@ -53,7 +51,8 @@ wallpaper = require("./server/get/wallpaper");
 username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
 handler = require("./server/get/handler");
-tv_shows = require("./server/get/tv_shows")
+tv_shows = require("./server/get/tv_shows");
+tv_show = require("./server/get/tv_show")
 	//================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
@@ -79,6 +78,7 @@ app.get('/home.html', function (req, res) {
 app.get("/tv_shows.html", function (req, res) {
 	res.render('tv_shows.html');
 })
+app.get("/tv_show.html/:imdb_code", tv_show);
 app.get("/movies.html", function (req, res) {
 	res.render("movies.html");
 })
@@ -120,12 +120,9 @@ app.get('/email_checker/:value', email_checker);
 app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
-
 //			\\
 // 	 POST	\\
 //			\\
-
-
 app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
@@ -133,34 +130,22 @@ app.post("/reset_password.html", reset_pw);
 app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
-
-
 //				\\
 //  SERVER PORT	\\
 // 				\\
-
-
 var httpsServer = https.createServer(options, app, function (req, res) {
 	res.writeHead(200);
 });
 httpsServer.listen(4422);
 console.log("server listenning to port 4422");
-
-
 ////////||\\\\\\||
 //				//
 //	  Socket 	||
 //				\\
 ////////||\\\\\\||
-
-
-
 var io = require('socket.io').listen(httpsServer.listen(4422));
 var cookieParser = require('cookie-parser');
-
-
 io.on('connection', function (socket) {
-
 	var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
 	var sessionid = cookies['connect.sid'];
 	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
@@ -184,22 +169,19 @@ io.on('connection', function (socket) {
 		if (data.imdbID) {
 			connection.query("INSERT INTO comment(username, imdb_id, content, date_message) VALUES(?,?,?,?)", [data.username, data.imdbID, data.value, data.date], function (err) {
 				if (err) throw err;
-
 			})
 			connection.query("SELECT username, profil_pic FROM users WHERE id = ?", [data.username], function (err, user_pack) {
 				if (err) throw err;
 				else {
 					io.sockets.emit("new_message", {
-						value: data.value,
-						username: user_pack[0].username,
-						profil_pic: user_pack[0].profil_pic,
-						imdbID: data.imdbID,
-						date: data.date
+						value: data.value
+						, username: user_pack[0].username
+						, profil_pic: user_pack[0].profil_pic
+						, imdbID: data.imdbID
+						, date: data.date
 					});
 				}
 			})
 		}
-
 	})
-
 })
