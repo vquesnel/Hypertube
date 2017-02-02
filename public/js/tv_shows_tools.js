@@ -33,7 +33,7 @@
 	function displayLibrary(data) {
 		for (let k in data) {
 			$('<div class="block ' + indexClass + '"></div>').appendTo('.library');
-			$('<a class="link" href="/movie.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
+			$('<a class="link" href="/tv_show.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
 			$('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
 			$('<div class="title">' + data[k].title + '</div>').appendTo('.infos' + indexClass + '');
 			$('<div class="year">' + data[k].year + '</div>').appendTo('.infos' + indexClass + '');

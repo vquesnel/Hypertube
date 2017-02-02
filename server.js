@@ -46,14 +46,13 @@ passportgithub = require("./server/get/passport").github;
 passportgoogle = require("./server/get/passport").google;
 movie = require("./server/get/movie");
 watchmovie = require("./server/get/watchmovie");
-streamer = require("./server/get/streamer");
 wallpaper = require("./server/get/wallpaper");
 username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
 handler = require("./server/get/handler");
 tv_shows = require("./server/get/tv_shows");
-tv_show = require("./server/get/tv_show")
-	//================POST=======================\\
+tv_show = require("./server/get/tv_show");
+//================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
@@ -61,28 +60,32 @@ reset_pw = require("./server/post/reset_password");
 manage_profil = require("./server/post/manage_profil").manage_profil;
 upload_picture = require("./server/post/manage_profil").upload_picture;
 email_confirmation = require("./server/post/manage_profil").email_confirmation;
-searchmovies = require("./server/post/searchmovies");
+//=================AJAX========================\\
 indicators = require("./server/ajax/indicators");
 search = require('./server/ajax/search');
+get_episodes = require("./server/ajax/get_episodes");
+get_movie_subs = require("./server/ajax/get_movie_subs");
 //			\\
 // 	  GET 	\\
 //			\\
 app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile.html", profile);
-app.get("/movies.html/:itemsNum", movies);
-app.get("/tv_shows.html/:itemsNum", tv_shows);
 app.get('/home.html', function (req, res) {
 	res.render('home.html');
 })
 app.get("/tv_shows.html", function (req, res) {
 	res.render('tv_shows.html');
 })
+app.get("/tv_shows.html/:itemsNum", tv_shows);
 app.get("/tv_show.html/:imdb_code", tv_show);
+app.get("/get_episodes.html/:imdb_code", get_episodes);
 app.get("/movies.html", function (req, res) {
 	res.render("movies.html");
 })
+app.get("/movies.html/:itemsNum", movies);
 app.get("/movie.html/:imdb_code", movie);
+app.get("/get_movie_sub.html/:imdb_code", get_movie_subs);
 app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
 app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
@@ -109,11 +112,6 @@ app.get('/login/google', passport.authenticate('google', {
 app.get('/login/google/return', passport.authenticate('google', {
 	failureRedirect: '/'
 }), passportgoogle);
-app.get("/search.html", function (req, res) {
-	res.render('search.html');
-});
-app.get("/searchmovies", searchmovies);
-app.get("/player.html", streamer);
 app.get('/wallpaper/:imdbid', wallpaper);
 app.get('/username_checker/:value', username_checker);
 app.get('/email_checker/:value', email_checker);

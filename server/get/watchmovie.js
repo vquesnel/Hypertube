@@ -9,7 +9,7 @@ var currentTorrent = '';
 var watchmovie = function (req, res) {
 	var engine = torrentStream(req.params.magnet, {
 		connections: 1000, // Max amount of peers to be connected to. 
-		uploads: 10, // Number of upload slots. 
+		uploads: 10, // Number of upload slots. 		
 		tmp: 'public/movies/', // Root folder for the files storage. 
 		// Defaults to '/tmp' or temp folder specific to your OS. 
 		// Each torrent will be placed into a separate folder under /tmp/torrent-stream/{infoHash} 

@@ -5,6 +5,8 @@
 		var switcher = $('.onoffswitch-label');
 		var q720 = $('.quality720p').text();
 		var q1080 = $('.quality1080p').text();
+		var switcher720p = $('.onoffswitch-inner:before');
+		var switcher1080p = $('.onoffswitch-inner:after');
 		var index = 1;
 		var imdbID = document.location.pathname.split('/')[2];
 		var current = q720;
@@ -14,7 +16,14 @@
 		var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? (fullDate.getMonth() + 1) : '0' + (fullDate.getMonth() + 1);
 		var currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
 		var rate = $('.rate-imdb').text();
-		console.log(rate);
+		switcher720p.css('content', '720p');
+		if (!q720) {
+			switcher720p.css('content', '1080p');
+		}
+		switcher1080p.css('content', '1080p');
+		if (!q1080) {
+			switcher1080p.css('content', '720p');
+		}
 
 		function addScore(score, domElement) {
 			$("<span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
@@ -41,16 +50,20 @@
 		updateIndicators();
 		switcher.click(function () {
 			if (current == q720) {
-				watcher2.attr('src', q1080);
-				watcher.attr('src', q1080);
-				current = q1080;
-				return;
+				if (q1080) {
+					watcher2.attr('src', q1080);
+					watcher.attr('src', q1080);
+					current = q1080;
+					return;
+				}
 			}
 			if (current == q1080) {
-				watcher2.attr('src', q720);
-				watcher.attr('src', q720);
-				current = q720;
-				return;
+				if (q720) {
+					watcher2.attr('src', q720);
+					watcher.attr('src', q720);
+					current = q720;
+					return;
+				}
 			};
 		});
 		$.ajax({
@@ -90,6 +103,29 @@
 			updateIndicators();
 		})
 		$('#watch').click(function () {
+			$.ajax({
+				url: 'https://localhost:4422/get_movie_sub.html/' + imdbID
+				, type: 'GET'
+				, success: (function (data) {
+					var track = [];
+					for (var k in data) {
+						console.log(data[k].path);
+						track[k] = {
+							src: data[k].path
+							, kind: "captions"
+							, srclang: data[k].code
+							, label: data[k].language
+							, default: true
+						}
+					}
+					$.getScript("/js/video.js", function () {
+						console.log(track);
+						videojs('my_video_1', {
+							tracks: track
+						});
+					})
+				})
+			})
 			$('.watch-bar').fadeOut('slow');
 			$('#comment').fadeOut(2000, function () {
 				$('.video-container').fadeIn(2000);
