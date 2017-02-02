@@ -41,7 +41,6 @@ var verifTV = function (imdb_code, callback) {
     });
 }
 launch(connection, function () {
-    //    console.log("launch");
     for (var page = 1; page < 121; page++) {
         yts.listMovies({
             limit: 50,
@@ -103,7 +102,7 @@ launch(connection, function () {
         });
     }
     eztv.getShows({}, function (err, results) {
-        if (err) console.log("error getshows"); //console.log(err);
+        if (err) console.log("error getshows");
         else {
             results.forEach(function (show) {
                 imdb(show.title, function (err, movie) {
@@ -136,8 +135,6 @@ launch(connection, function () {
                                         eztv.getShowEpisodes(show.id, function (err, torrents) {
                                             if (err) console.log("error get episodes");
                                             if (torrents) {
-                                                //												console.log(torrents);
-                                                console.log("-----------------------------------------");
                                                 torrents.episodes.forEach(function (torrent) {
                                                     if (torrent.quality === "480p") {
                                                         var url = urlencode(torrent.magnet);
