@@ -1,0 +1,96 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "opensubtitles-api@^3.4.1",
+        "scope": null,
+        "escapedName": "opensubtitles-api",
+        "name": "opensubtitles-api",
+        "rawSpec": "^3.4.1",
+        "spec": ">=3.4.1 <4.0.0",
+        "type": "range"
+      },
+      "/Users/victor/Documents/42/Rendu/web/Hypertube"
+    ]
+  ],
+  "_from": "opensubtitles-api@>=3.4.1 <4.0.0",
+  "_id": "opensubtitles-api@3.4.1",
+  "_inCache": true,
+  "_location": "/opensubtitles-api",
+  "_nodeVersion": "6.7.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/opensubtitles-api-3.4.1.tgz_1483309393601_0.8076425783801824"
+  },
+  "_npmUser": {
+    "name": "vankasteelj",
+    "email": "vankasteelj@gmail.com"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "opensubtitles-api@^3.4.1",
+    "scope": null,
+    "escapedName": "opensubtitles-api",
+    "name": "opensubtitles-api",
+    "rawSpec": "^3.4.1",
+    "spec": ">=3.4.1 <4.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/opensubtitles-api/-/opensubtitles-api-3.4.1.tgz",
+  "_shasum": "7aeac83bd6ae7aaf6dcb518bfc26101557b56053",
+  "_shrinkwrap": null,
+  "_spec": "opensubtitles-api@^3.4.1",
+  "_where": "/Users/victor/Documents/42/Rendu/web/Hypertube",
+  "author": {
+    "name": "vankasteelj",
+    "email": "vankasteelj@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/vankasteelj/opensubtitles-api/issues"
+  },
+  "dependencies": {
+    "bluebird": "3.x.x",
+    "lodash": "4.x.x",
+    "urijs": "1.x.x",
+    "xmlrpc": "1.x.x"
+  },
+  "description": "opensubtitles.org api wrapper",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "7aeac83bd6ae7aaf6dcb518bfc26101557b56053",
+    "tarball": "https://registry.npmjs.org/opensubtitles-api/-/opensubtitles-api-3.4.1.tgz"
+  },
+  "gitHead": "6d1ef27a6b27da3528e69cd3175d19decf315dfd",
+  "homepage": "https://github.com/vankasteelj/opensubtitles-api#readme",
+  "keywords": [
+    "opensubtitles",
+    "subtitles",
+    "api",
+    "wrapper",
+    "srt"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "vankasteelj",
+      "email": "vankasteelj@gmail.com"
+    }
+  ],
+  "name": "opensubtitles-api",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vankasteelj/opensubtitles-api.git"
+  },
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "version": "3.4.1"
+}
