@@ -42,7 +42,7 @@ var get_movie_sub = function (req, res) {
                         fs.createReadStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '/' + file).pipe(srt2vtt()).pipe(fs.createWriteStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt'));
                         parsed[k].path = '/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt';
                         ajax_return.push(parsed[k]);
-                        if (ajax_return[1]) res.send(ajax_return);
+                        if (!parsed[Number(k) + 1]) res.send(ajax_return);
                     }).catch(function () {
                         console.log("Coucou");
                     });
