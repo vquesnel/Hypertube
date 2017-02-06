@@ -1,7 +1,7 @@
 var yts = require('../medias/yts');
 var eztv = require('../medias/eztv');
+var eztvml = require("../medias/eztvml");
 //var imdb = require("imdb-api")
-//var omdb = require('imdb-api');
 var imdb = require('node-movie')
 var urlencode = require('urlencode');
 var launch = function (connection, callback) {
@@ -104,62 +104,62 @@ launch(connection, function () {
 			}
 		});
 	}
-	eztv.getShows({}, function (err, results) {
-		if (err) console.log("error getshows"); //console.log(err);
-		else {
-			results.forEach(function (show) {
-				imdb(show.title, function (err, movie) {
-					if (err) console.log("Error imdb--> getshows");
-					if (!movie) console.log("NOT FIND :" + show.title);
-					else if (movie.Type === "series") {
-						verifTV(movie.imdbID, function (result) {
-							if (!result.verif && movie.imdbRating) {
-								var genres = "N/A"
-								if (movie.Genre) {
-									genres = JSON.stringify(movie.Genre);
+	for (var page = 1; page < 19; page++) {
+		eztvml.listTVshows({
+			page: page
+		}, function (err, json) {
+			if (err) console.log(err);
+			else {
+				//				console.log(json);
+				json.forEach(function (show) {
+					//					console.log(show);
+					verif(show.imdb_id, function (result) {
+						if (!result.verif) {
+							eztvml.showDetails({
+								imdb_code: show.imdb_id
+							}, function (err, jsonEpisodes) {
+								if (err) console.log(err);
+								else {
+									imdb.getByID(show.imdb_id, function (err, data) {
+										//										console.log("PUTE");
+										//										console.log(data);
+										//										console.log("PUTE");
+									})
 								}
-								var actors = 'N/A';
-								if (movie.Actors) {
-									actors = JSON.stringify(movie.Actors)
-								}
-								var writers = 'N/A'
-								if (movie.Writer) {
-									writers = '';
-									writer = movie.Writer.replace(/\(.*?\)/g, '');
-									var writer_tab = writer.split(',');
-									for (i = 0; i < 4; i++) {
-										if (writer_tab[i]) writers += writer_tab[i];
-									}
-								}
-								if (movie.imdbRating === 'N/A') movie.imdbRating = "N/A";
-								connection.query("INSERT INTO `hypertube`.`tv_shows`(title, season, genres, director, writers, actors, summary, cover, imdb_code, rating, year, eztv_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [movie.Title, movie.totalSeasons ? movie.totalSeasons : "N/A", genres, movie.Director ? movie.Director : "N/A", writers, actors, movie.Plot ? movie.Plot : "N/A", movie.Poster ? movie.Poster : "N/A", movie.imdbID, movie.imdbRating ? movie.imdbRating : null, movie.Year ? movie.Year : 'N/A', show.id], function (err, rows) {
-									if (err) throw err;
-									else {
-										eztv.getShowEpisodes(show.id, function (err, torrents) {
-											if (err) console.log("error get episodes");
-											if (torrents) {
-												torrents.episodes.forEach(function (torrent) {
-													if (torrent.quality === "480p") {
-														connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality) VALUES(?,?,?,?,?)", [rows.insertId, torrent.seasonNumber, torrent.episodeNumber, urlencode(torrent.magnet), torrent.quality], function (err) {
-															if (err) {
-																console.log("----------------------------");
-																console.log(torrent)
-															}
-														})
-													}
-												});
-											}
-										})
-									}
-								})
-							}
-						})
-					}
+							})
+						}
+					})
 				})
-			})
-		}
-	});
+			}
+		})
+	}
 });
+//eztvml.listTVshows({
+//	page: 8
+//}, function (err, json) {
+//	if (err) {
+//		console.log("error yts");
+//	}
+//	else {
+//		//		console.log(json);
+//		json.forEach(function (movie) {
+//			console.log(movie);
+//		});
+//	}
+//});
+//eztvml.showDetails({
+//	imdb_code: "tt0773262"
+//}, function (err, json) {
+//	if (err) {
+//		console.log(err);
+//	}
+//	else {
+//		console.log(json);
+//		json.episodes.forEach(function (episode) {
+//			console.log(episode.torrents['480p']);
+//		})
+//	}
+//});
 //var addic7edApi = require('addic7ed-api');
 //addic7edApi.search('South Park', 19, 6).then(function (subtitlesList) {
 //	var subInfo = subtitlesList[0];

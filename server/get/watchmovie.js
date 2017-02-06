@@ -6,7 +6,6 @@ var max_byte = "";
 var currentTorrent = '';
 var promise = require("promise");
 var watchmovie = function (req, res) {
-	console.log(req.headers.range);
 	let engineGo = function () {
 		return new Promise(function (resolve, reject) {
 			var engine = torrentStream(req.params.magnet, {
@@ -29,35 +28,64 @@ var watchmovie = function (req, res) {
 			});
 			engine.on('ready', function () {
 				engine.files.forEach(function (file) {
-					var checker = file.name.split(".");
 					console.log(file.name);
+					var checker = file.name.split(".");
 					if (checker[checker.length - 1] === "mp4" || checker[checker.length - 1] === "mkv" || checker[checker.length - 1] === "avi") {
-						resolve(file, engine);
+						file.select();
+						resolve(file);
+						engine.on('download', function () {
+							console.log((engine.swarm.downloaded / file.length) * 100 + "%")
+						});
+						engine.on('idle', function () {
+							console.log(file.name + "is downloaded".green);
+						})
 					}
 				});
 			});
 		});
 	}
-	engineGo().then(function (file, engine) {
-		var range = req.headers.range;
+	engineGo().then(function (file) {
 		var total = file.length;
-		var parts = range.replace(/bytes=/, "").split("-");
-		var partialstart = parts[0];
-		var partialend = parts[1];
-		var start = parseInt(partialstart, 10);
-		var end = partialend ? parseInt(partialend, 10) : total - 1;
-		var chunksize = (end - start) + 1;
-		console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
-		res.writeHead(206, {
-			"Content-Range": "bytes " + start + "-" + end + "/" + total
-			, "Accept-Ranges": "bytes"
-			, "Content-Length": chunksize
-			, "Content-Type": "video/mp4"
-		});
-		var stream = file.createReadStream().pipe(res);
-		engine.on('download', function () {
-			console.log((engine.swarm.downloaded / file.length) * 100 + "%")
-		});
-	}).catch(function () {});
+		var checker = file.name.split('.');
+		if (checker[checker.length - 1] === "mp4" || checker[checker.length - 1] === "mkv") {
+			if (req.headers.range) {
+				var range = req.headers.range;
+				var parts = range.replace(/bytes=/, "").split("-");
+				var partialstart = parts[0];
+				var partialend = parts[1];
+				var start = parseInt(partialstart, 10);
+				var end = partialend ? parseInt(partialend, 10) : total - 1;
+				var chunksize = (end - start) + 1;
+				console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+				res.writeHead(206, {
+					"Content-Range": "bytes " + start + "-" + end + "/" + total
+					, "Accept-Ranges": "bytes"
+					, "Content-Length": chunksize
+					, "Content-Type": "video/mp4"
+				});
+				file.createReadStream({
+					start: start
+					, end: end
+				}).pipe(res);
+			}
+			else {
+				console.log('ALL: ' + total);
+				res.writeHead(200, {
+					'Content-Length': total
+					, 'Content-Type': 'video/mp4'
+				});
+				file.createReadStream({
+					start: start
+					, end: end
+				}).pipe(res);
+			}
+		}
+		else {
+			console.log("avi");
+			//FFMPEG CONVERT EN MP4 OU MKV 
+		}
+	}).catch(function (error) {
+		console.log(error);
+	});
 }
 module.exports = watchmovie;

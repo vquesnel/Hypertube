@@ -38,17 +38,13 @@ var get_movie_sub = function (req, res) {
 					let file = splited[splited.length - 1];
 					(function (k) {
 						download(parsed[k].url, 'public/uploads/' + req.params.imdb_code + parsed[k].language).then(function () {
-							(function (callback) {
-								fs.createReadStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '/' + file).pipe(srt2vtt()).pipe(fs.createWriteStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt'));
-								callback();
-							})(function () {
-								parsed[k].path = '/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt';
-								ajax_return.push(parsed[k]);
-								if (!parsed[Number(k) + 1]) {
-									console.log(ajax_return);
-									res.send(ajax_return);
-								}
-							});
+							fs.createReadStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '/' + file).pipe(srt2vtt()).pipe(fs.createWriteStream('public/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt'));
+							parsed[k].path = '/uploads/' + req.params.imdb_code + parsed[k].language + '.vtt';
+							ajax_return.push(parsed[k]);
+							if (!parsed[Number(k) + 1]) {
+								console.log(ajax_return);
+								res.send(ajax_return);
+							}
 						}).catch(function () {});
 					}(k));
 				}
