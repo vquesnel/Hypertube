@@ -132,7 +132,7 @@
 					scrollTop: getDocHeight()
 				}, 2000);
 			});
-		})
+		});
 		$('.return').click(function () {
 			$('.watch-bar').fadeIn('slow');
 			$('.return').fadeOut('slow', function () {
