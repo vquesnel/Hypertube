@@ -109,7 +109,6 @@
 				, success: (function (data) {
 					var track = [];
 					for (var k in data) {
-						console.log(data[k].path);
 						track[k] = {
 							src: data[k].path
 							, kind: "captions"
@@ -119,7 +118,6 @@
 						}
 					}
 					$.getScript("/js/video.js", function () {
-						console.log(track);
 						videojs('my_video_1', {
 							tracks: track
 						});

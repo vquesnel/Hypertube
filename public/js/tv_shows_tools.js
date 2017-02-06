@@ -68,6 +68,10 @@
 				method: 'GET',
 				success: function (data) {
 					displayLibrary(data);
+					if (!data[0]) {
+						$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
+						mask = 666;
+					}
 				}
 			})
 		}

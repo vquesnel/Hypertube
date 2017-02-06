@@ -47,6 +47,8 @@ passportgoogle = require("./server/get/passport").google;
 movie = require("./server/get/movie");
 watchmovie = require("./server/get/watchmovie");
 wallpaper = require("./server/get/wallpaper");
+
+wallpaperTv = require("./server/ajax/wallpaperTv");
 username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
 handler = require("./server/get/handler");
@@ -79,7 +81,7 @@ app.get("/tv_shows.html", function (req, res) {
 })
 app.get("/tv_shows.html/:itemsNum", tv_shows);
 app.get("/tv_show.html/:imdb_code", tv_show);
-app.get("/get_episodes.html/:imdb_code", get_episodes);
+app.get("/getEpisodes/:imdb_code", get_episodes);
 app.get("/movies.html", function (req, res) {
 	res.render("movies.html");
 })
@@ -113,11 +115,13 @@ app.get('/login/google/return', passport.authenticate('google', {
 	failureRedirect: '/'
 }), passportgoogle);
 app.get('/wallpaper/:imdbid', wallpaper);
+app.get('/wallpaperTv/:imdbid', wallpaperTv);
 app.get('/username_checker/:value', username_checker);
 app.get('/email_checker/:value', email_checker);
 app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
+app.get('/getEpisodes/:imdbID', get_episodes);
 //			\\
 // 	 POST	\\
 //			\\

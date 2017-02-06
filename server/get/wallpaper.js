@@ -9,6 +9,7 @@ var wallpaper = function (req, res) {
             if (err) {
                 reject(err);
             } else {
+                //                console.log(response);
                 resolve(url + response.backdrop_path);
             }
 
@@ -17,7 +18,7 @@ var wallpaper = function (req, res) {
     getBackgroun.then(function (fromResolve) {
         res.end(fromResolve);
     }).catch(function (fromReject) {
-        console.log("error getbackground");
+        console.log(fromReject);
     })
 
 }

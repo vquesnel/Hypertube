@@ -365,13 +365,13 @@ html {
 	width: 100;
 }
 .video-container {
-	padding-top: 66px;
+	//padding-top: 66px;
 	display: none;
 	position: relative;
 }
 #comment {
 	position: absolute;
-	top: 1012px;
+	top: 912px;
 	width: 100%;
 }
 #instructions {
@@ -392,7 +392,72 @@ html {
 	bottom: 0;
 	padding-bottom: 20px;
 }
+.episode-link {
+	display: block;
+	font-size: 15px;
+	color: white;
+	margin: 2px;
+	font-weight: 100;
+	width: 100px;
+}
+.episode-link:hover {
+	color: #3281ff;
+}
+.episode-link-hide {
+	display: none;
+}
+//.overflow {
+//	overflow: scroll;
+//	max-height: 500px;
+//}
+.season-content {
+	max-height: 400px;
+	overflow: scroll;
+}
+.season {
+	font-size: 20px;
+	font-weight: 100;
+	color: white;
+	width: 100px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px;
+}
+.title-show {
+	font-size: 35px;
+	color: white;
+	font-weight: 100;
+}
+.normalize {
+	position: absolute;
+	right: 250px;
+	top: 250px;
+	width: 32px;
+	height: 32px;
+}
+.normalize:after,
+.normalize:before {
+	position: absolute;
+	left: 15px;
+	content: ' ';
+	height: 33px;
+	width: 2px;
+	background: white;
+}
+.normalize:hover {
+	opacity: 0.6;
+}
+.normalize:before {
+	transform: rotate(45deg);
+}
+.normalize:after {
+	transform: rotate(-45deg);
+}
 @media only screen and (max-width: 1000px) {
+	.season-selector {
+		top: 520px;
+		left: 50px;
+	}
 	.cover {
 		min-height: 1000px;
 	}
