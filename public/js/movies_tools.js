@@ -90,7 +90,7 @@
 
 
     $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() == getDocHeight() && mask > 0 && mask < 666) {
+        if ($(window).scrollTop() + $(window).height() == getDocHeight() && mask >= 0 && mask < 666) {
             $.ajax({
                 url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mask + '@' + genre,
                 method: 'GET',

@@ -2,8 +2,10 @@ var torrentStream = require('torrent-stream');
 var connection = require("../../config/db_config");
 var fs = require('fs');
 var path = '';
+var mime = require('mime');
 var max_byte = "";
 var currentTorrent = '';
+var ffmpeg = require('fluent-ffmpeg');
 var promise = require("promise");
 var watchmovie = function (req, res) {
 	let engineGo = function () {
@@ -28,16 +30,12 @@ var watchmovie = function (req, res) {
 			});
 			engine.on('ready', function () {
 				engine.files.forEach(function (file) {
-					console.log(file.name);
 					var checker = file.name.split(".");
 					if (checker[checker.length - 1] === "mp4" || checker[checker.length - 1] === "mkv" || checker[checker.length - 1] === "avi") {
 						file.select();
 						resolve(file);
-						engine.on('download', function () {
-							console.log((engine.swarm.downloaded / file.length) * 100 + "%")
-						});
 						engine.on('idle', function () {
-							console.log(file.name + "is downloaded".green);
+							console.log(file.name + "is downloaded");
 						})
 					}
 				});
@@ -48,6 +46,8 @@ var watchmovie = function (req, res) {
 		var total = file.length;
 		var checker = file.name.split('.');
 		if (checker[checker.length - 1] === "mp4" || checker[checker.length - 1] === "mkv") {
+			const mimetype = mime.lookup(file.path);
+			console.log(mimetype);
 			if (req.headers.range) {
 				var range = req.headers.range;
 				var parts = range.replace(/bytes=/, "").split("-");
@@ -61,7 +61,7 @@ var watchmovie = function (req, res) {
 					"Content-Range": "bytes " + start + "-" + end + "/" + total
 					, "Accept-Ranges": "bytes"
 					, "Content-Length": chunksize
-					, "Content-Type": "video/mp4"
+					, "Content-Type": mimetype
 				});
 				file.createReadStream({
 					start: start
@@ -72,7 +72,7 @@ var watchmovie = function (req, res) {
 				console.log('ALL: ' + total);
 				res.writeHead(200, {
 					'Content-Length': total
-					, 'Content-Type': 'video/mp4'
+					, 'Content-Type': mimetype
 				});
 				file.createReadStream({
 					start: start
@@ -81,8 +81,73 @@ var watchmovie = function (req, res) {
 			}
 		}
 		else {
-			console.log("avi");
-			//FFMPEG CONVERT EN MP4 OU MKV 
+			var ffmpegPath = './ffmpeg';
+			var new_path = file.path + '.mp4';
+			if (req.headers.range) {
+				var range = req.headers.range;
+				var parts = range.replace(/bytes=/, "").split("-");
+				var partialstart = parts[0];
+				var partialend = parts[1];
+				var start = parseInt(partialstart, 10);
+				var end = partialend ? parseInt(partialend, 10) : total - 1;
+				var chunksize = (end - start) + 1;
+				console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+				res.writeHead(206, {
+					"Content-Range": "bytes " + start + "-" + end + "/" + total
+					, "Accept-Ranges": "bytes"
+					, "Content-Length": chunksize
+					, "Content-Type": 'video/mp4'
+				});
+				console.log("avi");
+				var stream = file.createReadStream({
+					start: start
+					, end: end
+				})
+				var proc = new ffmpeg();
+				proc.setFfmpegPath(ffmpegPath);
+				proc.input(stream).on('error', function (err) {
+						console.log('An error occurred: ' + err.message);
+					}).on('progress', function (progress) {
+						console.log('Processing: ' + progress.targetSize + ' KB converted');
+					}).on('end', function () {
+						console.log('Processing finished !');
+					}).on('codecData', function (data) {
+						console.log(data);
+						fs.createReadStream("public/movies/" + new_path).pipe(res);
+					}).output('public/movies/' + new_path).toFormat('mp4').run() //;function () {
+					//					fs.createReadStream("public/movies/" + new_path).pipe(res)
+					//				}); //
+					//				fs.createReadStream("public/movies/" + new_path).pipe(res);
+					//pipe(res);
+					//				proc.stdout.pipe(res);
+			}
+			else {
+				console.log('ALL: ' + total);
+				res.writeHead(200, {
+					'Content-Length': total
+					, 'Content-Type': 'video/mp4'
+				});
+				var stream = file.createReadStream({
+					start: start
+					, end: end
+				})
+				var proc = new ffmpeg();
+				proc.setFfmpegPath(ffmpegPath);
+				proc.input(stream).on('error', function (err) {
+					console.log('An error occurred: ' + err.message);
+				}).on('progress', function (progress) {
+					console.log('Processing: ' + progress.targetSize + ' KB converted');
+				}).on('end', function () {
+					console.log('Processing finished !');
+				}).on('codecData', function (data) {
+					console.log(data);
+					fs.createReadStream("public/movies/" + new_path).pipe(res);
+				}).output('public/movies/' + new_path).toFormat('mp4').run(); //function () {
+				//	fs.createReadStream("public/movies/" + new_path).pipe(res)
+				//}); //
+				//				fs.createReadStream("public/movies/" + new_path).pipe(res);
+				//				proc.stdout.pipe(res);
+			}
 		}
 	}).catch(function (error) {
 		console.log(error);
