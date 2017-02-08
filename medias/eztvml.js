@@ -7,7 +7,7 @@ var doRequest = function (url, options, callback) {
 			url: url
 		}, function (err, res, body) {
 			if (!err && res.statusCode === 200) {
-				if (body[0] !== '[') {
+				if (body[0] !== '[' && body[0] !=="{") {
 					setTimeout(run, 10);
 					return false;
 				}

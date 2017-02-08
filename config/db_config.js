@@ -93,7 +93,7 @@ launch(connection, function () {
 							}, function (err, jsonEpisodes) {
 								if (err) console.log(err);
 								else {
-									connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genres, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
+									connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
 										if (err) {
 											console.log(show.title);
 											console.log(jsonEpisodes.synopsis);

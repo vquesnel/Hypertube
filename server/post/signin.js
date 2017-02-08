@@ -24,6 +24,7 @@ var signin = function (req, res) {
 						req.session.firstname = rows[0].firstname;
 						req.session.lastname = rows[0].lastname;
 						req.session.profil_pic = rows[0].profil_pic;
+						req.session.lang = rows[0].language;
 						req.session.email = rows[0].email;
 						req.session.token = rows[0].token;
 						req.session.contents = "block";

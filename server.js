@@ -47,7 +47,6 @@ passportgoogle = require("./server/get/passport").google;
 movie = require("./server/get/movie");
 watchmovie = require("./server/get/watchmovie");
 wallpaper = require("./server/get/wallpaper");
-
 wallpaperTv = require("./server/ajax/wallpaperTv");
 username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
@@ -70,6 +69,7 @@ get_movie_subs = require("./server/ajax/get_movie_subs");
 //			\\
 // 	  GET 	\\
 //			\\
+
 app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile.html", profile);
