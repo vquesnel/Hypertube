@@ -110,12 +110,16 @@ launch(connection, function () {
 														else console.log(episode.torrents);
 													}
 												}
-												else console.log(episode);
-												connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality, tvdb_id) VALUES(?,?,?,?,?, ?)", [rows.insertId, episode.season, episode.episode, urlencode(torrent), "480p", episode.tvdb_id], function (err) {
-													if (err) {
-														console.log(episode.torrents);
-													}
-												});
+												if (torrent.match(/magnet:\?xt=urn:btih:/)) {
+													connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality, tvdb_id) VALUES(?,?,?,?,?, ?)", [rows.insertId, episode.season, episode.episode, urlencode(torrent), "480p", episode.tvdb_id], function (err) {
+														if (err) {
+															console.log(episode.torrents);
+														}
+													});
+												}
+												else {
+													console.log(torrent);
+												}
 											});
 										}
 									})
