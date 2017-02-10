@@ -19,9 +19,8 @@ var addNewUser = function (req, res) {
 					'message': ret
 				});
 				console.log("user exists");
-			}
-			else {
-				connection.query("INSERT INTO users(firstname, lastname, username, email, password, token) VALUES (?,?,?,?,?,?)", [check.protectfield(req.body.firstname), check.protectfield(req.body.lastname), check.protectfield(req.body.username), check.protectfield(req.body.email), sha256(check.protectfield(req.body.password)), uniqid()], function (err) {
+			} else {
+				connection.query("INSERT INTO users(firstname, lastname, username, email, password, token, language) VALUES (?,?,?,?,?,?,?)", [check.protectfield(req.body.firstname), check.protectfield(req.body.lastname), check.protectfield(req.body.username), check.protectfield(req.body.email), sha256(check.protectfield(req.body.password)), uniqid(), req.body.country], function (err) {
 					if (err) throw err;
 					let ret = "account created";
 					res.render("create_account", {
@@ -31,8 +30,7 @@ var addNewUser = function (req, res) {
 				})
 			}
 		})
-	}
-	else {
+	} else {
 		let ret = "error on one or multiple fields";
 		res.render("create_account", {
 			'message': ret

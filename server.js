@@ -66,10 +66,13 @@ indicators = require("./server/ajax/indicators");
 search = require('./server/ajax/search');
 get_episodes = require("./server/ajax/get_episodes");
 get_movie_subs = require("./server/ajax/get_movie_subs");
+watchHistory = require('./server/ajax/watchHistory');
 //			\\
 // 	  GET 	\\
 //			\\
-
+app.get('/profile2.html', function (req, res) {
+	res.render('profile2.html');
+})
 app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile.html", profile);
@@ -122,6 +125,8 @@ app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
 app.get('/getEpisodes/:imdbID', get_episodes);
+
+app.get('/watchHistory/:imdbID', watchHistory);
 //			\\
 // 	 POST	\\
 //			\\

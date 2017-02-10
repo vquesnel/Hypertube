@@ -1,10 +1,14 @@
 (function ($) {
+
+    var docweighttmp;
     var itemsNum = 48;
     var indexClass = 0;
-    var libHeight = 4400;
+    var libHeight = 0;
     var mask = 0;
     var genre = '';
     var context = 'movies';
+
+	$('#movies').css('color', '#61AEFF');
 
     function addScore(score, domElement) {
         $("<br><span class='stars-container'>")
@@ -45,6 +49,7 @@
 
     function launchLibrary(mode, extra) {
         $('.library').empty();
+$(window).scrollTop(0);
         $.ajax({
             url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mode + '@' + extra,
             method: 'GET',
@@ -52,8 +57,7 @@
                 displayLibrary(data);
                 libHeight = libHeight + 4440;
             }
-        })
-        $(window).scrollTop(libHeight);
+			})
         itemsNum = itemsNum + 48;
     }
 
@@ -85,6 +89,8 @@
 
     $(document).ready(function () {
         launchLibrary(0, '');
+    docweighttmp = getDocHeight();
+
     })
 
 
@@ -108,16 +114,28 @@
 
 
     $('.az').click(function () {
+ $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
         itemsNum = 48;
         mask = 1;
         launchLibrary(1, '');
     })
     $('.imdb-filter').click(function () {
+ $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
         itemsNum = 48;
         mask = 2;
         launchLibrary(2, '');
     })
     $('#genres').change(function () {
+ $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
         itemsNum = 48;
         mask = 3;
         genre = $(this).val();
@@ -125,6 +143,7 @@
     })
 
     $('.close').click(function () {
+ $('#search-bar').val('');
         $('.options').fadeOut();
         $('.search').fadeOut();
         $('.opt-show').fadeIn();

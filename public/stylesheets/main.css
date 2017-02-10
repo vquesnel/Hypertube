@@ -63,3 +63,9 @@ footer {
   float: right;
   margin-right: 80px;
 }
+
+.message {
+  font-size: 12px;
+  font-weight: 100;
+  color: red;
+}

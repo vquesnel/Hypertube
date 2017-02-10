@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Hypertube | Profile</title>
+	<link href="stylesheets/main.css" rel="stylesheet">
+	<link href="stylesheets/menu.css" rel="stylesheet">
+	<link href="stylesheets/profile2.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="site-container" align="center">
+		<div class="site-pusher">
+			<header class="header">
+				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
+				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="img/hypertube-logo-2.png" alt="logo"> </a>
+				<nav class="menu">
+					<div class="a0" class="fix"></div>
+					<a id="movies" href="/movies.html" class="a2">Movies</a>
+					<a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
+					<a href="/profile.html" class="a1"><img class="menu-img" src="/img/user.png" alt="user"></a>
+					<a href="/logout.html" class="a2"><img class="menu-img" src="/img/logout.png" alt="user"></a>
+				</nav>
+			</header>
+			<div class="separator"></div>
+			<div class="separator"></div>
+			<div class="profil">
+				{{#infos}}
+				<div class="profil-pic">
+					<img id="profil-pic" src="{{profil_pic}}" alt="profil_pic">
+
+				</div>
+				<div class="profil-infos">
+					<div class="profil-real-name">
+						{{firstname}} {{lastname}}
+					</div>
+					<div class="profil-username">
+						{{username}}
+						<div class="profil-lang">{{language}}</div>
+					</div>
+					<div class="settings">
+						<img id="settings" src="/img/settings.png" alt="settings">
+					</div>
+				</div>
+				{{/infos}}
+			</div>
+			<div class="profil-hud"></div>
+		</div>
+	</div>
+	<script language="javascript" src="/js/menu.js"></script>
+</body>

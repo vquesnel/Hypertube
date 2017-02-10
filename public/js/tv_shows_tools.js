@@ -1,14 +1,20 @@
 (function ($) {
+    var docweighttmp;
 	var itemsNum = 48;
 	var indexClass = 0;
-	var libHeight = 4400;
+	var libHeight = 0;
 	var mask = 0;
 	var genre = '';
 	var context = 'tv_shows';
 
-	function addScore(score, domElement) {
-		$("<br><span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
-	}
+$('#tvshows').css('color', '#61AEFF');
+
+    function addScore(score, domElement) {
+        $("<br><span class='stars-container'>")
+            .addClass("stars-" + score.toString())
+            .text("★★★★★")
+            .appendTo(domElement);
+    }
 
 	function debounce(fn, duration) {
 		var timer;
@@ -19,12 +25,17 @@
 	}
 
 	function getDocHeight() {
-		var D = document;
-		return Math.max(D.body.scrollHeight, D.documentElement.scrollHeight, D.body.offsetHeight, D.documentElement.offsetHeight, D.body.clientHeight, D.documentElement.clientHeight);
-	}
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
+    }
+
 
 	function displayLibrary(data) {
-		for (let k in data) {
+		for (var k in data) {
 			$('<div class="block ' + indexClass + '"></div>').appendTo('.library');
 			$('<a class="link" href="/tv_show.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
 			$('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
@@ -48,11 +59,13 @@
 		$(window).scrollTop(libHeight);
 		itemsNum = itemsNum + 48;
 	}
+
 	$('#search-bar').keyup(debounce(function () {
 		$('.library').empty();
 		var toFind = $('#search-bar').val().trim();
 		var lenFind = toFind.length;
-		if (toFind != '') {
+	
+	if (toFind != '') {
 			$.ajax({
 				url: 'https://localhost:4422/search/' + toFind + '@' + lenFind + '@' + context
 				, method: 'GET'
@@ -69,9 +82,14 @@
 			launchLibrary(0, '');
 		}
 	}, 200))
+
+
+	
 	$(document).ready(function () {
+	    docweighttmp = getDocHeight();
 		launchLibrary(0, '');
 	})
+	
 	$(window).scroll(function () {
 		if ($(window).scrollTop() + $(window).height() == getDocHeight() && mask >= 0 && mask < 666) {
 			$.ajax({
@@ -84,25 +102,42 @@
 			})
 			$(window).scrollTop(libHeight);
 			itemsNum = itemsNum + 48;
+ if (mask == 0) {
+                itemsNum = 0;
+            }
+
 		}
 	});
 	$('.az').click(function () {
+  $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
 		itemsNum = 48;
 		mask = 1;
 		launchLibrary(1, '');
 	})
 	$('.imdb-filter').click(function () {
+  $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
 		itemsNum = 48;
 		mask = 2;
 		launchLibrary(2, '');
 	})
 	$('#genres').change(function () {
+  $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
+
 		itemsNum = 48;
 		mask = 3;
 		genre = $(this).val();
 		launchLibrary(3, $(this).val());
 	})
 	$('.close').click(function () {
+        $('#search-bar').val('');
 		$('.options').fadeOut();
 		$('.search').fadeOut();
 		$('.opt-show').fadeIn();
@@ -114,5 +149,16 @@
 	$('.search-btn').click(function () {
 		$('.search').fadeIn();
 		$('.opt-show').fadeOut();
+
 	})
+
+    $('.filter-btn').click(function () {
+        $('.options').fadeIn();
+        $('.opt-show').fadeOut();
+    })
+    $('.search-btn').click(function () {
+        $('.search').fadeIn();
+        $('.opt-show').fadeOut();
+    })
+
 })(jQuery)

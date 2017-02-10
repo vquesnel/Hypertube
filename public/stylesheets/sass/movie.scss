@@ -187,6 +187,7 @@ html {
 }
 .watch-btn:hover {
 	background: #437edd;
+	cursor: default;
 }
 .watch-btn a {
 	color: white;
@@ -200,7 +201,7 @@ html {
 	margin-left: 10px;
 }
 .middle-bar {
-	height: 60px;
+	min-height: 60px;
 	border-bottom: 1px solid #fff;
 	border-top: 1px solid #fff;
 }
@@ -215,7 +216,7 @@ html {
 #message-area {
 	height: 60px;
 	font-size: 15px;
-	width: 350px;
+	width: 330px;
 	float: left;
 	outline: none;
 	background: black;
@@ -233,10 +234,16 @@ html {
 	width: 40px;
 	height: 20px;
 	display: inline-block;
+	margin-left: 20px;
 }
 .sender:hover {
 	cursor: default;
 	color: #94c9f5;
+}
+.indicators {
+	z-index: 40;
+	width: 200px;
+	float: right;
 }
 .comments-indicator,
 .viewers-indicator {
@@ -366,24 +373,29 @@ html {
 }
 .video-container {
 	//padding-top: 66px;
+	width: 100%;
 	display: none;
-	position: relative;
+	height: 400px;
+}
+video {
+	//height: 100%;
+	width: 100%;
 }
 #comment {
 	position: absolute;
-	top: 912px;
+	top: 900px;
 	width: 100%;
 }
 #instructions {
-	position: inherit;
-	z-index: 100;
+	//	position: inherit;
+	//	z-index: 100;
 }
 #watch:hover {
 	cursor: default;
 }
 .return {
 	color: white;
-	background: black;
+	background: red;
 	margin-top: 200px;
 	width: 100%;
 	font-size: 20px;
@@ -402,16 +414,13 @@ html {
 }
 .episode-link:hover {
 	color: #3281ff;
+	cursor: default;
 }
 .episode-link-hide {
 	display: none;
 }
-//.overflow {
-//	overflow: scroll;
-//	max-height: 500px;
-//}
 .season-content {
-	max-height: 400px;
+	max-height: 300px;
 	overflow: scroll;
 }
 .season {
@@ -421,17 +430,18 @@ html {
 	width: 100px;
 	display: inline-block;
 	vertical-align: top;
-	margin: 5px;
+	margin: 10px;
 }
 .title-show {
 	font-size: 35px;
 	color: white;
 	font-weight: 100;
+	padding-bottom: 20px;
 }
 .normalize {
 	position: absolute;
-	right: 250px;
-	top: 250px;
+	right: (50px);
+	top: 100px;
 	width: 32px;
 	height: 32px;
 }
@@ -453,10 +463,37 @@ html {
 .normalize:after {
 	transform: rotate(-45deg);
 }
+.switchor {
+	width: 50px;
+	height: 50px;
+	//background: red;
+	position: absolute;
+	top: 810px;
+	right: 50px;
+	display: none;
+}
+.switchor:hover {
+	opacity: 0.7;
+}
+.switchor img {
+	width: 50px;
+}
 @media only screen and (max-width: 1000px) {
 	.season-selector {
 		top: 520px;
 		left: 50px;
+	}
+	.season-content {
+		margin: 10px;
+	}
+	.switchor {
+		top: 900px;
+	}
+	.overflow {
+		margin-top: 100px;
+	}
+	#comment {
+		top: 1012px;
 	}
 	.cover {
 		min-height: 1000px;
@@ -475,6 +512,7 @@ html {
 	.watch-bar {
 		float: left;
 		width: 620px;
+		margin: 0;
 	}
 	.watch-bar div {
 		display: inline-block;

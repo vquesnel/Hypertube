@@ -52,6 +52,7 @@ html {
 .genres,
 .director,
 .time,
+.writer,
 .imdb,
 .year,
 .syno {
@@ -219,6 +220,7 @@ html {
 
 .watch-btn:hover {
     background: #437edd;
+    cursor: default;
 }
 
 .watch-btn a {
@@ -235,7 +237,7 @@ html {
 }
 
 .middle-bar {
-    height: 60px;
+    min-height: 60px;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
 }
@@ -252,7 +254,7 @@ html {
 #message-area {
     height: 60px;
     font-size: 15px;
-    width: 350px;
+    width: 330px;
     float: left;
     outline: none;
     background: black;
@@ -272,11 +274,18 @@ html {
     width: 40px;
     height: 20px;
     display: inline-block;
+    margin-left: 20px;
 }
 
 .sender:hover {
     cursor: default;
     color: #94c9f5;
+}
+
+.indicators {
+    z-index: 40;
+    width: 200px;
+    float: right;
 }
 
 .comments-indicator,
@@ -428,24 +437,20 @@ html {
     width: 100;
 }
 
+.video-container {
+    width: 100%;
+    display: none;
+    height: 400px;
+}
+
 video {
     width: 100%;
 }
 
-.video-container {
-    display: none;
-    position: relative;
-}
-
 #comment {
     position: absolute;
-    top: 912px;
+    top: 900px;
     width: 100%;
-}
-
-#instructions {
-    position: inherit;
-    z-index: 100;
 }
 
 #watch:hover {
@@ -454,7 +459,7 @@ video {
 
 .return {
     color: white;
-    background: black;
+    background: red;
     margin-top: 200px;
     width: 100%;
     font-size: 20px;
@@ -475,6 +480,7 @@ video {
 
 .episode-link:hover {
     color: #3281ff;
+    cursor: default;
 }
 
 .episode-link-hide {
@@ -482,7 +488,7 @@ video {
 }
 
 .season-content {
-    max-height: 400px;
+    max-height: 300px;
     overflow: scroll;
 }
 
@@ -493,19 +499,20 @@ video {
     width: 100px;
     display: inline-block;
     vertical-align: top;
-    margin: 5px;
+    margin: 10px;
 }
 
 .title-show {
     font-size: 35px;
     color: white;
     font-weight: 100;
+    padding-bottom: 20px;
 }
 
 .normalize {
     position: absolute;
-    right: 250px;
-    top: 250px;
+    right: 50px;
+    top: 100px;
     width: 32px;
     height: 32px;
 }
@@ -532,10 +539,39 @@ video {
     transform: rotate(-45deg);
 }
 
+.switchor {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 810px;
+    right: 50px;
+    display: none;
+}
+
+.switchor:hover {
+    opacity: 0.7;
+}
+
+.switchor img {
+    width: 50px;
+}
+
 @media only screen and (max-width: 1000px) {
     .season-selector {
         top: 520px;
         left: 50px;
+    }
+    .season-content {
+        margin: 10px;
+    }
+    .switchor {
+        top: 900px;
+    }
+    .overflow {
+        margin-top: 100px;
+    }
+    #comment {
+        top: 1012px;
     }
     .cover {
         min-height: 1000px;
@@ -554,6 +590,7 @@ video {
     .watch-bar {
         float: left;
         width: 620px;
+        margin: 0;
     }
     .watch-bar div {
         display: inline-block;

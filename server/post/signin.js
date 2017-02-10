@@ -39,6 +39,7 @@ var signin = function (req, res) {
 						req.session.profil_pic = connect[0].profil_pic;
 						req.session.email = connect[0].email;
 						req.session.token = connect[0].token;
+						req.serssion.language = connect[0].language;
 						req.session.contents = "block";
 						req.session.settings = "none";
 						res.redirect("/profile.html");

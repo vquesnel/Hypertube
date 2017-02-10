@@ -35,13 +35,10 @@
 				<div class="hud-film"> {{>display_movies}}
 					<div class="watch-bar">
 						<div class="watch-btn"> <a id="show">Select Episode</a> </div>
-						<div class="onoffswitch">
-							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-							<label class="onoffswitch-label" for="myonoffswitch"> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label>
-						</div>
 					</div>
 				</div>
 			</div>
+			<div class="switchor"><img src="/img/repeat.png" alt="nxm"></div>
 			<div id="comment">
 				<div class="middle-bar">
 					<div class="comment-area">
@@ -55,13 +52,13 @@
 			</div>
 			<div class="video-container">
 				<div id="instructions">
-					<video id="my_video_1" class="video-js vjs-default-skin" controls preload="none" poster="">
-						<source id="video_player" src="{{torrent}}" type='video/mp4' /> </video>
+					<video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px" controls preload="none" poster="" data-setup='{ "aspectRatio":"640:267"}'>
+						<source id="video_player" src="{{torrent}}" type='video/mp4' />
+					</video>
 				</div>
 			</div>
-			<div class="separator"> </div>
-			<div class="movie-bottom">
-				<div class="return">Return</div>
+			<div class="separator">
+
 			</div>
 		</div>
 	</div>
