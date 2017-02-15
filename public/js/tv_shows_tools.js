@@ -64,6 +64,9 @@
         $('.library').empty();
         var toFind = $('#search-bar').val().trim();
         var lenFind = toFind.length;
+        $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
 
         if (toFind != '') {
             $.ajax({
@@ -72,7 +75,7 @@
                 success: function (data) {
                     displayLibrary(data);
                     if (!data[0]) {
-                        $('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
+                        $('<div class="no-match">No Tv Shows Found :(</div>').appendTo('.library');
                     }
                     mask = 666;
                 }

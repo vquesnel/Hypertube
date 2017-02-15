@@ -8,7 +8,7 @@
     var genre = '';
     var context = 'movies';
 
-	$('#movies').css('color', '#61AEFF');
+    $('#movies').css('color', '#61AEFF');
 
     function addScore(score, domElement) {
         $("<br><span class='stars-container'>")
@@ -49,7 +49,7 @@
 
     function launchLibrary(mode, extra) {
         $('.library').empty();
-$(window).scrollTop(0);
+        $(window).scrollTop(0);
         $.ajax({
             url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mode + '@' + extra,
             method: 'GET',
@@ -57,7 +57,7 @@ $(window).scrollTop(0);
                 displayLibrary(data);
                 libHeight = libHeight + 4440;
             }
-			})
+        })
         itemsNum = itemsNum + 48;
     }
 
@@ -65,6 +65,9 @@ $(window).scrollTop(0);
         $('.library').empty();
         var toFind = $('#search-bar').val().trim();
         var lenFind = toFind.length;
+        $(window).height(docweighttmp);
+        libHeight = 0;
+        $(window).scrollTop(0);
 
         if (toFind != '') {
             $.ajax({
@@ -89,7 +92,7 @@ $(window).scrollTop(0);
 
     $(document).ready(function () {
         launchLibrary(0, '');
-    docweighttmp = getDocHeight();
+        docweighttmp = getDocHeight();
 
     })
 
@@ -114,7 +117,7 @@ $(window).scrollTop(0);
 
 
     $('.az').click(function () {
- $(window).height(docweighttmp);
+        $(window).height(docweighttmp);
         libHeight = 0;
         $(window).scrollTop(0);
 
@@ -123,7 +126,7 @@ $(window).scrollTop(0);
         launchLibrary(1, '');
     })
     $('.imdb-filter').click(function () {
- $(window).height(docweighttmp);
+        $(window).height(docweighttmp);
         libHeight = 0;
         $(window).scrollTop(0);
 
@@ -132,7 +135,7 @@ $(window).scrollTop(0);
         launchLibrary(2, '');
     })
     $('#genres').change(function () {
- $(window).height(docweighttmp);
+        $(window).height(docweighttmp);
         libHeight = 0;
         $(window).scrollTop(0);
 
@@ -143,7 +146,7 @@ $(window).scrollTop(0);
     })
 
     $('.close').click(function () {
- $('#search-bar').val('');
+        $('#search-bar').val('');
         $('.options').fadeOut();
         $('.search').fadeOut();
         $('.opt-show').fadeIn();

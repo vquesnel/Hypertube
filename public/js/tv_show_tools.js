@@ -2,12 +2,8 @@
     $(document).ready(function () {
         var watcher = $('video');
         var watcher2 = $('#video_player')
-        var switcher = $('.onoffswitch-label');
-        var q720 = $('.quality720p').text();
-        var q1080 = $('.quality1080p').text();
         var index = 1;
         var imdbID = document.location.pathname.split('/')[2];
-        var current = q720;
         var socket = io.connect('https://localhost:4422');
         var username = $('.user').text();
         var fullDate = new Date();
@@ -18,6 +14,7 @@
         var episodeFix = '0';
         var seasonFix = '0';
         var titleShow = $('.title').text();
+        var videoJs = videojs("my_video_1");
 
         function addScore(score, domElement) {
             $("<span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
@@ -45,20 +42,7 @@
         $('.actors').text($('.actors').text().replace(/\,/g, ' '));
         $('.genres').text($('.genres').text().replace(/\,/g, ' '));
         updateIndicators();
-        switcher.click(function () {
-            if (current == q720) {
-                watcher2.attr('src', q1080);
-                watcher.attr('src', q1080);
-                current = q1080;
-                return;
-            }
-            if (current == q1080) {
-                watcher2.attr('src', q720);
-                watcher.attr('src', q720);
-                current = q720;
-                return;
-            };
-        });
+
         $.ajax({
             url: 'https://localhost:4422/wallpaperTv/' + imdbID,
             type: 'GET',
@@ -66,9 +50,47 @@
                 $('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data + ")");
             }
         })
+        $(document).on('click', '.episode-link', function () {
+            watcher.attr('src', $(this).children().text());
+            watcher2.attr('src', $(this).children().text());
+            var regex = $(this).clone().children().remove().end().text().match(/\d+/g);
+            $.ajax({
+                url: 'https://localhost:4422/get_movie_sub.html/' + imdbID,
+                type: 'GET',
+                data: {
+                    season: regex[0],
+                    episode: regex[1]
+                },
+                success: (function (data) {
+                    var track = [];
+                    console.log(data);
+                    console.log("---------------");
+                    for (var k in data) {
+                        (function (k) {
+                            track[k] = {
+                                src: data[k].path,
+                                kind: "captions",
+                                srclang: data[k].code,
+                                label: data[k].language,
+
+                            }
+                            videoJs.addRemoteTextTrack(track[k])
+
+                        }(k));
+                    }
+                })
+            })
+            $('.watch-bar').fadeOut('slow');
+            $('#comment').fadeOut(1200, function () {
+                $('.video-container').fadeIn(1200);
+                $('.switchor').fadeIn(1200);
+                $('html,body').animate({
+                    scrollTop: getDocHeight()
+                }, 2000);
+            });
+        });
 
         $('.switchor').click(function () {
-            let videoJs = videojs("my_video_1");
             videoJs.pause();
             $('.watch-bar').fadeIn('slow');
             $('.switchor').fadeOut('slow', function () {
@@ -160,50 +182,7 @@
                 }
             })
         })
-        $(document).on('click', '.episode-link', function () {
-            watcher.attr('src', $(this).children().text());
-            watcher2.attr('src', $(this).children().text());
-            var regex = $(this).clone().children().remove().end().text().match(/\d+/g);
-            $.ajax({
-                url: 'https://localhost:4422/get_movie_sub.html/' + imdbID,
-                type: 'GET',
-                data: {
-                    season: regex[0],
-                    episode: regex[1]
-                },
-                success: (function (data) {
-                    var track = [];
-                    console.log(data);
-                    console.log("---------------");
-                    for (var k in data) {
-                        (function (k) {
-                            track[k] = {
-                                src: data[k].path,
-                                kind: "captions",
-                                srclang: data[k].code,
-                                label: data[k].language,
-                                default: true
-                            }
-                        }(k));
-                    }
-                    $.getScript("/js/video.js", function () {
-                        console.log(track);
-                        videojs('my_video_1', {
-                            tracks: track
-                            ,fluid: true
-                        });
-                    })
-                })
-            })
-            $('.watch-bar').fadeOut('slow');
-            $('#comment').fadeOut(2000, function () {
-                $('.video-container').fadeIn(2000);
-                $('.switchor').fadeIn(2000);
-                $('html,body').animate({
-                    scrollTop: getDocHeight()
-                }, 2000);
-            });
-        });
+
         $(document).on('click', '.normalize', function () {
             $('.hud-film').fadeOut(2000, function () {
                 $('.hud-film').empty();

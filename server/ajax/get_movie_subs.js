@@ -22,13 +22,15 @@ var get_movie_sub = function (req, res) {
         }
         var path = req.params.imdb_code;
     }
-    console.log("search, sub");
+    var count = 0;
 
     function run() {
+        ++count;
+        var ajax_return = [];
+
         OpenSubtitles.search(opts).then(function (subtitles) {
             var index = 0;
             var parsed = [];
-            var ajax_return = [];
             for (var lang in subtitles) {
                 (function (lang) {
                     for (var k in subtitles[lang]) {
@@ -45,8 +47,6 @@ var get_movie_sub = function (req, res) {
                     }
                 }(lang));
             }
-            console.log(path);
-            console.log(parsed);
             if (parsed.length > 0) {
                 for (var k in parsed) {
                     let splited = parsed[k].url.split("/");
@@ -72,7 +72,9 @@ var get_movie_sub = function (req, res) {
             console.log("opensub error");
             console.log(err);
             console.log("_________________________________________________");
-            run();
+            if (count < 10) {
+                run();
+            } else res.send(ajax_return);
         });
     }
     run();

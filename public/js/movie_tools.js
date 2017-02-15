@@ -8,6 +8,7 @@
         var switcher720p = $('.onoffswitch-inner:before');
         var switcher1080p = $('.onoffswitch-inner:after');
         var index = 1;
+            var videoJs = videojs("my_video_1");
         var imdbID = document.location.pathname.split('/')[2];
         var current = q720;
         var socket = io.connect('https://localhost:4422');
@@ -55,27 +56,20 @@
         $('.actors').text($('.actors').text().replace(/\,/g, ' '));
         $('.genres').text($('.genres').text().replace(/\,/g, ' '));
         $(document).on('click', '.watch-btn', function () {
-            console.log("watch it nowq");
             $.ajax({
                 url: 'https://localhost:4422/get_movie_sub.html/' + imdbID,
                 type: 'GET',
                 success: (function (data) {
                     var track = [];
                     for (var k in data) {
-                        track[k] = {
-                            src: data[k].path,
-                            kind: "captions",
-                            srclang: data[k].code,
-                            label: data[k].language,
-                            default: true
-                        }
+                                   track[k] = {
+                                src: data[k].path,
+                                kind: "captions",
+                                srclang: data[k].code,
+                                label: data[k].language,
+                            }
+                            videoJs.addRemoteTextTrack(track[k])
                     }
-                    $.getScript("/js/video.js", function () {
-                        videojs('my_video_1', {
-                            tracks: track,
-                            //fluid: true
-                        });
-                    })
                     $('.watch-bar').fadeOut('slow');
                     $('#comment').fadeOut(2000, function () {
                         $('.video-container').fadeIn(2000);
@@ -114,7 +108,7 @@
             }
         })
         $('.switchor').click(function () {
-            let videoJs = videojs("my_video_1");
+        
             videoJs.pause();
         })
         $(document).on('click', '.vjs-big-play-button', function () {
