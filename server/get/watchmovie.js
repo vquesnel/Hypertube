@@ -137,15 +137,16 @@ var watchmovie = function (req, res) {
                 })
                 var test = new Transcoder(downloader)
                 test.videoCodec('h264').audioCodec('aac').format('mp4');
-
+                //test.writeToFile();
                 test.stream().on('error', function (error) {
-                        console.log(error);
-                    }).on('end', () => {
-                        console.log("finish convert");
-                    }).on('metadata', function (metadata) {
-                        console.log(metadata);
-                        // fs.createReadStream(new_path).pipe(res);
-                    }).pipe(fs.createWriteStream(new_path)) //.pipe(fs.createReadStream(new_path)).pipe(res);
+                    console.log(error);
+                }).on('end', () => {
+                    console.log("finish convert");
+                    res.end();
+                }).on('data', function (data) {
+                    console.log(data);
+                    res.write(data);
+                }).pipe(fs.createWriteStream(new_path));
             } else {
                 console.log("NO ------------------------->REQ.HEADERS");
 

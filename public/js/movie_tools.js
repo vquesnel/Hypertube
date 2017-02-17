@@ -8,7 +8,7 @@
         var switcher720p = $('.onoffswitch-inner:before');
         var switcher1080p = $('.onoffswitch-inner:after');
         var index = 1;
-            var videoJs = videojs("my_video_1");
+        var videoJs = videojs("my_video_1");
         var imdbID = document.location.pathname.split('/')[2];
         var current = q720;
         var socket = io.connect('https://localhost:4422');
@@ -62,24 +62,25 @@
                 success: (function (data) {
                     var track = [];
                     for (var k in data) {
-                                   track[k] = {
-                                src: data[k].path,
-                                kind: "captions",
-                                srclang: data[k].code,
-                                label: data[k].language,
-                            }
-                            videoJs.addRemoteTextTrack(track[k])
+                        track[k] = {
+                            src: data[k].path,
+                            kind: "captions",
+                            srclang: data[k].code,
+                            label: data[k].language,
+                        }
+                        videoJs.addRemoteTextTrack(track[k])
                     }
-                    $('.watch-bar').fadeOut('slow');
-                    $('#comment').fadeOut(2000, function () {
-                        $('.video-container').fadeIn(2000);
-                        $('.switchor').fadeIn(2000);
-                        $('html,body').animate({
-                            scrollTop: getDocHeight()
-                        }, 2000);
-                    });
+
                 })
             })
+            $('.watch-bar').fadeOut('slow');
+            $('#comment').fadeOut(2000, function () {
+                $('.video-container').fadeIn(2000);
+                $('.switchor').fadeIn(2000);
+                $('html,body').animate({
+                    scrollTop: getDocHeight()
+                }, 2000);
+            });
         });
         updateIndicators();
         switcher.click(function () {
@@ -108,7 +109,7 @@
             }
         })
         $('.switchor').click(function () {
-        
+
             videoJs.pause();
         })
         $(document).on('click', '.vjs-big-play-button', function () {

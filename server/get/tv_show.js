@@ -1,5 +1,6 @@
 var connection = require("../../config/db_config")
-var imdb = require('omdbapi')
+var imdb = require('omdbapi');
+const translate = require('google-translate-api');
 var tv_show = function (req, res) {
     if (!req.session.username) {
         res.redirect('/');
@@ -32,7 +33,6 @@ var tv_show = function (req, res) {
                             }
                         }
                         if (data.writer) {
-                            console.log(data.writer);
                             movie[0].writers = '';
                             for (var k in data.writer) {
                                 if (data.writer[k] !== null)
@@ -41,18 +41,66 @@ var tv_show = function (req, res) {
                         }
                         connection.query("SELECT * FROM tv_shows_torrents WHERE id_tv_show = ? ORDER BY quality DESC", [movie[0].id], function (err, torrents) {
                             if (err) throw err;
-                            else {
+                            else if (torrents[0]) {
                                 for (var k in torrents) torrents[k].imdb_code = movie[0].imdb_code;
-                                res.render("tv_show", {
-                                    torrent: '/watchmovie.html/' + movie[0].imdb_code + '/' + torrents[0].magnet + '/' + torrents[0].quality,
-                                    display_one_movie: {
-                                        infos: movie
-                                    },
-                                    userID: req.session.id_user,
-                                    display_tv_torrents: {
-                                        data: torrents,
-                                    }
-                                });
+                                translate(movie[0].summary, {
+                                    to: 'fre'
+                                }).then(translation => {
+                                    // console.log(translation);
+                                    movie[0].summary = translation.text;
+                                    res.render("tv_show", {
+                                        display_one_movie: {
+                                            infos: movie
+                                        },
+                                        userID: req.session.id_user,
+                                        display_tv_torrents: {
+                                            data: torrents,
+                                        }
+                                    });
+                                }).catch(err => {
+                                    console.log("errror")
+                                    console.log(err);
+                                    res.render("tv_show", {
+                                        display_one_movie: {
+                                            infos: movie
+                                        },
+                                        userID: req.session.id_user,
+                                        display_tv_torrents: {
+                                            data: torrents,
+                                        }
+                                    });
+
+                                })
+                            } else {
+                                translate(movie[0].summary, {
+                                    to: 'fre'
+                                }).then(translation => {
+                                    // console.log(translation);
+                                    movie[0].summary = translation.text;
+                                    res.render("tv_show", {
+                                        display_one_movie: {
+                                            infos: movie
+                                        },
+                                        userID: req.session.id_user,
+                                        display_tv_torrents: {
+                                            data: torrents,
+                                        }
+                                    });
+                                }).catch(err => {
+                                    console.log("errror")
+                                    console.log(err);
+                                    res.render("tv_show", {
+                                        display_one_movie: {
+                                            infos: movie
+                                        },
+                                        userID: req.session.id_user,
+                                        display_tv_torrents: {
+                                            data: torrents,
+                                        }
+                                    });
+
+                                })
+
                             }
                         })
                     }

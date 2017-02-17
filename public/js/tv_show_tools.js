@@ -51,8 +51,11 @@
             }
         })
         $(document).on('click', '.episode-link', function () {
-            watcher.attr('src', $(this).children().text());
-            watcher2.attr('src', $(this).children().text());
+            videoJs.remoteTextTracks();
+            videoJs.src([{
+                type: "video/mp4",
+                src: $(this).children().text()
+            }])
             var regex = $(this).clone().children().remove().end().text().match(/\d+/g);
             $.ajax({
                 url: 'https://localhost:4422/get_movie_sub.html/' + imdbID,
@@ -63,20 +66,16 @@
                 },
                 success: (function (data) {
                     var track = [];
-                    console.log(data);
-                    console.log("---------------");
                     for (var k in data) {
-                        (function (k) {
-                            track[k] = {
-                                src: data[k].path,
-                                kind: "captions",
-                                srclang: data[k].code,
-                                label: data[k].language,
+                        track[k] = {
+                            src: data[k].path,
+                            kind: "captions",
+                            srclang: data[k].code,
+                            label: data[k].language,
 
-                            }
-                            videoJs.addRemoteTextTrack(track[k])
+                        }
+                        videoJs.addRemoteTextTrack(track[k])
 
-                        }(k));
                     }
                 })
             })
