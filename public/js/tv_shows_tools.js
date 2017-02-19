@@ -80,8 +80,9 @@
                     mask = 666;
                 }
             })
-        }
-        if ($('#search-bar').val() === '') {
+        } else {
+            itemsNum = 48;
+            mask = 1;
             launchLibrary(0, '');
         }
     }, 200))

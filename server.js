@@ -70,12 +70,9 @@ watchHistory = require('./server/ajax/watchHistory');
 //			\\
 // 	  GET 	\\
 //			\\
-app.get('/profile2.html', function (req, res) {
-	res.render('profile2.html');
-})
 app.get("/", index);
 app.get("/create_account.html", create_account);
-app.get("/profile.html", profile);
+app.get("/profile2.html", profile);
 app.get('/home.html', function (req, res) {
 	res.render('home.html');
 })

@@ -82,8 +82,9 @@
                 }
             })
         }
-        if ($('#search-bar').val() === '') {
-            mask = 0;
+        else {
+             itemsNum = 48;
+        mask = 0;
             launchLibrary(0, '');
         }
     }, 200))

@@ -142,8 +142,6 @@ var manage_profil = function (req, res) {
 						result += infos3;
 					}
 					req.session.messageprofil = result;
-					req.session.contents = "none";
-					req.session.settings = "block";
 					res.redirect("/profile.html");
 				})
 			})
@@ -154,7 +152,7 @@ var upload_picture = function (req, res) {
 	var infos = {};
 	(function (callback) {
 		upload(req, res, function (err) {
-			var cropped = 'profil_pic/' + req.session.id_user + '-' + uniqid() + '.png';
+			var cropped = '/profil_pic/' + req.session.id_user + '-' + uniqid() + '.png';
 			if (req.fileValidationError) {
 				infos.messagephoto = 'Wrong file type : File not uploaded';
 				callback(infos);
@@ -189,8 +187,6 @@ var upload_picture = function (req, res) {
 		})
 	})(function (infos) {
 		req.session.messagephoto = infos.messagephoto;
-		req.session.contents = "none";
-		req.session.settings = "block";
 		res.redirect("/profile.html");
 	})
 }
@@ -206,15 +202,11 @@ var email_confirmation = function (req, res) {
 		smtpTransport.sendMail(mail, function (error, response) {
 			if (error) {
 				req.session.messagereset = 'An error occured please try again';
-				req.session.contents = "none";
-				req.session.settings = "block";
-				res.redirect("/profile.html");
+				res.redirect("/profile2.html");
 			}
 			else {
 				req.session.messagereset = 'Email sended';
-				req.session.contents = "none";
-				req.session.settings = "block";
-				res.redirect("/profile.html");
+				res.redirect("/profile2.html");
 			}
 			smtpTransport.close();
 		});
