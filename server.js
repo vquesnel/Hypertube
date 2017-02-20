@@ -89,6 +89,7 @@ app.get("/movies.html/:itemsNum", movies);
 app.get("/movie.html/:imdb_code", movie);
 app.get("/get_movie_sub.html/:imdb_code", get_movie_subs);
 app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
+app.get("/watchmovie.html/:imdb_code/:tvdb_id/:magnet/:quality", watchmovie);
 app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
@@ -122,8 +123,8 @@ app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
 app.get('/getEpisodes/:imdbID', get_episodes);
-
 app.get('/watchHistory/:imdbID', watchHistory);
+app.get('/watchHistory/:imdbID/:tvdb_id', watchHistory);
 //			\\
 // 	 POST	\\
 //			\\

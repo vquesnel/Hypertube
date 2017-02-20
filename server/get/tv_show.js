@@ -41,7 +41,7 @@ var tv_show = function (req, res) {
 						connection.query("SELECT * FROM tv_shows_torrents WHERE id_tv_show = ? ORDER BY quality DESC", [movie[0].id], function (err, torrents) {
 							if (err) throw err;
 							else {
-								for (var k in torrents) torrents[k].imdb_code = movie[0].imdb_code;
+								for (var k in torrents) torrents[k].imdb_code = torrents[k].tvdb_id;
 								translate(movie[0].summary, {
 									to: req.session.language
 								}).then(translation => {

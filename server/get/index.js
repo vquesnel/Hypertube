@@ -13,7 +13,7 @@ var check = function (req, res, callback) {
 var index = function (req, res) {
 	check(req, res, function (err, data) {
 		if (err) console.log(err);
-		else if (data) res.redirect("/profile.html");
+		else if (data) res.redirect("/profile2.html");
 		else res.render('index');
 	});
 }
