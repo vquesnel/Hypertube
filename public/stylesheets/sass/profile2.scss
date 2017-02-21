@@ -2,90 +2,113 @@
 //	background: red;
 //}
 .profil {
-	width: 90%;
-	max-width: 900px;
-	height: 200px;
-	background: rgba(0, 0, 255, 0.22);
-	padding-bottom: 20px;
+    width: 90%;
+    max-width: 900px;
+    height: 200px;
+    // background: rgba(0, 0, 255, 0.22);
+    padding-bottom: 20px;
 }
+
 .profil-pic {
-	height: 200px;
-	max-width: 200px;
-	display: inline-block;
-	//background: green;
-	vertical-align: middle;
+    height: 200px;
+    max-width: 200px;
+    display: inline-block;
+    //background: green;
+    vertical-align: middle;
 }
+
 #profil-pic {
-	width: 196px;
-	border-radius: 50%;
-	max-height: 196px;
-	border: 2px solid #555;
+    width: 196px;
+    border-radius: 50%;
+    max-height: 196px;
+    border: 2px solid #555;
 }
+
 .settings {
-	//	background: red;
-	text-align: left;
-	margin-top: 10px;
+    //	background: red;
+    text-align: left;
+    margin-top: 10px;
 }
+
 #settings {
-	width: 25px;
-	display: inline-block;
-	opacity: 0.4;
+    width: 25px;
+    display: inline-block;
+    opacity: 0.4;
 }
+
 #settings:hover {
-	opacity: 1;
+    opacity: 1;
 }
+
 .profil-infos {
-	//height: 160px;
-	//margin-top: 70px;
-	//width: 400px;
-	//background: pink;
-	display: inline-block;
-	margin: 20px;
-	vertical-align: middle;
+    //height: 160px;
+    //margin-top: 70px;
+    //width: 400px;
+    //background: pink;
+    display: inline-block;
+    margin: 20px;
+    vertical-align: middle;
 }
+
 .profil-real-name {
-	font-size: 30px;
-	font-weight: 100;
-	color: white;
-	text-align: left;
+    font-size: 30px;
+    font-weight: 100;
+    color: white;
+    text-align: left;
 }
+
 .profil-username {
-	font-size: 17px;
-	color: #555;
-	font-weight: 100;
-	text-align: left;
+    font-size: 17px;
+    color: #555;
+    font-weight: 100;
+    text-align: left;
 }
+
 .profil-lang {
-	font-size: 15px;
-	font-weight: 100;
-	color: #555;
-	padding-left: 2px;
-	padding-right: 2px;
-	border: 1px solid #555;
-	display: inline-block;
-	border-radius: 5px;
-	height: 17px;
-	line-height: 17px;
+    font-size: 15px;
+    font-weight: 100;
+    color: #555;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: 1px solid #555;
+    display: inline-block;
+    border-radius: 5px;
+    height: 17px;
+    line-height: 17px;
 }
+
 .profil-hud {
-	width: 90%;
-	max-width: 900px;
-	min-height: 400px;
-	background: #335566;
+    margin-top: 40px;
+    width: 90%;
+    max-width: 900px;
+    min-height: 400px;
+    //background: #335566;
 }
+
+.hud-header {
+    font-size: 20px;
+    display: inline-block;
+    font-weight: 100;
+    color: #555;
+    height: 40px;
+    line-height: 40px;
+}
+
+.last-movies {}
+
 @media only screen and (max-width: 780px) {
-	.profil {
-		height: 300px;
-	}
-	.profil-infos {
-		width: 90%;
-	}
-	.settings {
-		margin: 4px;
-	}
-	.profil-username,
-	.profil-real-name,
-	.settings {
-		text-align: center;
-	}
+    .profil {
+        height: 300px;
+    }
+    .profil-infos {
+        width: 90%;
+    }
+    .settings {
+        margin: 4px;
+    }
+    .profil-username,
+    .profil-real-name,
+    .settings {
+        text-align: center;
+    }
 }

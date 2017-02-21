@@ -67,6 +67,9 @@ search = require('./server/ajax/search');
 get_episodes = require("./server/ajax/get_episodes");
 get_movie_subs = require("./server/ajax/get_movie_subs");
 watchHistory = require('./server/ajax/watchHistory');
+displayMoviesHistory = require('./server/ajax/displayMoviesHistory');
+displayTvHistory = require('./server/ajax/displaytvHistory');
+displayCommentsHistory = require('./server/ajax/displayCommentsHistory');
 //			\\
 // 	  GET 	\\
 //			\\
@@ -123,8 +126,11 @@ app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
 app.get('/getEpisodes/:imdbID', get_episodes);
-app.get('/watchHistory/:imdbID', watchHistory);
-app.get('/watchHistory/:imdbID/:tvdb_id', watchHistory);
+app.get('/watchHistory/:imdbID/:context', watchHistory);
+app.get('/watchHistory/:imdbID/:tvdb_id/:context', watchHistory);
+app.get('/displayMoviesHistory', displayMoviesHistory);
+app.get('/displayTvHistory', displayTvHistory);
+app.get('/displayCommentsHistory', displayCommentsHistory);
 //			\\
 // 	 POST	\\
 //			\\
@@ -158,7 +164,7 @@ io.on('connection', function (socket) {
 	});
 	socket.on('check_message', function (imdbID) {
 		var data = [];
-		connection.query("SELECT comment.username,comment.imdb_id,comment.content,comment.date_message,users.username,users.profil_pic FROM comment LEFT JOIN users ON comment.username = users.id WHERE imdb_id = ? ORDER BY comment.id DESC", [imdbID], function (err, rows) {
+		connection.query("SELECT comment.userID,comment.imdbID,comment.content,comment.messageID,comment.date_message,users.username,users.profil_pic FROM comment LEFT JOIN users ON comment.userID = users.id WHERE imdbID = ? ORDER BY comment.id DESC", [imdbID], function (err, rows) {
 			if (err) throw err;
 			(function (callback) {
 				for (i = 0; i < rows.length; i++) {
@@ -172,7 +178,7 @@ io.on('connection', function (socket) {
 	});
 	socket.on('new-message', function (data) {
 		if (data.imdbID) {
-			connection.query("INSERT INTO comment(username, imdb_id, content, date_message) VALUES(?,?,?,?)", [data.username, data.imdbID, data.value, data.date], function (err) {
+			connection.query("INSERT INTO comment(userID, imdbID, content, date_message, messageID, context) VALUES(?,?,?,?,?,?)", [data.username, data.imdbID, data.value, data.date, data.messageID, data.context], function (err) {
 				if (err) throw err;
 			})
 			connection.query("SELECT username, profil_pic FROM users WHERE id = ?", [data.username], function (err, user_pack) {
@@ -184,6 +190,7 @@ io.on('connection', function (socket) {
 						, profil_pic: user_pack[0].profil_pic
 						, imdbID: data.imdbID
 						, date: data.date
+						, messageID: data.messageID
 					});
 				}
 			})

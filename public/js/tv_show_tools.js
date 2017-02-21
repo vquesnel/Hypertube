@@ -17,6 +17,8 @@
 		var titleShow = $('.title').text();
 		var videoJs = videojs("my_video_1");
 		var current;
+		var messageFocus = localStorage.getItem('comment');
+		localStorage.removeItem('comment');
 
 		function addScore(score, domElement) {
 			$("<span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
@@ -122,21 +124,22 @@
 			if ($('#message-area').val() != '') {
 				var messageVal = $('#message-area').val().trim()
 				$('.textarea').val('');
-				if (messageVal != '') {
-					socket.emit('new-message', {
-						value: messageVal
-						, username: username
-						, imdbID: imdbID
-						, date: currentDate
-					});
-				}
-				$('#message-area').val('');
+				if (messageVal != '') var messageID = Math.random() + '';
+				socket.emit('new-message', {
+					value: messageVal
+					, username: username
+					, imdbID: imdbID
+					, date: currentDate
+					, messageID: 'zd' + messageID.split('.')[1]
+					, context: 'tv_show'
+				});
 			}
+			$('#message-area').val('');
 		});
 		var j = 0;
 		socket.on('old_message', function (data) {
 			for (var k in data) {
-				$('<div class="comment comment' + k + '"></div>').appendTo(".comments-display");
+				$('<div id="' + data[k].messageID + '" class="comment comment' + k + '"></div>').appendTo(".comments-display");
 				$('<div class="comment-infos cmt-nfo' + k + '"></div>').appendTo('.comment' + k + '');
 				$('<img class="comment-img" src="' + data[k].profil_pic + '">').appendTo('.cmt-nfo' + k + '');
 				$('<div class="comment-user"></div>').text(data[k].username).appendTo('.cmt-nfo' + k + '');
@@ -144,8 +147,17 @@
 				$('<div class="comment-value"></div>').text(data[k].content).appendTo('.comment' + k + '');
 				j = k;
 			}
+			if (messageFocus) {
+				var offsetMessage = $('#' + messageFocus).offset().top;
+				console.log(offsetMessage);
+				$('#' + messageFocus).find('.comment-value').css('color', 'green');
+				$('html,body').animate({
+					scrollTop: offsetMessage - $('#' + messageFocus).height()
+				}, 2000);
+				messageFocus = '';
+			}
 			updateIndicators();
-		})
+		});
 		$(document).on('click', '#show', function () {
 			$.ajax({
 				url: 'https://localhost:4422/getEpisodes/' + imdbID
@@ -192,11 +204,11 @@
 					})
 				}
 			})
-		})
+		});
 		$(document).on('click', '.vjs-big-play-button', function () {
 			var tvdb_id = watcher.attr('src').split("/")[3];
 			$.ajax({
-				url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id
+				url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id + '/movie'
 				, method: 'GET'
 				, success: function (data) {}
 			})
@@ -224,7 +236,7 @@
 			j++;
 			var first = 0;
 			if (data.imdbID === imdbID) {
-				$('<div class="comment comment' + j + '"></div>').prependTo(".comments-display");
+				$('<div d="' + data.messageID + '" class="comment comment' + j + '"></div>').prependTo(".comments-display");
 				$('<div class="comment-infos cmt-nfo' + j + '"></div>').appendTo('.comment' + j + '');
 				$('<img src="' + data.profil_pic + '">').appendTo('.cmt-nfo' + j + '');
 				$('<div class="comment-user"></div>').text(data.username).appendTo('.cmt-nfo' + j + '');

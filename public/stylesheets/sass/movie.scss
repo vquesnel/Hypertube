@@ -271,9 +271,8 @@ html {
 	margin-top: 30px;
 }
 .comment {
-	margin: 10px;
-	margin-top: 40px;
-	margin-bottom: 50px;
+	padding-top: 40px;
+	padding-bottom: 50px;
 	//  height: 500px;
 	height: inherit;
 }
@@ -383,7 +382,7 @@ video {
 }
 #comment {
 	position: absolute;
-	top: 900px;
+	top: 910px;
 	width: 100%;
 }
 #instructions {

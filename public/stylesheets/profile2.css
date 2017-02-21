@@ -2,7 +2,6 @@
   width: 90%;
   max-width: 900px;
   height: 200px;
-  background: rgba(0, 0, 255, 0.22);
   padding-bottom: 20px;
 }
 
@@ -69,10 +68,19 @@
 }
 
 .profil-hud {
+  margin-top: 40px;
   width: 90%;
   max-width: 900px;
   min-height: 400px;
-  background: #335566;
+}
+
+.hud-header {
+  font-size: 20px;
+  display: inline-block;
+  font-weight: 100;
+  color: #555;
+  height: 40px;
+  line-height: 40px;
 }
 
 @media only screen and (max-width: 780px) {
