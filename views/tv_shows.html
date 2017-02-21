@@ -1,75 +1,67 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Hypertube | Tv Shows</title>
-    <meta charset="utf-8">
-    <link href="stylesheets/main.css" rel="stylesheet">
-    <link href="stylesheets/menu.css" rel="stylesheet">
-    <link href="stylesheets/home.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<title>Hypertube | Tv Shows</title>
+	<meta charset="utf-8">
+	<link href="stylesheets/main.css" rel="stylesheet">
+	<link href="stylesheets/menu.css" rel="stylesheet">
+	<link href="stylesheets/home.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 
 <body>
-
-    <div class="site-container" align="center">
-        <div class="site-pusher">
-            <header class="header">
-                <a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-                <a href="/home.html" class="header__logo">
-                    <img id="menu-logo" src="img/hypertube-logo-2.png" alt="logo">
-                </a>
-                <nav class="menu">
-                    <div class="a0" class="fix"></div>
-                    <a id="movies" href="/movies.html" class="a2">Movies</a>
-                    <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
-                    <a href="/profile2.html" class="a1"><img class="menu-img" src="/img/user.png" alt="user"></a>
-                    <a href="/logout.html" class="a2"><img class="menu-img" src="/img/logout.png" alt="user"></a>
-                </nav>
-            </header>
-            <div class="opt-show">
-                <div class="filter-btn">Filters</div>
-                <div class="search-btn">Search</div>
-            </div>
-            <div class="options">
-                <div class="close">
-                </div>
-                <div class="az">
-                    <div class="maj">A</div>
-                    <div class="min">z</div>
-                </div>
-                <div class="sorter">Genre :</div>
-                <select>
-                    <option class="opt-btn" value="Action">Action</option>
-                    <option class="opt-btn" value="Crime">Crime</option>
-                    <option class="opt-btn" value="Drama">Drama</option>
-                    <option class="opt-btn" value="Thriller">Thriller</option>
-                    <option class="opt-btn" value="Horror">Horror</option>
-                    <option class="opt-btn" value="Sci-Fi">Sci-Fi</option>
-                </select>
-                <div class="sorter">Date :</div>
-                <select>
-                    <option class="opt-btn" value="Action">1998</option>
-                    <option class="opt-btn" value="Crime">1997</option>
-                    <option class="opt-btn" value="Drama">1996</option>
-                    <option class="opt-btn" value="Thriller">1995</option>
-                    <option class="opt-btn" value="Horror">1994</option>
-                    <option class="opt-btn" value="Sci-Fi">1993</option>
-                </select>
-                <div class="sorter">Rate :</div>
-                <div class="imdb-filter"><img src="/img/imdb-logo.png"></div>
-            </div>
-            <div class="search">
-                <div class="close"></div>
-                <input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="on" name="typeahead">
-            </div>
-            <div class="separator"></div>
-            <div class="separator"></div>
-            <div class="library" align="center">
-            </div>
-
-        </div>
-        <script language="javascript" src="/js/menu.js"></script>
-        <script type="text/javascript" src="/js/tv_shows_tools.js"></script>
-    </div>
+	<div class="site-container" align="center">
+		<div class="site-pusher">
+			<header class="header">
+				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
+				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="img/hypertube-logo-2.png" alt="logo"> </a>
+				<nav class="menu">
+					<div class="a0" class="fix"></div> <a id="movies" href="/movies.html" class="a2">Movies</a> <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
+					<a href="/profile2.html" class="a1"><img class="menu-img" src="/img/user.png" alt="user"></a>
+					<a href="/logout.html" class="a2"><img class="menu-img" src="/img/logout.png" alt="user"></a>
+				</nav>
+			</header>
+			<div class="opt-show">
+				<div class="filter-btn">Filters</div>
+				<div class="search-btn">Search</div>
+			</div>
+			<div class="options">
+				<div class="close"> </div>
+				<div class="az">
+					<div class="maj">A</div>
+					<div class="min">z</div>
+				</div>
+				<div class="sorter">Genre :</div>
+				<select id="genres">
+					<option class="opt-btn" value="">Select A Genre</option>
+					<option class="opt-btn" value="Action">Action</option>
+					<option class="opt-btn" value="Crime">Crime</option>
+					<option class="opt-btn" value="Drama">Drama</option>
+					<option class="opt-btn" value="Thriller">Thriller</option>
+					<option class="opt-btn" value="Horror">Horror</option>
+					<option class="opt-btn" value="Sci-Fi">Sci-Fi</option>
+				</select>
+				<div class="sorter">Date :</div>
+				<select>
+					<option class="opt-btn" value="Action">1998</option>
+					<option class="opt-btn" value="Crime">1997</option>
+					<option class="opt-btn" value="Drama">1996</option>
+					<option class="opt-btn" value="Thriller">1995</option>
+					<option class="opt-btn" value="Horror">1994</option>
+					<option class="opt-btn" value="Sci-Fi">1993</option>
+				</select>
+				<div class="sorter">Rate :</div>
+				<div class="imdb-filter"><img src="/img/imdb-logo.png"></div>
+			</div>
+			<div class="search">
+				<div class="close"></div>
+				<input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="on" name="typeahead"> </div>
+			<div class="separator"></div>
+			<div class="separator"></div>
+			<div class="library" align="center"> </div>
+		</div>
+		<script language="javascript" src="/js/menu.js"></script>
+		<script type="text/javascript" src="/js/tv_shows_tools.js"></script>
+	</div>
 </body>

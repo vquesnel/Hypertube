@@ -44,8 +44,11 @@
 			url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mode + '@' + extra
 			, method: 'GET'
 			, success: function (data) {
+				if (typeof data == 'string') window.location = data
+					else {
 				displayLibrary(data);
 				libHeight = libHeight + 4440;
+					}
 			}
 		})
 		itemsNum = itemsNum + 48;
@@ -61,6 +64,8 @@
 				url: 'https://localhost:4422/search/' + toFind + '@' + lenFind + '@' + context
 				, method: 'GET'
 				, success: function (data) {
+					if (typeof data == 'string') window.location = data
+					else {
 					$('.library').empty();
 					if (!data[0]) {
 						$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
@@ -69,6 +74,7 @@
 						displayLibrary(data);
 					}
 					mask = 666;
+				}
 				}
 			})
 		}
@@ -88,8 +94,11 @@
 				url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mask + '@' + genre
 				, method: 'GET'
 				, success: function (data) {
+					if (typeof data == 'string') window.location = data
+					else {
 					displayLibrary(data);
 					libHeight = libHeight + 4440;
+				}
 				}
 			})
 			$(window).scrollTop(libHeight);

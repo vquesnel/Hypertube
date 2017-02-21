@@ -35,8 +35,11 @@
 				url: 'https://localhost:4422/indicators/' + imdbID
 				, method: 'GET'
 				, success: function (data) {
-					$('.comments-indicator').text(data);
+					if (typeof data == 'string') window.location = data
+					else {
+					$('.comments-indicator').text(data.indicator);
 					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+					}
 				}
 			})
 		}
@@ -49,7 +52,10 @@
 			url: 'https://localhost:4422/wallpaperTv/' + imdbID
 			, type: 'GET'
 			, success: function (data) {
-				$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data + ")");
+				if (typeof data == 'string') window.location = data
+					else {
+				$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+					}
 			}
 		})
 		$(document).on('click', '.switchor', function () {
@@ -86,6 +92,8 @@
 						, episode: regex[1]
 					}
 					, success: (function (data) {
+						if (typeof data == 'string') window.location = data
+					else {
 						var track = [];
 						data.forEach(function (sub) {
 							sub = {
@@ -96,6 +104,7 @@
 							, }
 							videoJs.addRemoteTextTrack(sub)
 						})
+					}
 					})
 				})
 				$('.watch-bar').fadeOut('slow');
@@ -163,6 +172,8 @@
 				url: 'https://localhost:4422/getEpisodes/' + imdbID
 				, method: 'GET'
 				, success: function (data) {
+					if (typeof data == 'string') window.location = data
+					else {
 					$('.hud-film').fadeOut(2000, function () {
 						$('.hud-film').empty();
 						$(window).scrollTop(0);
@@ -203,6 +214,7 @@
 						$('.hud-film').fadeIn();
 					})
 				}
+				}
 			})
 		});
 		$(document).on('click', '.vjs-big-play-button', function () {
@@ -210,7 +222,10 @@
 			$.ajax({
 				url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id + '/movie'
 				, method: 'GET'
-				, success: function (data) {}
+				, success: function (data) {
+					if (typeof data == 'string') window.location = data
+					
+				}
 			})
 		});
 		$(document).on('click', '.normalize', function () {

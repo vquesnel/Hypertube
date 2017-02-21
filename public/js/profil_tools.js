@@ -56,8 +56,11 @@
 			url: 'https://localhost:4422/displayMoviesHistory',
 			method: 'GET',
 			success: function (movies) {
-				console.log(movies);
+				if (typeof movies == 'string') window.location = movies
+					else {
+
 				displayLibrary(movies, 'last-movies', 'movie');
+					}
 			}
 		})
 		$.ajax({
@@ -65,14 +68,20 @@
 			method: 'GET',
 			success: function (tv) {
 				//console.log(tv);
+				if (typeof tv == 'string') window.location = tv;
+					else {tv
 				displayLibrary(tv, 'last-tv', 'tv_show');
+					}
 			}
 		})
 		$.ajax({
 			url: 'https://localhost:4422/displayCommentsHistory',
 			method: 'GET',
 			success: function (data) {
+				if (typeof data == 'string') window.location = data
+					else {
 				displayComments(data, 'last-com');
+					}
 
 			}
 		})

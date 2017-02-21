@@ -39,6 +39,9 @@ var verifTV = function (imdb_code, callback) {
 		callback(result[0]);
 	});
 }
+String.prototype.capitalizeFirstLetter = function () {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
 launch(connection, function () {
 	for (var page = 1; page < 121; page++) {
 		yts.listMovies({
@@ -95,6 +98,9 @@ launch(connection, function () {
 							}, function (err, jsonEpisodes) {
 								if (err) console.log(err);
 								else {
+									for (var k in jsonEpisodes.genres) {
+										jsonEpisodes.genres[k] = jsonEpisodes.genres[k].capitalizeFirstLetter();
+									}
 									connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
 										if (err) {
 											console.log(show.title);

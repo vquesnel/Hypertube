@@ -20,7 +20,6 @@ var options = {
 	, cert: fs.readFileSync('certificates/server.crt')
 	, ca: fs.readFileSync('certificates/server.csr')
 , };
-var socketsLauncher = require('./server/sockets');
 app.use(passport.initialize());
 app.use(passport.session());
 app.engine('html', mustacheExpress());
@@ -50,7 +49,6 @@ wallpaper = require("./server/get/wallpaper");
 wallpaperTv = require("./server/ajax/wallpaperTv");
 username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
-handler = require("./server/get/handler");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
 //================POST=======================\\
@@ -77,22 +75,31 @@ app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile2.html", profile);
 app.get('/home.html', function (req, res) {
-	res.render('home.html');
+	if (!req.session.username) {
+		res.redirect("/");
+	}
+	else res.render('home.html');
 })
 app.get("/tv_shows.html", function (req, res) {
-	res.render('tv_shows.html');
+	if (!req.session.username) {
+		res.redirect("/");
+	}
+	else res.render('tv_shows.html');
 })
 app.get("/tv_shows.html/:itemsNum", tv_shows);
 app.get("/tv_show.html/:imdb_code", tv_show);
 app.get("/getEpisodes/:imdb_code", get_episodes);
 app.get("/movies.html", function (req, res) {
-	res.render("movies.html");
+	if (!req.session.username) {
+		res.redirect("/");
+	}
+	else res.render("movies.html");
 })
 app.get("/movies.html/:itemsNum", movies);
 app.get("/movie.html/:imdb_code", movie);
 app.get("/get_movie_sub.html/:imdb_code", get_movie_subs);
-app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
 app.get("/watchmovie.html/:imdb_code/:tvdb_id/:magnet/:quality", watchmovie);
+app.get("/watchmovie.html/:imdb_code/:magnet/:quality", watchmovie);
 app.get("/logout.html", logout);
 app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
@@ -122,7 +129,6 @@ app.get('/wallpaper/:imdbid', wallpaper);
 app.get('/wallpaperTv/:imdbid', wallpaperTv);
 app.get('/username_checker/:value', username_checker);
 app.get('/email_checker/:value', email_checker);
-app.get('handler/:context', handler);
 app.get('/indicators/:imdbID', indicators);
 app.get('/search/:toFind', search);
 app.get('/getEpisodes/:imdbID', get_episodes);

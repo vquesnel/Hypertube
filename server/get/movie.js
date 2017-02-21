@@ -8,7 +8,7 @@ var movie = function (req, res) {
 	else {
 		connection.query("SELECT * FROM movies WHERE imdb_code = ?", [req.params.imdb_code], function (err, movie) {
 			if (err) throw err;
-			else {
+			else if (movie[0]) {
 				imdb.get({
 					id: movie[0].imdb_code
 				}).then(function (data) {
@@ -40,7 +40,7 @@ var movie = function (req, res) {
 						}
 						connection.query("SELECT * FROM movies_torrents WHERE id_film = ? ORDER BY quality DESC", [movie[0].id], function (err, torrents) {
 							if (err) throw err;
-							else  {
+							else {
 								for (var k in torrents) torrents[k].imdb_code = movie[0].imdb_code;
 								translate(movie[0].summary, {
 									to: req.session.language
@@ -75,6 +75,10 @@ var movie = function (req, res) {
 					console.log("BUG OMDBP");
 					console.log(err);
 				})
+			}
+			else {
+				//404 not found
+				res.send("error")
 			}
 		})
 	}

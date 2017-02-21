@@ -8,7 +8,7 @@ var tv_show = function (req, res) {
 	else {
 		connection.query("SELECT * FROM tv_shows WHERE imdb_code = ?", [req.params.imdb_code], function (err, movie) {
 			if (err) throw err;
-			else {
+			else if (movie[0]){
 				imdb.get({
 					id: movie[0].imdb_code
 				}).then(function (data) {
@@ -76,6 +76,10 @@ var tv_show = function (req, res) {
 					console.log("BUG OMDBP");
 					console.log(err);
 				})
+			}
+			else{
+				//return 404 not found
+				res.send("error");
 			}
 		})
 	}

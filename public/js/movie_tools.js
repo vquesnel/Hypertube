@@ -41,8 +41,11 @@
 				url: 'https://localhost:4422/indicators/' + imdbID
 				, method: 'GET'
 				, success: function (data) {
-					$('.comments-indicator').text(data);
-					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+					if (typeof data == 'string') window.location = data
+					else {
+						$('.comments-indicator').text(data.indicator);
+						$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+					}
 				}
 			})
 		}
@@ -86,16 +89,19 @@
 					url: 'https://localhost:4422/get_movie_sub.html/' + imdbID
 					, type: 'GET'
 					, success: (function (data) {
-						var track = [];
-						data.forEach(function (sub) {
-							sub = {
-								src: sub.path
-								, kind: "captions"
-								, srclang: sub.code
-								, label: sub.language
-							, }
-							videoJs.addRemoteTextTrack(sub)
-						})
+						if (typeof data == 'string') window.location = data
+						else {
+							var track = [];
+							data.forEach(function (sub) {
+								sub = {
+									src: sub.path
+									, kind: "captions"
+									, srclang: sub.code
+									, label: sub.language
+								, }
+								videoJs.addRemoteTextTrack(sub)
+							})
+						}
 					})
 				})
 				$('.watch-bar').fadeOut('slow');
@@ -124,14 +130,19 @@
 			url: 'https://localhost:4422/wallpaper/' + imdbID
 			, type: 'GET'
 			, success: function (data) {
-				$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data + ")");
+				if (typeof data == 'string') window.location = data
+				else {
+					$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+				}
 			}
 		})
 		$(document).on('click', '.vjs-big-play-button', function () {
 			$.ajax({
 				url: 'https://localhost:4422/watchHistory/' + imdbID + '/movie'
 				, method: 'GET'
-				, success: function (data) {}
+				, success: function (data) {
+					if (typeof data == 'string') window.location = data;
+				}
 			})
 		});
 		socket.emit('check_message', imdbID);
