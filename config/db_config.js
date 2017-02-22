@@ -72,7 +72,7 @@ launch(connection, function () {
 										if (movie.torrents[k].quality !== "3D") {
 											var urlencoded = urlencode(movie.title_long + " [" + movie.torrents[k].quality + "] [YTS.AG]");
 											connection.query("INSERT INTO `hypertube`.`movies_torrents`(id_film, quality, magnet, size_bytes) VALUES(?,?,?, ?)", [firstQuery.insertId, movie.torrents[k].quality, urlencode('magnet:?xt=urn:btih:' + movie.torrents[k].hash + '& dn=' + urlencoded), movie.torrents[k].size_bytes], function (err) {
-												if (err) console.log(movie.torrents[k].size_bytes);
+												if (err) console.log(err);
 											});
 										}
 									}
@@ -101,6 +101,7 @@ launch(connection, function () {
 									for (var k in jsonEpisodes.genres) {
 										jsonEpisodes.genres[k] = jsonEpisodes.genres[k].capitalizeFirstLetter();
 									}
+									show.images.poster = show.images.poster.replace(/http:\/\//gi, "https://")
 									connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
 										if (err) {
 											console.log(show.title);

@@ -39,19 +39,21 @@
 
 	function launchLibrary(mode, extra) {
 		$('.library').empty();
+		$(window).scrollTop(0);
 		$.ajax({
 			url: 'https://localhost:4422/tv_shows.html/' + itemsNum + '@' + mode + '@' + extra
 			, method: 'GET'
 			, success: function (data) {
-				displayLibrary(data);
-				libHeight = libHeight + 4440;
+				if (typeof data == 'string') window.location = data
+				else {
+					displayLibrary(data);
+					libHeight = libHeight + 4440;
+				}
 			}
 		})
-		$(window).scrollTop(libHeight);
 		itemsNum = itemsNum + 48;
 	}
 	$('#search-bar').keyup(debounce(function () {
-		
 		var toFind = $('#search-bar').val().trim();
 		var lenFind = toFind.length;
 		$(window).height(docweighttmp);
@@ -62,40 +64,47 @@
 				url: 'https://localhost:4422/search/' + toFind + '@' + lenFind + '@' + context
 				, method: 'GET'
 				, success: function (data) {
-					$('.library').empty();
-					if (!data[0]) {
-						$('<div class="no-match">No Tv Shows Found :(</div>').appendTo('.library');
+					if (typeof data == 'string') window.location = data
+					else {
+						$('.library').empty();
+						if (!data[0]) {
+							$('<div class="no-match">No Tv Shows Found :(</div>').appendTo('.library');
+						}
+						else displayLibrary(data);
+						mask = 666;
 					}
-					else displayLibrary(data);
-					mask = 666;
 				}
 			})
 		}
 		else {
-				itemsNum = 48;
-				mask = 0;
-				launchLibrary(mask, '');
-			}
+			itemsNum = 48;
+			mask = 0;
+			launchLibrary(mask, '');
+		}
 	}, 200))
 	$(document).ready(function () {
 		docweighttmp = getDocHeight();
 		launchLibrary(0, '');
 	})
+	$(window).data('ajaxready', true);
 	$(window).scroll(function () {
-		if ($(window).scrollTop() + $(window).height() > getDocHeight() - 1 && mask >= 0 && mask < 666) {
+		if ($(window).data('ajaxready') == false) return;
+		if ($(window).scrollTop() + $(window).height() === $(document).height() /*getDocHeight() - 1*/ && mask >= 0 && mask < 666) {
+			$(window).data('ajaxready', false);
 			$.ajax({
 				url: 'https://localhost:4422/tv_shows.html/' + itemsNum + '@' + mask + '@' + genre
 				, method: 'GET'
 				, success: function (data) {
-					displayLibrary(data);
-					libHeight = libHeight + 4440;
+					if (typeof data == 'string') window.location = data
+					else {
+						displayLibrary(data);
+						libHeight = libHeight + 4440;
+						$(window).data('ajaxready', true);
+						itemsNum += 48;
+					}
 				}
 			})
 			$(window).scrollTop(libHeight);
-			itemsNum = itemsNum + 48;
-			if (mask == 0) {
-				itemsNum = 0;
-			}
 		}
 	});
 	$('.az').click(function () {

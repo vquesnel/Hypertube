@@ -1,17 +1,11 @@
 (function ($) {
-
 	var indexClass = 0;
 
 	function addScore(score, domElement) {
-		$("<br><span class='stars-container'>")
-			.addClass("stars-" + score.toString())
-			.text("★★★★★")
-			.appendTo(domElement);
+		$("<br><span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
 	}
 
-
 	function displayLibrary(data, node, context) {
-
 		for (var k in data) {
 			$('<div class="block ' + indexClass + '"></div>').appendTo('.' + node);
 			$('<a class="link" href="/' + context + '.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
@@ -50,42 +44,55 @@
 	$(document).on('click', '.com', function () {
 		localStorage.setItem('comment', $(this).find('.messageID').text());
 	})
-
 	$(document).ready(function () {
 		$.ajax({
-			url: 'https://localhost:4422/displayMoviesHistory',
-			method: 'GET',
-			success: function (movies) {
+			url: 'https://localhost:4422/displayMoviesHistory'
+			, method: 'GET'
+			, success: function (movies) {
 				if (typeof movies == 'string') window.location = movies
-					else {
-
-				displayLibrary(movies, 'last-movies', 'movie');
+				else {
+					console.log(movies);
+					if (movies.length == 0) {
+						$('<div class="empty-field">No Movie watched yet<br><a href="https://localhost:4422/movies.html">Go to Movies</a></div>').appendTo('.last-movies');
 					}
+					else {
+						displayLibrary(movies, 'last-movies', 'movie');
+					}
+				}
 			}
 		})
 		$.ajax({
-			url: 'https://localhost:4422/displayTvHistory',
-			method: 'GET',
-			success: function (tv) {
+			url: 'https://localhost:4422/displayTvHistory'
+			, method: 'GET'
+			, success: function (tv) {
 				//console.log(tv);
 				if (typeof tv == 'string') window.location = tv;
-					else {tv
-				displayLibrary(tv, 'last-tv', 'tv_show');
+				else {
+					console.log(tv);
+					if (tv.length == 0) {
+						$('<div class="empty-field">No TV Show watched yet<br><a href="https://localhost:4422/tv_shows.html">Go to TV Shows</a></div>').appendTo('.last-tv');
 					}
+					else {
+						displayLibrary(tv, 'last-tv', 'tv_show');
+					}
+				}
 			}
 		})
 		$.ajax({
-			url: 'https://localhost:4422/displayCommentsHistory',
-			method: 'GET',
-			success: function (data) {
+			url: 'https://localhost:4422/displayCommentsHistory'
+			, method: 'GET'
+			, success: function (data) {
 				if (typeof data == 'string') window.location = data
-					else {
-				displayComments(data, 'last-com');
+				else {
+					console.log(data);
+					if (data.length == 0) {
+						$('<div class="empty-field">Any comment yet </div>').appendTo('.last-com');
 					}
-
+					else {
+						displayComments(data, 'last-com');
+					}
+				}
 			}
 		})
 	})
-
-
 })(jQuery);

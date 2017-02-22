@@ -1,70 +1,185 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Hypertube | Home</title>
-    <meta charset="utf-8">
-    <link href="/stylesheets/main.css" rel="stylesheet">
-    <link href="/stylesheets/menu.css" rel="stylesheet">
-    <link href="/stylesheets/movie.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://localhost:4422/socket.io/socket.io.js"></script>
-    <link rel='stylesheet prefetch' href='https://vjs.zencdn.net/5-unsafe/video-js.css'>
-    <link rel="stylesheet" href="/stylesheets/player.css">
-    <script src="/js/video.js"></script>
+	<title>Hypertube | Home</title>
+	<meta charset="utf-8">
+	<link href="/stylesheets/main.css" rel="stylesheet">
+	<link href="/stylesheets/menu.css" rel="stylesheet">
+	<link href="/stylesheets/movie.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="https://localhost:4422/socket.io/socket.io.js"></script>
+	<link rel='stylesheet prefetch' href='https://vjs.zencdn.net/5-unsafe/video-js.css'>
+	<link rel="stylesheet" href="/stylesheets/player.css">
+	<script src="/js/video.js"></script>
 </head>
 
 <body>
-    <div class="user">{{userID}}</div>
-    <div class="site-container" align="center">
-        <div class="site-pusher">
-            <header class="header">
-                <a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-                <a href="/home.html" class="header__logo"> <img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo"> </a>
-                <nav class="menu">
-                    <div class="a0" class="fix"> </div>  <a id="movies" href="/movies.html" class="a2">Movies</a>
-                    <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
-                    <a id="profileLink" href="/profile2.html" class="a1"><img class="menu-img" src="/img/user.png" alt="user"></a>
-                    <a href="/logout.html" class="a2"><img class="menu-img" src="/img/logout.png" alt="user"></a>
-                </nav>
-            </header>
-            <div class="cover">
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="separator"></div>
-                <div class="hud-film"> {{>display_movies}}
-                    <div class="watch-bar">
-                        <div class="watch-btn"> <a id="watch">Watch it Now</a> </div>
-                        <div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                            <label class="onoffswitch-label" for="myonoffswitch"> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="switchor"><img src="/img/repeat.png" alt="nxm"></div>
-            <div id="comment">
-                <div class="middle-bar">
-                    <div class="comment-area">
-                        <input id="message-area" type="text" placeholder="Leave a comment ...">
-                        <div class="sender">Send</div>
-                    </div>
-                    <div class="indicators">
-                        <div class="viewers-indicator"> 35 <img src="/img/viewers.png"> </div>
-                        <div class="comments-indicator"> 42 </div>
-                    </div>
-                </div>
-                <div class="comments-display"> </div>
-            </div>
-            <div class="video-container">
-                <div id="instructions">
-                    <video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px" controls preload="none" data-setup='{ "aspectRatio":"640:267"}'>
-                </div>
-            </div>
-            <div class="separator"> </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="/js/movie_tools.js"></script>
-    <script language="javascript" src="/js/menu.js"></script>
+	<div class="user">{{userID}}</div>
+	<div class="site-container" align="center">
+		<div class="site-pusher">
+			<header class="header">
+				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
+				<a href="/home.html" class="header__logo">
+<img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo">				</a>
+				<nav class="menu">
+					<div class="a0" class="fix"></div>
+					<a id="movies" href="/movies.html" class="a2">Movies</a>
+					<a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
+					<a href="/profile2.html" class="a2">
+						<img class="menu-img" src="/img/user.png" alt="user">
+					</a>
+					<a href="#" class="a1">
+						<img id="menu-settings" src="/img/settings.png" alt="settings">
+					</a>
+					<a href="/logout.html" class="a2">
+						<img class="menu-img" src="/img/logout.png" alt="user">
+					</a>
+				</nav>
+			</header>
+			<div class="settigns-manager">
+				<div id="close-manager" class="close"></div>
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<form class="profil-manager" method="post" action="">
+					<div class="header-form">Update Profil</div>
+					<input id="fname" class="input" type="text" name="new_firstname" placeholder="Firstname">
+					<input id="lname" class="input" type="text" name="new_lastname" placeholder="Lastname">
+					<input id="user" class="input" type="text" name="new_username" placeholder="Username">
+					<input id="email" class="input" type="email" name="new_email" placeholder="Email">
+					<input class="submit" type="submit" value="Change">
+				</form>
+				<form class="picture-manager" method="post" enctype="multipart/form-data" action="/upload">
+					<div class="header-form">Profil Picture</div>
+					<div class="container-preview">
+						<img id="photodisplay">
+						<div class="input-file-container">
+							<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
+							<label for="my-file" class="input-file-trigger" tabindex="0">Select a file...</label>
+						</div>
+					</div>
+					<input class="submit sub-fix" type="submit" value="Upload">
+				</form>
+				<br>
+				<div class="baiserie">
+					<select id="country-club" name="country">
+						<option value="afr">Afrikaans</option>
+						<option value="alb">Albanian</option>
+						<option value="ara">Arabic</option>
+						<option value="arm">Armenian</option>
+						<option value="ast">Asturian</option>
+						<option value="aze">Azerbaijani</option>
+						<option value="baq">Basque</option>
+						<option value="bel">Belarusian</option>
+						<option value="ben">Bengali</option>
+						<option value="bos">Bosnian</option>
+						<option value="bre">Breton</option>
+						<option value="bul">Bulgarian</option>
+						<option value="bur">Burmese</option>
+						<option value="cat">Catalan</option>
+						<option value="chi">Chinese (simplified)</option>
+						<option value="zht">Chinese (traditional)</option>
+						<option value="zhe">Chinese bilingual</option>
+						<option value="hrv">Croatian</option>
+						<option value="cze">Czech</option>
+						<option value="dan">Danish</option>
+						<option value="dut">Dutch</option>
+						<option selected="selected" value="eng">English</option>
+						<option value="epo">Esperanto</option>
+						<option value="est">Estonian</option>
+						<option value="ext">Extremaduran</option>
+						<option value="fin">Finnish</option>
+						<option value="fre">French</option>
+						<option value="glg">Galician</option>
+						<option value="geo">Georgian</option>
+						<option value="ger">German</option>
+						<option value="ell">Greek</option>
+						<option value="heb">Hebrew</option>
+						<option value="hin">Hindi</option>
+						<option value="hun">Hungarian</option>
+						<option value="ice">Icelandic</option>
+						<option value="ind">Indonesian</option>
+						<option value="ita">Italian</option>
+						<option value="jpn">Japanese</option>
+						<option value="kaz">Kazakh</option>
+						<option value="khm">Khmer</option>
+						<option value="kor">Korean</option>
+						<option value="lav">Latvian</option>
+						<option value="lit">Lithuanian</option>
+						<option value="ltz">Luxembourgish</option>
+						<option value="mac">Macedonian</option>
+						<option value="may">Malay</option>
+						<option value="mal">Malayalam</option>
+						<option value="mni">Manipuri</option>
+						<option value="mon">Mongolian</option>
+						<option value="mne">Montenegrin</option>
+						<option value="nor">Norwegian</option>
+						<option value="oci">Occitan</option>
+						<option value="per">Persian</option>
+						<option value="pol">Polish</option>
+						<option value="por">Portuguese</option>
+						<option value="pob">Portuguese (BR)</option>
+						<option value="pom">Portuguese (MZ)</option>
+						<option value="rum">Romanian</option>
+						<option value="rus">Russian</option>
+						<option value="scc">Serbian</option>
+						<option value="sin">Sinhalese</option>
+						<option value="slo">Slovak</option>
+						<option value="slv">Slovenian</option>
+						<option value="spa">Spanish</option>
+						<option value="swa">Swahili</option>
+						<option value="swe">Swedish</option>
+						<option value="syr">Syriac</option>
+						<option value="tgl">Tagalog</option>
+						<option value="tam">Tamil</option>
+						<option value="tel">Telugu</option>
+						<option value="tha">Thai</option>
+						<option value="tur">Turkish</option>
+						<option value="ukr">Ukrainian</option>
+						<option value="urd">Urdu</option>
+						<option value="vie">Vietnamese</option>
+					</select>
+					<div class="reset-psswd">Reset Password</div>
+				</div>
+			</div>
+			<div class="cover">
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="separator"></div>
+				<div class="hud-film"> {{>display_movies}}
+					<div class="watch-bar">
+						<div class="watch-btn"> <a id="watch">Watch it Now</a> </div>
+						<div class="onoffswitch">
+							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+							<label class="onoffswitch-label" for="myonoffswitch"> <span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="switchor"><img src="/img/repeat.png" alt="nxm"></div>
+			<div id="comment">
+				<div class="middle-bar">
+					<div class="comment-area">
+						<input id="message-area" type="text" placeholder="Leave a comment ...">
+						<div class="sender">Send</div>
+					</div>
+					<div class="indicators">
+						<div class="viewers-indicator"> 35 <img src="/img/viewers.png"> </div>
+						<div class="comments-indicator"> 42 </div>
+					</div>
+				</div>
+				<div class="comments-display"> </div>
+			</div>
+			<div class="video-container">
+				<div id="instructions">
+					<video id="my_video_1" class="video-js vjs-default-skin" width="640px" height="267px" controls preload="none" data-setup='{ "aspectRatio":"640:267"}'>
+				</div>
+			</div>
+			<div class="separator"> </div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/movie_tools.js"></script>
+	<script language="javascript" src="/js/menu.js"></script>
+	<script src="/js/previewFile.js"></script>
 </body>

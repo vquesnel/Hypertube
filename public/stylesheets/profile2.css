@@ -83,6 +83,12 @@
   line-height: 40px;
 }
 
+.empty-field {
+  font-size: 15px;
+  color: white;
+  font-weight: 100;
+}
+
 @media only screen and (max-width: 780px) {
   .profil {
     height: 300px;

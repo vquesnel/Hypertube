@@ -12,6 +12,11 @@
   vertical-align: middle;
 }
 
+#menu-settings {
+  height: 30px;
+  vertical-align: middle;
+}
+
 .header {
   position: fixed;
   left: 0;
@@ -50,6 +55,224 @@
 .menu a:hover {
   color: skyblue;
   text-decoration: none;
+}
+
+.settigns-manager {
+  position: fixed;
+  width: 100%;
+  top: 76ps;
+  background: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  display: none;
+  overflow: scroll;
+  z-index: 20;
+}
+
+#close-manager {
+  position: absolute;
+  right: 32px;
+  top: 102px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+
+#close-manager:hover {
+  opacity: 1;
+}
+
+#close-manager:before,
+#close-manager:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #787878;
+}
+
+#close-manager:after {
+  transform: rotate(-45deg);
+}
+
+#close-manager:before {
+  transform: rotate(45deg);
+}
+
+.header-form {
+  font-size: 25px;
+  font-weight: 100;
+  color: white;
+}
+
+.profil-manager {
+  width: 300px;
+  padding-bottom: 10px;
+  display: inline-block;
+  margin: 10px;
+  margin-top: 100px;
+  vertical-align: top;
+}
+
+.picture-manager {
+  width: 300px;
+  padding-bottom: 10px;
+  display: inline-block;
+  margin: 10px;
+  margin-top: 100px;
+  vertical-align: top;
+}
+
+.settigns-manager .input {
+  height: 30px;
+  line-height: 30px;
+  width: 200px;
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 100;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.settigns-manager .submit {
+  height: 40px;
+  line-height: 40px;
+  width: 210px;
+  border: 1px solid white;
+  padding: 0;
+  color: white;
+  background: transparent;
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: 100;
+  outline: none;
+}
+
+.settigns-manager .submit:hover {
+  border-color: #61AEFF;
+  color: #61AEFF;
+  -moz-transition-duration: 0.9s;
+  -o-transition-duration: 0.9s;
+  -webkit-transition-duration: 0.9s;
+  transition-duration: 0.9s;
+}
+
+#photodisplay {
+  height: 210px;
+  width: 210px;
+  background: rgba(0, 0, 0, 0.1);
+  display: block;
+  font-size: 0;
+}
+
+.reset-psswd {
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
+  background: #4D4D4D;
+  display: inline-block;
+  font-size: 11px;
+  color: #fff;
+  vertical-align: top;
+  float: right;
+}
+
+.reset-psswd:hover {
+  background: #61AEFF;
+  cursor: default;
+}
+
+#country-club {
+  width: 120px;
+  background: #4D4D4D;
+  color: white;
+  height: 30px;
+  vertical-align: middle;
+  border: none;
+  float: left;
+}
+
+.container-preview {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+}
+
+.sub-fix {
+  margin-left: 10px;
+}
+
+.js .input-file-container {
+  position: relative;
+  width: 209px;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}
+
+.js .input-file-trigger {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: transparent;
+  color: #fff;
+  font-size: 10px;
+  transition: all .4s;
+  cursor: pointer;
+}
+
+.js .input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 190px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.js .input-file:hover + .input-file-trigger,
+.js .input-file:focus + .input-file-trigger,
+.js .input-file-trigger:hover,
+.js .input-file-trigger:focus {
+  -moz-transition-duration: 0.9s;
+  -o-transition-duration: 0.9s;
+  -webkit-transition-duration: 0.9s;
+  transition-duration: 0.9s;
+  background: #fff;
+  color: #000;
+}
+
+.file-return {
+  margin: 0;
+  font-size: 15px;
+}
+
+.file-return:not(:empty) {
+  margin: 1em 0;
+}
+
+.js .file-return {
+  font-style: italic;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+.js .file-return:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: normal;
+}
+
+.baiserie {
+  height: 30px;
+  width: 100%;
+  max-width: 530px;
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 870px) {

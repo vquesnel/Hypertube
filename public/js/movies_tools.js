@@ -45,10 +45,10 @@
 			, method: 'GET'
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
-					else {
-				displayLibrary(data);
-				libHeight = libHeight + 4440;
-					}
+				else {
+					displayLibrary(data);
+					libHeight = libHeight + 4440;
+				}
 			}
 		})
 		itemsNum = itemsNum + 48;
@@ -66,15 +66,15 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-					$('.library').empty();
-					if (!data[0]) {
-						$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
+						$('.library').empty();
+						if (!data[0]) {
+							$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
+						}
+						else {
+							displayLibrary(data);
+						}
+						mask = 666;
 					}
-					else {
-						displayLibrary(data);
-					}
-					mask = 666;
-				}
 				}
 			})
 		}
@@ -88,21 +88,25 @@
 		launchLibrary(0, '');
 		docweighttmp = getDocHeight();
 	})
+	$(window).data('ajaxready', true);
 	$(window).scroll(function () {
-		if ($(window).scrollTop() + $(window).height() > getDocHeight()-1 && mask >= 0 && mask < 666) {
+		if ($(window).data('ajaxready') == false) return;
+		else if ($(window).scrollTop() + $(window).height()  === $(document).height()/*> getDocHeight() - 1*/ && mask >= 0 && mask < 666) {
+			$(window).data('ajaxready', false);
 			$.ajax({
 				url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mask + '@' + genre
 				, method: 'GET'
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-					displayLibrary(data);
-					libHeight = libHeight + 4440;
-				}
+						displayLibrary(data);
+						libHeight = libHeight + 4440;
+						$(window).data('ajaxready', true);
+						itemsNum += 48;
+					}
 				}
 			})
 			$(window).scrollTop(libHeight);
-			itemsNum = itemsNum + 48;
 		}
 	});
 	$('.az').click(function () {

@@ -91,7 +91,7 @@ var get_movie_sub = function (req, res) {
 				}
 				else {
 					//return 404 not found
-					res.send("error")
+					res.send(ajax_return)
 				}
 			}).catch(err => {
 				if (count < 10) {

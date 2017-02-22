@@ -142,7 +142,7 @@ var manage_profil = function (req, res) {
 						result += infos3;
 					}
 					req.session.messageprofil = result;
-					res.redirect("/profile.html");
+					res.redirect("/profile2.html");
 				})
 			})
 		})
@@ -187,7 +187,7 @@ var upload_picture = function (req, res) {
 		})
 	})(function (infos) {
 		req.session.messagephoto = infos.messagephoto;
-		res.redirect("/profile.html");
+		res.redirect("/profile2.html");
 	})
 }
 var email_confirmation = function (req, res) {

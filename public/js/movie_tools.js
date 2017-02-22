@@ -177,7 +177,6 @@
 			}
 			if (messageFocus) {
 				var offsetMessage = $('#' + messageFocus).offset().top;
-				console.log(offsetMessage);
 				$('#' + messageFocus).find('.comment-value').css('color', 'green');
 				$('html,body').animate({
 					scrollTop: offsetMessage - $('#' + messageFocus).height()

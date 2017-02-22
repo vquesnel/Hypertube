@@ -37,8 +37,8 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-					$('.comments-indicator').text(data.indicator);
-					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+						$('.comments-indicator').text(data.indicator);
+						$('<img src="/img/comments.png">').appendTo('.comments-indicator');
 					}
 				}
 			})
@@ -53,9 +53,9 @@
 			, type: 'GET'
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
-					else {
-				$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
-					}
+				else {
+					$('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+				}
 			}
 		})
 		$(document).on('click', '.switchor', function () {
@@ -71,6 +71,7 @@
 			});
 		});
 		$(document).on('click', '.episode-link', function () {
+			console.log("Dgdfgdfagdfagdafgdgdfgdfgzag");
 			if (watcher.attr('src') !== $(this).children().text()) {
 				if (!videoJs.pause()) videoJs.stop();
 				var oldTracks = videoJs.remoteTextTracks();
@@ -93,18 +94,18 @@
 					}
 					, success: (function (data) {
 						if (typeof data == 'string') window.location = data
-					else {
-						var track = [];
-						data.forEach(function (sub) {
-							sub = {
-								src: sub.path
-								, kind: "captions"
-								, srclang: sub.code
-								, label: sub.language
-							, }
-							videoJs.addRemoteTextTrack(sub)
-						})
-					}
+						else {
+							var track = [];
+							data.forEach(function (sub) {
+								sub = {
+									src: sub.path
+									, kind: "captions"
+									, srclang: sub.code
+									, label: sub.language
+								, }
+								videoJs.addRemoteTextTrack(sub)
+							})
+						}
 					})
 				})
 				$('.watch-bar').fadeOut('slow');
@@ -174,57 +175,56 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-					$('.hud-film').fadeOut(2000, function () {
-						$('.hud-film').empty();
-						$(window).scrollTop(0);
-						$('<div class="normalize"></div>').appendTo('.hud-film');
-						if (data[0]) {
-							$('<div class="title-show">' + titleShow + '</div>').appendTo('.hud-film');
-							var currentSeason = data[0].season;
-							for (var k in data) {
-								if (currentSeason == data[k].season) {
-									$('<div class="season season' + currentSeason + '">Season' + currentSeason + '</div>').appendTo('.hud-film');
-									$('<div class="season-content content-' + currentSeason + '"></div>').appendTo('.season' + currentSeason);
-									currentSeason++;
-								}
-								data[k].season = data[k].season.toString();
-								data[k].episode = data[k].episode.toString();
-								if (data[k].season.length === 1 && data[k].episode.length === 1) {
-									$('<div class="episode-link episode' + k + '">S0' + data[k].season + 'E0' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
-									$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
-								}
-								else if (data[k].season.length === 2 && data[k].episode.length === 1) {
-									$('<div class="episode-link episode' + k + '">S' + data[k].season + 'E0' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
-									$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
-								}
-								else if (data[k].season.length === 1 && data[k].episode.length === 2) {
-									$('<div class="episode-link episode' + k + '">S0' + data[k].season + 'E' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
-									$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
-								}
-								else if (data[k].season.length === 2 && data[k].episode.length === 2) {
-									$('<div class="episode-link episode' + k + '">S' + data[k].season + 'E' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
-									$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
+						$('.hud-film').fadeOut(2000, function () {
+							$('.hud-film').empty();
+							$(window).scrollTop(0);
+							$('<div class="normalize"></div>').appendTo('.hud-film');
+							if (data[0]) {
+								$('<div class="title-show">' + titleShow + '</div>').appendTo('.hud-film');
+								var currentSeason = data[0].season;
+								for (var k in data) {
+									if (currentSeason == data[k].season) {
+										$('<div class="season season' + currentSeason + '">Season' + currentSeason + '</div>').appendTo('.hud-film');
+										$('<div class="season-content content-' + currentSeason + '"></div>').appendTo('.season' + currentSeason);
+										currentSeason++;
+									}
+									data[k].season = data[k].season.toString();
+									data[k].episode = data[k].episode.toString();
+									if (data[k].season.length === 1 && data[k].episode.length === 1) {
+										$('<div class="episode-link episode' + k + '">S0' + data[k].season + 'E0' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
+										$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
+									}
+									else if (data[k].season.length === 2 && data[k].episode.length === 1) {
+										$('<div class="episode-link episode' + k + '">S' + data[k].season + 'E0' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
+										$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
+									}
+									else if (data[k].season.length === 1 && data[k].episode.length === 2) {
+										$('<div class="episode-link episode' + k + '">S0' + data[k].season + 'E' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
+										$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
+									}
+									else if (data[k].season.length === 2 && data[k].episode.length === 2) {
+										$('<div class="episode-link episode' + k + '">S' + data[k].season + 'E' + data[k].episode + '</div>').appendTo('.content-' + (currentSeason - 1));
+										$('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + data[k].tvdb_id + '/' + data[k].magnet + '/480p</div>').appendTo('.episode' + k);
+									}
 								}
 							}
-						}
-						else {
-							$('<div class="title-show">No Episodes links available </div>').appendTo('.hud-film');
-						}
-						$('.hud-film').addClass('overflow');
-						$('.hud-film').fadeIn();
-					})
-				}
+							else {
+								$('<div class="title-show">No Episodes links available </div>').appendTo('.hud-film');
+							}
+							$('.hud-film').addClass('overflow');
+							$('.hud-film').fadeIn();
+						})
+					}
 				}
 			})
 		});
 		$(document).on('click', '.vjs-big-play-button', function () {
 			var tvdb_id = watcher.attr('src').split("/")[3];
 			$.ajax({
-				url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id + '/movie'
+				url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id + '/tv_show'
 				, method: 'GET'
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
-					
 				}
 			})
 		});

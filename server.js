@@ -144,7 +144,7 @@ app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
 app.post("/reset_password.html", reset_pw);
-app.post("/profile.html", manage_profil);
+app.post("/profile2.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
 //				\\

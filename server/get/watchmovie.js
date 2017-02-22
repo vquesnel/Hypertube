@@ -1,7 +1,7 @@
 var torrentStream = require('torrent-stream');
 var connection = require("../../config/db_config");
 var fs = require('fs');
-var path = '';
+var path = '/goinfre/';
 var mime = require('mime');
 var max_byte = "";
 var moment = require("moment");
@@ -58,11 +58,11 @@ var watchmovie = function (req, res) {
 							return new Promise(function (resolve, reject) {
 								var engine = torrentStream(req.params.magnet, {
 									connections: 1000, // Max amount of peers to be connected to. 
-									uploads: 10, // Number of upload slots. 		
-									tmp: 'public/movies/', // Root folder for the files storage. 
+									uploads: 15, // Number of upload slots. 		
+									tmp: path, // Root folder for the files storage. 
 									// Defaults to '/tmp' or temp folder specific to your OS. 
 									// Each torrent will be placed into a separate folder under /tmp/torrent-stream/{infoHash} 
-									path: 'public/movies/'
+									path: path
 									, trackers: [
 											'udp://glotorrents.pw:6969/announce'
 										   , 'udp://tracker.opentrackr.org:1337/announce'
@@ -77,51 +77,56 @@ var watchmovie = function (req, res) {
 								let lastSize = 0
 								let start = new Date();
 								var dataResolve = {};
-								engine.on('ready', function () {
+								engine.once('ready', function () {
 									engine.files.forEach(function (file) {
 										if (file.length < 100000000) {
 											file.deselect();
 											return;
 										}
+										console.log(file.isDownloading);
 										const mimetype = mime.lookup(file.path);
 										var checker = mimetype.split("/")[0];
-										if (checker === "video") {
+										if (checker === "video" && !file.isDownloading) {
+											file.isDownloading = true;
 											file.select();
 											dataResolve.file = file;
 											dataResolve.mimetype = mimetype;
+											dataResolve.type = "torrent";
 											resolve(dataResolve);
+											console.log("Return dans le chcekcoeut ")
 										}
-										else {
-											file.deselect();
-											return;
-										}
-										engine.on('download', function (index) {
-											engine.on('torrent', function (torrent) {
-												console.log(torrent);
-											})
-											if (index % 30 === 0) {
-												var dataToFront = {};
-												const percent = parseInt(engine.swarm.downloaded / file.length * 10000) / 100
-												const eta = moment().to(moment(moment() + parseInt(((new Date() - start)) / ((engine.swarm.downloaded - lastSize)) * (file.length - engine.swarm.downloaded))))
-												const speed = parseInt((engine.swarm.downloaded - lastSize) / (new Date() - start)) / 1000
-													//console.log(`${file.name} [ ${req.params.quality} ]: ${percent} % | ETA: ${eta} | ${speed} Mo/s`)
-												start = new Date()
-												lastSize = engine.swarm.downloaded
-												dataToFront.percent = percent
-												dataToFront.eta = eta
-												dataToFront.speed = speed
-											}
-										});
-										engine.on('idle', function () {
+										//										engine.on('download', function (index) {
+										//											if (index % 30 === 0) {
+										//												var dataToFront = {};
+										//												const percent = parseInt(engine.swarm.downloaded / file.length * 10000) / 100
+										//												const eta = moment().to(moment(moment() + parseInt(((new Date() - start)) / ((engine.swarm.downloaded - lastSize)) * (file.length - engine.swarm.downloaded))))
+										//												const speed = parseInt((engine.swarm.downloaded - lastSize) / (new Date() - start)) / 1000
+										//													//console.log(`${file.name} [ ${req.params.quality} ]: ${percent} % | ETA: ${eta} | ${speed} Mo/s`)
+										//												start = new Date()
+										//												lastSize = engine.swarm.downloaded
+										//												dataToFront.percent = percent
+										//												dataToFront.eta = eta
+										//												dataToFront.speed = speed
+										//											}
+										//										});
+										engine.once('idle', function () {
 											if (mimetype === "video/x-matroska" || mimetype === "video/ogg" || mimetype === "video/mp4") {
+												file.isDownloading = false;
+												engine.removeAllListeners();
+												engine.destroy();
 												var date = Date.now();
-												connection.query("INSERT INTO download (imdb_code, quality, path, date,  mimetype)SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdb_code FROM download WHERE imdb_code = ?) LIMIT 1", [req.params.tvdb_id ? req.params.tvdb_id : req.params.imdb_code, req.params.quality, "public/movies/" + file.path, date, mimetype, req.params.tvdb_id ? req.params.tvdb_id : req.params.imdb_code], function (err) {
+												var code;
+												if (req.params.tvdb_id === "movie") code = req.params.imdb_code;
+												else code = req.params.tvdb_id;
+												connection.query("INSERT INTO download (imdb_code, quality, path, date,  mimetype)SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdb_code FROM download WHERE imdb_code = ?) LIMIT 1", [code, req.params.quality, path + file.path, date, mimetype, code], function (err) {
 													if (err) console.log(err);
+													else {
+														dataResolve.type = "download";
+														resolve(dataResolve);
+													}
 												})
 											}
 											console.log(`${file.name} is downloaded`);
-											//							engine.removeAllListeners();
-											//							engine.destroy();
 										})
 									});
 								});
@@ -131,9 +136,7 @@ var watchmovie = function (req, res) {
 							var file = dataResolve.file;
 							var mimetype = dataResolve.mimetype;
 							var total = file.length;
-							console.log(mimetype);
 							if (mimetype === "video/x-matroska" || mimetype === "video/ogg" || mimetype === "video/mp4") {
-								console.log("video supported by html5 player");
 								if (req.headers.range) {
 									var range = req.headers.range;
 									var parts = range.replace(/bytes=/, "").split("-");
@@ -148,18 +151,27 @@ var watchmovie = function (req, res) {
 										, "Content-Length": chunksize
 										, "Content-Type": mimetype
 									});
-									file.createReadStream({
-										start: start
-										, end: end
-									}).pipe(res);
+									if (dataResolve.type === "download") {
+										console.log("download mp4");
+										fs.createReadStream(path + file.path, {
+											start: start
+											, end: end
+										}).pipe(res);
+									}
+									else {
+										console.log("pipe le mp4")
+										file.createReadStream({
+											start: start
+											, end: end
+										}).pipe(res);
+									}
 								}
 								else {
-									console.log("DFGSFGHFGHFDGH")
 									res.writeHead(200, {
 										'Content-Length': total
 										, 'Content-Type': mimetype
 									});
-									file.createReadStream({
+									fs.createReadStream(path + file.path, {
 										start: start
 										, end: end
 									}).pipe(res);
@@ -167,27 +179,9 @@ var watchmovie = function (req, res) {
 							}
 							else {
 								res.writeHead(200, {
-										'Content-Type': 'video/mp4'
-									})
-									//					var range = req.headers.range;
-									//					var parts = range.replace(/bytes=/, "").split("-");
-									//					var partialstart = parts[0];
-									//					var partialend = parts[1];
-									//					var start = parseInt(partialstart, 10);
-									//					var end = partialend ? parseInt(partialend, 10) : total - 1;
-									//					var chunksize = (end - start) + 1;
-									//					res.writeHead(206, {
-									//						"Content-Range": "bytes " + start + "-" + end + "/" + total
-									//						, "Accept-Ranges": "bytes"
-									//						, "Content-Length": chunksize
-									//						, "Content-Type": "video/mp4"
-									//					});
-								console.log("video not supported by html5 player ---> convert it ");
-								var new_path = "public/movies/" + file.path + '.mp4';
-								file.createReadStream({
-									start: 0
-									, end: file.length
-								});
+									'Content-Type': 'video/mp4'
+								})
+								var new_path = path + file.path + '.mp4';
 								var downloader = file.createReadStream();
 								var test = new Transcoder(downloader)
 								test.videoCodec('h264').audioCodec('aac').format('mp4');
@@ -195,16 +189,20 @@ var watchmovie = function (req, res) {
 									console.log(error);
 								}).on("metadata", function () {
 									console.log("ok");
-								}).on('end', () => {
-									console.log("finish convert");
-									//fs.unlinkSync("public/movies/" + file.path);
-									var date = Date.now();
-									connection.query("INSERT INTO download (imdb_code, quality, path, date,  mimetype)SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdb_code FROM download WHERE imdb_code = ?) LIMIT 1", [req.params.tvdb_id ? req.params.tvdb_id : req.params.imdb_code, req.params.quality, new_path, date, "video/mp4", req.params.tvdb_id ? req.params.tvdb_id : req.params.imdb_code], function (err) {
-										if (err) console.log(err);
-										else res.end();
-									})
 								}).on('data', function (data) {
-									res.write(data);
+									//									res.write(data);
+									fs.createReadStream(new_path).pipe(res);
+								}).once('end', () => {
+									console.log("finish convert");
+									//									fs.unlinkSync(path + file.path);
+									var date = Date.now();
+									var code;
+									if (req.params.tvdb_id === "movie") code = req.params.imdb_code;
+									else code = req.params.tvdb_id;
+									connection.query("INSERT INTO download (imdb_code, quality, path, date,  mimetype)SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdb_code FROM download WHERE imdb_code = ?) LIMIT 1", [code, req.params.quality, new_path, date, "video/mp4", code], function (err) {
+										if (err) console.log(err);
+										res.end();
+									})
 								}).pipe(fs.createWriteStream(new_path));
 							}
 						}).catch(function (error) {
