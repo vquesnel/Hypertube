@@ -4,10 +4,8 @@ var search = function (req, res) {
 		res.send("/");
 	}
 	else {
-		var queries = req.params.toFind.split('@');
-		queries[1].trim();
-		if (Number(queries[1]) < 3) {
-			connection.query("SELECT * FROM ??  WHERE substr(LOWER(title), 1," + queries[1] + ") = LOWER(?) LIMIT 100", [queries[2], queries[0]], function (err, finded) {
+		if (Number(req.query.lenFind) <= 3) {
+			connection.query("SELECT * FROM ??  WHERE substr(LOWER(title), 1," + req.query.lenFind + ") = LOWER(?)  LIMIT 100 ", [req.query.context, req.query.toFind], function (err, finded) {
 				if (err) throw err;
 				else {
 					res.send(finded);
@@ -15,7 +13,7 @@ var search = function (req, res) {
 			})
 		}
 		else {
-			connection.query("SELECT * FROM ??  WHERE substr(LOWER(title), 1," + queries[1] + ") = LOWER(?)", [queries[2], queries[0]], function (err, finded) {
+			connection.query("SELECT * FROM ??  WHERE substr(LOWER(title), 1," + req.query.lenFind + ") = LOWER(?) ", [req.query.context,  req.query.toFind], function (err, finded) {
 				if (err) throw err;
 				else {
 					res.send(finded);

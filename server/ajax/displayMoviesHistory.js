@@ -4,15 +4,15 @@ var displayMoviesHistory = function (req, res) {
 		res.send("/");
 	}
 	else {
-		connection.query("SELECT imdbID FROM history WHERE userID = ? AND context = ? ORDER BY id DESC LIMIT 4", [req.session.id_user, 'movie'], function (err, row) {
+		connection.query("SELECT DISTINCT * FROM history WHERE userID = ? AND context = ? ORDER BY id DESC LIMIT 4", [req.session.id_user, 'movie'], function (err, row) {
 			if (err) throw err;
 			else {
+				var k = 3;
 				var top = ['', '', '', ''];
-				for (var k in row) {
-					if (row[k].imdbID) {
-						top[k] = row[k].imdbID;
-					}
-				}
+				row.forEach(function (tops) {
+					top[k] = tops.imdbID
+					k--;
+				})
 				connection.query("SELECT * FROM movies WHERE imdb_code = ? OR imdb_code = ? OR imdb_code = ? OR imdb_code = ?", [top[0], top[1], top[2], top[3]], function (err, data) {
 					if (err) throw err;
 					else {

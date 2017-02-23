@@ -5,6 +5,7 @@
 	var libHeight = 0;
 	var mask = 0;
 	var genre = '';
+	var tmpmask = 0;
 	var context = 'movies';
 	$('#movies').css('color', '#61AEFF');
 
@@ -26,43 +27,59 @@
 	}
 
 	function displayLibrary(data) {
-		for (var k in data) {
+		data.forEach(function (movie) {
 			$('<div class="block ' + indexClass + '"></div>').appendTo('.library');
-			$('<a class="link" href="/movie.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
+			$('<a class="link" href="/movie.html/' + movie.imdb_code + '"> <img src=' + movie.cover + '> </a>').appendTo('.' + indexClass + '');
 			$('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
-			$('<div class="title">' + data[k].title + '</div>').appendTo('.infos' + indexClass + '');
-			$('<div class="year">' + data[k].year + '</div>').appendTo('.infos' + indexClass + '');
-			addScore(Math.round(data[k].rating) * 10, $('.infos' + indexClass + ''));
+			$('<div class="title">' + movie.title + '</div>').appendTo('.infos' + indexClass + '');
+			$('<div class="year">' + movie.year + '</div>').appendTo('.infos' + indexClass + '');
+			addScore(Math.round(movie.rating) * 10, $('.infos' + indexClass + ''));
 			indexClass++;
-		}
+		})
 	}
 
 	function launchLibrary(mode, extra) {
-		$('.library').empty();
 		$(window).scrollTop(0);
 		$.ajax({
-			url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mode + '@' + extra
+			url: 'https://localhost:4422/movies'
 			, method: 'GET'
+			, data: {
+				itemsNum: itemsNum
+				, mask: mode
+				, genre: extra
+			}
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
 				else {
+					if (!data[0]) {
+							$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
+						}
+					else{
 					displayLibrary(data);
-					libHeight = libHeight + 4440;
+					libHeight += getDocHeight();
+					itemsNum += 48;
+					}
 				}
 			}
 		})
-		itemsNum = itemsNum + 48;
 	}
 	$('#search-bar').keyup(debounce(function () {
 		var toFind = $('#search-bar').val().trim();
 		var lenFind = toFind.length;
+		console.log(lenFind);
 		$(window).height(docweighttmp);
 		libHeight = 0;
 		$(window).scrollTop(0);
-		if (toFind != '') {
+		if (lenFind > 0) {
 			$.ajax({
-				url: 'https://localhost:4422/search/' + toFind + '@' + lenFind + '@' + context
+				url: 'https://localhost:4422/search'
 				, method: 'GET'
+				, data: {
+					toFind: toFind
+					, lenFind: lenFind
+					, context: context
+					, mask: mask
+				}
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
@@ -71,17 +88,18 @@
 							$('<div class="no-match">No Movies Found :(</div>').appendTo('.library');
 						}
 						else {
+							indexClass = 0;
+							tmpmask = 666;
 							displayLibrary(data);
 						}
-						mask = 666;
 					}
 				}
 			})
 		}
 		else {
-			itemsNum = 48;
-			mask = 0;
-			launchLibrary(0, '');
+			itemsNum = 0;
+			$('.library').empty();
+			launchLibrary(mask, '');
 		}
 	}, 200))
 	$(document).ready(function () {
@@ -91,18 +109,23 @@
 	$(window).data('ajaxready', true);
 	$(window).scroll(function () {
 		if ($(window).data('ajaxready') == false) return;
-		else if ($(window).scrollTop() + $(window).height()  === $(document).height()/*> getDocHeight() - 1*/ && mask >= 0 && mask < 666) {
+		else if ($(window).scrollTop() + $(window).height() === $(document).height() /*> getDocHeight() - 1*/ && mask >= 0 && tmpmask !== 666 && libHeight !== 0) {
 			$(window).data('ajaxready', false);
 			$.ajax({
-				url: 'https://localhost:4422/movies.html/' + itemsNum + '@' + mask + '@' + genre
+				url: 'https://localhost:4422/movies'
 				, method: 'GET'
+				, data: {
+					itemsNum: itemsNum
+					, mask: mask
+					, genre: genre
+				}
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
 						displayLibrary(data);
-						libHeight = libHeight + 4440;
-						$(window).data('ajaxready', true);
+						libHeight += getDocHeight();
 						itemsNum += 48;
+						$(window).data('ajaxready', true);
 					}
 				}
 			})
@@ -110,29 +133,32 @@
 		}
 	});
 	$('.az').click(function () {
-		$(window).height(docweighttmp);
+		indexClass = 0
+		$('.library').empty();
 		libHeight = 0;
-		$(window).scrollTop(0);
+		$(window).height(docweighttmp);
 		itemsNum = 48;
 		mask = 1;
-		launchLibrary(1, '');
+		launchLibrary(mask, '');
 	})
 	$('.imdb-filter').click(function () {
-		$(window).height(docweighttmp);
+		indexClass = 0
+		$('.library').empty();
 		libHeight = 0;
-		$(window).scrollTop(0);
+		$(window).height(docweighttmp);
 		itemsNum = 48;
 		mask = 2;
-		launchLibrary(2, '');
+		launchLibrary(mask, '');
 	})
 	$('#genres').change(function () {
+		indexClass = 0
+		$('.library').empty();
 		$(window).height(docweighttmp);
 		libHeight = 0;
-		$(window).scrollTop(0);
 		itemsNum = 48;
 		mask = 3;
 		genre = $(this).val();
-		launchLibrary(3, $(this).val());
+		launchLibrary(mask, $(this).val());
 	})
 	$('.close').click(function () {
 		$('#search-bar').val('');

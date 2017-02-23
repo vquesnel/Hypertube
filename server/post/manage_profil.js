@@ -149,15 +149,19 @@ var manage_profil = function (req, res) {
 	})
 }
 var upload_picture = function (req, res) {
+	console.log("upload picture")
+	console.log(req.session);
 	var infos = {};
 	(function (callback) {
 		upload(req, res, function (err) {
 			var cropped = '/profil_pic/' + req.session.id_user + '-' + uniqid() + '.png';
+			console.log()
 			if (req.fileValidationError) {
 				infos.messagephoto = 'Wrong file type : File not uploaded';
 				callback(infos);
 			}
 			else if (req.file) {
+				console.log(req.file);
 				if (err) {
 					infos.messagephoto = 'A problem occurs : File not uploaded';
 					callback(infos);

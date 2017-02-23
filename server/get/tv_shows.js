@@ -4,9 +4,9 @@ var tv_shows = function (req, res) {
 		res.send("/");
 	}
 	else {
-		var initialNum = req.params.itemsNum.split('@')[0] - 48;
-		var mask = req.params.itemsNum.split('@')[1];
-		var genre = '%' + req.params.itemsNum.split('@')[2] + '%';
+		var initialNum = req.query.itemsNum - 48;
+		var mask = req.query.mask
+		var genre = '%' + req.query.genre + '%';
 		if (initialNum < 0) {
 			initialNum = 0;
 		}
@@ -19,6 +19,7 @@ var tv_shows = function (req, res) {
 			});
 		}
 		else if (mask == '1') {
+			console.log(initialNum);
 			connection.query("SELECT * FROM tv_shows ORDER BY title LIMIT 48 OFFSET ? ", [initialNum], function (err, list) {
 				if (err) throw err;
 				else {

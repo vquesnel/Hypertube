@@ -11,28 +11,16 @@
 </head>
 
 <body>
-
 	<div class="site-container" align="center">
 		<div class="site-pusher">
-						<header class="header">
+			<header class="header">
 				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-				<a href="/home.html" class="header__logo">
-										<img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo">
-
-				</a>
+				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo"> </a>
 				<nav class="menu">
-					<div class="a0" class="fix"></div>
-					<a id="movies" href="/movies.html" class="a2">Movies</a>
-					<a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
-					<a href="/profile2.html" class="a2">
-						<img class="menu-img" src="/img/user.png" alt="user">
-					</a>
-					<a href="#" class="a1">
-						<img id="menu-settings" src="/img/settings.png" alt="settings">
-					</a>
-					<a href="/logout.html" class="a2">
-						<img class="menu-img" src="/img/logout.png" alt="user">
-					</a>
+					<div class="a0" class="fix"></div> <a id="movies" href="/movies.html" class="a2">Movies</a> <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
+					<a href="/profile2.html" class="a2"> <img class="menu-img" src="/img/user.png" alt="user"> </a>
+					<a href="#" class="a1"> <img id="menu-settings" src="/img/settings.png" alt="settings"> </a>
+					<a href="/logout.html" class="a2"> <img class="menu-img" src="/img/logout.png" alt="user"> </a>
 				</nav>
 			</header>
 			<div class="settigns-manager">
@@ -45,19 +33,16 @@
 					<input id="lname" class="input" type="text" name="new_lastname" placeholder="Lastname">
 					<input id="user" class="input" type="text" name="new_username" placeholder="Username">
 					<input id="email" class="input" type="email" name="new_email" placeholder="Email">
-					<input class="submit" type="submit" value="Change">
-				</form>
+					<input class="submit" type="submit" value="Change"> </form>
 				<form class="picture-manager" method="post" enctype="multipart/form-data" action="/upload">
 					<div class="header-form">Profil Picture</div>
-					<div class="container-preview">
-						<img id="photodisplay">
+					<div class="container-preview"> <img id="photodisplay">
 						<div class="input-file-container">
 							<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
 							<label for="my-file" class="input-file-trigger" tabindex="0">Select a file...</label>
 						</div>
 					</div>
-					<input class="submit sub-fix" type="submit" value="Upload">
-				</form>
+					<input class="submit sub-fix" type="submit" value="Upload"> </form>
 				<br>
 				<div class="baiserie">
 					<select id="country-club" name="country">
@@ -145,14 +130,15 @@
 				<div class="search-btn">Search</div>
 			</div>
 			<div class="options">
-				<div class="close">
-				</div>
+				<div class="close"> </div>
 				<div class="az">
 					<div class="maj">A</div>
 					<div class="min">z</div>
 				</div>
 				<div class="sorter">Genre :</div>
-				<select>
+				<select id="genres">
+					<option class="opt-btn" selected="selected" value="">Select A Genre</option>
+					
 					<option class="opt-btn" value="Action">Action</option>
 					<option class="opt-btn" value="Crime">Crime</option>
 					<option class="opt-btn" value="Drama">Drama</option>
@@ -174,13 +160,10 @@
 			</div>
 			<div class="search">
 				<div class="close"></div>
-				<input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="on" name="typeahead">
-			</div>
+				<input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="on" name="typeahead"> </div>
 			<div class="separator"></div>
 			<div class="separator"></div>
-			<div class="library" align="center">
-			</div>
-
+			<div class="library" align="center"> </div>
 		</div>
 		<script language="javascript" src="/js/menu.js"></script>
 		<script type="text/javascript" src="/js/tv_shows_tools.js"></script>

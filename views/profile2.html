@@ -7,6 +7,7 @@
 	<link href="stylesheets/menu.css" rel="stylesheet">
 	<link href="stylesheets/home.css" rel="stylesheet">
 	<link href="stylesheets/profile2.css" rel="stylesheet">
+	<link href="stylesheets/profile.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
@@ -16,8 +17,7 @@
 		<div class="site-pusher">
 			<header class="header">
 				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-				<a href="/home.html" class="header__logo"> 					<img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo">
- </a>
+				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="/img/hypertube-logo-2.png" alt="logo"> </a>
 				<nav class="menu">
 					<div class="a0" class="fix"></div> <a id="movies" href="/movies.html" class="a2">Movies</a> <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
 					<a href="/profile2.html" class="a2"> <img class="menu-img" src="/img/user.png" alt="user"> </a>
@@ -36,15 +36,17 @@
 					<input id="user" class="input" type="text" autocomplete="off" name="new_username" placeholder="Username">
 					<input id="email" class="input" type="email" autocomplete="off" name="new_email" placeholder="Email">
 					<input class="submit" type="submit" value="Change"> </form>
+				
 				<form class="picture-manager" method="post" enctype="multipart/form-data" action="/upload">
 					<div class="header-form">Profil Picture</div>
 					<div class="container-preview"> <img id="photodisplay">
 						<div class="input-file-container">
-							<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
+														<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
 							<label for="my-file" class="input-file-trigger" tabindex="0">Select a file...</label>
 						</div>
 					</div>
 					<input class="submit sub-fix" type="submit" value="Upload"> </form>
+
 				<br>
 				<div class="baiserie">
 					<select id="country-club" name="country">
@@ -136,7 +138,7 @@
 					<div class="profil-username"> {{username}}
 						<div class="profil-lang">{{language}}</div>
 					</div>
-					<!--					<div class="settings"> <img id="settings" src="/img/settings.png" alt="settings"> </div>--></div> {{/infos}} </div>
+					</div> {{/infos}} </div>
 			<div class="profil-hud">
 				<div class="hud-header">Last Movies seen</div>
 				<div class="last-movies"></div>
@@ -146,8 +148,9 @@
 				<div class="last-com"></div>
 			</div>
 		</div>
+		
 	</div>
-	<script language="javascript" src="/js/menu.js"></script>
+		<script language="javascript" src="/js/menu.js"></script>
 	<script src="/js/profil_tools.js"></script>
 	<script src="/js/previewFile.js"></script>
 </body>

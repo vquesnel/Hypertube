@@ -51,7 +51,6 @@
 			, success: function (movies) {
 				if (typeof movies == 'string') window.location = movies
 				else {
-					console.log(movies);
 					if (movies.length == 0) {
 						$('<div class="empty-field">No Movie watched yet<br><a href="https://localhost:4422/movies.html">Go to Movies</a></div>').appendTo('.last-movies');
 					}
@@ -65,10 +64,8 @@
 			url: 'https://localhost:4422/displayTvHistory'
 			, method: 'GET'
 			, success: function (tv) {
-				//console.log(tv);
 				if (typeof tv == 'string') window.location = tv;
 				else {
-					console.log(tv);
 					if (tv.length == 0) {
 						$('<div class="empty-field">No TV Show watched yet<br><a href="https://localhost:4422/tv_shows.html">Go to TV Shows</a></div>').appendTo('.last-tv');
 					}
@@ -84,7 +81,6 @@
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
 				else {
-					console.log(data);
 					if (data.length == 0) {
 						$('<div class="empty-field">Any comment yet </div>').appendTo('.last-com');
 					}

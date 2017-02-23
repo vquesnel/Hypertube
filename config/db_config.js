@@ -1,7 +1,7 @@
 var yts = require('../medias/yts');
 var eztv = require('../medias/eztv');
 var eztvml = require("../medias/eztvml");
-//var imdb = require('node-movie')
+var request = require('request');
 var urlencode = require('urlencode');
 var launch = function (connection, callback) {
 	connection.query("CREATE DATABASE IF NOT EXISTS hypertube CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin;");
@@ -63,21 +63,28 @@ launch(connection, function () {
 								genre = '';
 								genre += movie.genres.join(",");
 							}
-							connection.query("INSERT INTO `hypertube`.`movies`(title, cover, director, writers, actors, year, rating, imdb_code, runtime, genre, summary) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [movie.title, movie.medium_cover_image, director, writers, actors, movie.year, movie.rating, movie.imdb_code, movie.runtime, genre, movie.description_full], function (err, firstQuery) {
-								if (err) {
-									console.log(err);
+							request({
+								url: movie.medium_cover_image
+							}, function (err, res, body) {
+								if (!err && res.statusCode === 404) {
+									movie.medium_cover_image = "/img/noCoverAvailable.jpg"
 								}
-								else if (movie.torrents) {
-									for (var k in movie.torrents) {
-										if (movie.torrents[k].quality !== "3D") {
-											var urlencoded = urlencode(movie.title_long + " [" + movie.torrents[k].quality + "] [YTS.AG]");
-											connection.query("INSERT INTO `hypertube`.`movies_torrents`(id_film, quality, magnet, size_bytes) VALUES(?,?,?, ?)", [firstQuery.insertId, movie.torrents[k].quality, urlencode('magnet:?xt=urn:btih:' + movie.torrents[k].hash + '& dn=' + urlencoded), movie.torrents[k].size_bytes], function (err) {
-												if (err) console.log(err);
-											});
+								connection.query("INSERT INTO `hypertube`.`movies`(title, cover, director, writers, actors, year, rating, imdb_code, runtime, genre, summary) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [movie.title, movie.medium_cover_image, director, writers, actors, movie.year, movie.rating, movie.imdb_code, movie.runtime, genre, movie.description_full], function (err, firstQuery) {
+									if (err) {
+										console.log(err);
+									}
+									else if (movie.torrents) {
+										for (var k in movie.torrents) {
+											if (movie.torrents[k].quality !== "3D") {
+												var urlencoded = urlencode(movie.title_long + " [" + movie.torrents[k].quality + "] [YTS.AG]");
+												connection.query("INSERT INTO `hypertube`.`movies_torrents`(id_film, quality, magnet, size_bytes) VALUES(?,?,?, ?)", [firstQuery.insertId, movie.torrents[k].quality, urlencode('magnet:?xt=urn:btih:' + movie.torrents[k].hash + '& dn=' + urlencoded), movie.torrents[k].size_bytes], function (err) {
+													if (err) console.log(err);
+												});
+											}
 										}
 									}
-								}
-							})
+								})
+							});
 						}
 					})
 				});
@@ -101,37 +108,40 @@ launch(connection, function () {
 									for (var k in jsonEpisodes.genres) {
 										jsonEpisodes.genres[k] = jsonEpisodes.genres[k].capitalizeFirstLetter();
 									}
-									show.images.poster = show.images.poster.replace(/http:\/\//gi, "https://")
-									connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
-										if (err) {
-											console.log(show.title);
-											console.log(jsonEpisodes.synopsis);
-											console.log("--------------------------");
+									show.images.poster = show.images.poster.replace(/http:\/\//gi, "https://");
+									request({
+										url: show.images.poster
+									}, function (err, res, body) {
+										if (err) show.images.poster = "/img/noCoverAvailable.jpg"
+										if (!err && res.statusCode === 404) {
+											show.images.poster = "/img/noCoverAvailable.jpg"
 										}
-										else {
-											jsonEpisodes.episodes.forEach(function (episode) {
-												var torrent = '';
-												if (episode.torrents) {
-													if (episode.torrents['480p']) torrent = episode.torrents["480p"].url;
-													else {
-														if (episode.torrents["720p"]) torrent = episode.torrents["720p"].url;
-														else if (episode.torrents["1080p"]) torrent = episode.torrents["1080p"].url;
-														else console.log(episode.torrents);
-													}
-												}
-												if (torrent.match(/magnet:\?xt=urn:btih:/)) {
-													connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality, tvdb_id) VALUES(?,?,?,?,?, ?)", [rows.insertId, episode.season, episode.episode, urlencode(torrent), "480p", episode.tvdb_id], function (err) {
-														if (err) {
-															console.log(episode.torrents);
+										connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre, director, writers, actors, summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), "N/A", "N/A", "N/A", jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
+											if (err) {
+												console.log(err);
+											}
+											else {
+												jsonEpisodes.episodes.forEach(function (episode) {
+													var torrent = '';
+													if (episode.torrents) {
+														if (episode.torrents['480p']) torrent = episode.torrents["480p"].url;
+														else {
+															if (episode.torrents["720p"]) torrent = episode.torrents["720p"].url;
+															else if (episode.torrents["1080p"]) torrent = episode.torrents["1080p"].url;
+															else console.log(episode.torrents);
 														}
-													});
-												}
-												else {
-													console.log(torrent);
-												}
-											});
-										}
-									})
+													}
+													if (torrent.match(/magnet:\?xt=urn:btih:/)) {
+														connection.query("INSERT INTO `hypertube`.`tv_shows_torrents`(id_tv_show, season,episode,magnet,quality, tvdb_id) VALUES(?,?,?,?,?, ?)", [rows.insertId, episode.season, episode.episode, urlencode(torrent), "480p", episode.tvdb_id], function (err) {
+															if (err) {
+																console.log(err);
+															}
+														});
+													}
+												});
+											}
+										})
+									});
 								}
 							})
 						}

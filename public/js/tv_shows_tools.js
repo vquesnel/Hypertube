@@ -4,6 +4,7 @@
 	var indexClass = 0;
 	var libHeight = 0;
 	var mask = 0;
+	var tmpmask = 0;
 	var genre = '';
 	var context = 'tv_shows';
 	$('#tvshows').css('color', '#61AEFF');
@@ -26,32 +27,41 @@
 	}
 
 	function displayLibrary(data) {
-		for (var k in data) {
+		data.forEach(function (tv_show) {
 			$('<div class="block ' + indexClass + '"></div>').appendTo('.library');
-			$('<a class="link" href="/tv_show.html/' + data[k].imdb_code + '"> <img src=' + data[k].cover + '> </a>').appendTo('.' + indexClass + '');
+			$('<a class="link" href="/tv_show.html/' + tv_show.imdb_code + '"> <img src=' + tv_show.cover + '> </a>').appendTo('.' + indexClass + '');
 			$('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
-			$('<div class="title">' + data[k].title + '</div>').appendTo('.infos' + indexClass + '');
-			$('<div class="year">' + data[k].year + '</div>').appendTo('.infos' + indexClass + '');
-			addScore(Math.round(data[k].rating) * 10, $('.infos' + indexClass + ''));
+			$('<div class="title">' + tv_show.title + '</div>').appendTo('.infos' + indexClass + '');
+			$('<div class="year">' + tv_show.year + '</div>').appendTo('.infos' + indexClass + '');
+			addScore(Math.round(tv_show.rating) * 10, $('.infos' + indexClass + ''));
 			indexClass++;
-		}
+		})
 	}
 
 	function launchLibrary(mode, extra) {
-		$('.library').empty();
 		$(window).scrollTop(0);
 		$.ajax({
-			url: 'https://localhost:4422/tv_shows.html/' + itemsNum + '@' + mode + '@' + extra
+			url: 'https://localhost:4422/tv_shows'
+			, data: {
+				itemsNum: itemsNum
+				, mask: mask
+				, genre: genre
+			}
 			, method: 'GET'
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
 				else {
+					if (!data[0]) {
+							$('<div class="no-match">No Tv Shows Found :(</div>').appendTo('.library');
+						}
+					else{
 					displayLibrary(data);
-					libHeight = libHeight + 4440;
+					libHeight += getDocHeight();
+					itemsNum += 48;
+					}
 				}
 			}
 		})
-		itemsNum = itemsNum + 48;
 	}
 	$('#search-bar').keyup(debounce(function () {
 		var toFind = $('#search-bar').val().trim();
@@ -59,9 +69,15 @@
 		$(window).height(docweighttmp);
 		libHeight = 0;
 		$(window).scrollTop(0);
-		if (toFind != '') {
+		if (lenFind > 0) {
 			$.ajax({
-				url: 'https://localhost:4422/search/' + toFind + '@' + lenFind + '@' + context
+				url: 'https://localhost:4422/search'
+				, data: {
+					toFind: toFind
+					, lenFind: lenFind
+					, context: context
+					, mask: mask
+				}
 				, method: 'GET'
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
@@ -70,15 +86,18 @@
 						if (!data[0]) {
 							$('<div class="no-match">No Tv Shows Found :(</div>').appendTo('.library');
 						}
-						else displayLibrary(data);
-						mask = 666;
+						else {
+							indexClass = 0;
+							tmpmask = 666;
+							displayLibrary(data);
+						}
 					}
 				}
 			})
 		}
 		else {
-			itemsNum = 48;
-			mask = 0;
+			itemsNum = 0;
+			$('.library').empty();
 			launchLibrary(mask, '');
 		}
 	}, 200))
@@ -89,18 +108,23 @@
 	$(window).data('ajaxready', true);
 	$(window).scroll(function () {
 		if ($(window).data('ajaxready') == false) return;
-		if ($(window).scrollTop() + $(window).height() === $(document).height() /*getDocHeight() - 1*/ && mask >= 0 && mask < 666) {
+		if ($(window).scrollTop() + $(window).height() === $(document).height() /*> getDocHeight() - 1*/ && mask >= 0 && tmpmask !== 666 && libHeight !== 0) {
 			$(window).data('ajaxready', false);
 			$.ajax({
-				url: 'https://localhost:4422/tv_shows.html/' + itemsNum + '@' + mask + '@' + genre
+				url: 'https://localhost:4422/tv_shows'
+				, data: {
+					itemsNum: itemsNum
+					, mask: mask
+					, genre: genre
+				}
 				, method: 'GET'
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
 						displayLibrary(data);
-						libHeight = libHeight + 4440;
-						$(window).data('ajaxready', true);
+						libHeight += getDocHeight();
 						itemsNum += 48;
+						$(window).data('ajaxready', true);
 					}
 				}
 			})
@@ -108,29 +132,32 @@
 		}
 	});
 	$('.az').click(function () {
-		$(window).height(docweighttmp);
+		indexClass = 0
+		$('.library').empty();
 		libHeight = 0;
-		$(window).scrollTop(0);
+		$(window).height(docweighttmp);
 		itemsNum = 48;
 		mask = 1;
-		launchLibrary(1, '');
+		launchLibrary(mask, '');
 	})
 	$('.imdb-filter').click(function () {
+		indexClass = 0
+		$('.library').empty();
 		$(window).height(docweighttmp);
 		libHeight = 0;
-		$(window).scrollTop(0);
 		itemsNum = 48;
 		mask = 2;
-		launchLibrary(2, '');
+		launchLibrary(mask, '');
 	})
 	$('#genres').change(function () {
+		indexClass = 0
+		$('.library').empty();
 		$(window).height(docweighttmp);
 		libHeight = 0;
-		$(window).scrollTop(0);
 		itemsNum = 48;
 		mask = 3;
 		genre = $(this).val();
-		launchLibrary(3, $(this).val());
+		launchLibrary(mask, $(this).val());
 	})
 	$('.close').click(function () {
 		$('#search-bar').val('');
