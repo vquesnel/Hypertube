@@ -11,7 +11,7 @@
 		var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? (fullDate.getMonth() + 1) : '0' + (fullDate.getMonth() + 1);
 		var currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
 		var rate = $('.rate-imdb').text();
-		var hudFilm = $('.hud-film').html();
+		var hudFilm;
 		var episodeFix = '0';
 		var seasonFix = '0';
 		var titleShow = $('.title').text();
@@ -38,8 +38,10 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-						$('.comments-indicator').text(data.indicator);
-						$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+							$('.comments-indicator').text(data.comments);
+					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+					$('.viewers-indicator').text(data.watchs);
+					$('<img src="/img/viewers.png">').appendTo('.viewers-indicator');
 					}
 				}
 			})

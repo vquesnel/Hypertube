@@ -14,7 +14,6 @@ var wallpaper = function (req, res) {
 					reject(err);
 				}
 				else {
-					//                console.log(response);
 					resolve(url + response.backdrop_path);
 				}
 			});

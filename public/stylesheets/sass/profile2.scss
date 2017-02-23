@@ -19,7 +19,7 @@
 	width: 196px;
 	border-radius: 50%;
 	max-height: 196px;
-	border: 2px solid #555;
+	border: 3px solid #fff;
 }
 .settings {
 	//	background: red;
@@ -73,6 +73,10 @@
 	max-width: 900px;
 	min-height: 400px;
 	//background: #335566;
+}
+.fname,
+.lname {
+	display: inline-block;
 }
 .hud-header {
 	font-size: 20px;

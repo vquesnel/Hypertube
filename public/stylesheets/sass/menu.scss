@@ -50,8 +50,10 @@
 .settigns-manager {
 	position: fixed;
 	width: 100%;
-	top: 76ps;
-	background: rgba(0, 0, 0, 0.9);
+	//	top: 76px;
+	//	background: rgba(10, 10, 10, 0.7);
+	background: rgba(34, 34, 34, 0.75);
+	//backdrop-filter: blur(30px);
 	height: 100%;
 	display: none;
 	overflow: scroll;
@@ -87,13 +89,14 @@
 	font-size: 25px;
 	font-weight: 100;
 	color: white;
+	margin-bottom: 30px;
 }
 .profil-manager {
 	width: 300px;
 	padding-bottom: 10px;
 	display: inline-block;
 	margin: 10px;
-	margin-top: 100px;
+	margin-top: 60px;
 	vertical-align: top;
 }
 .picture-manager {
@@ -101,14 +104,14 @@
 	padding-bottom: 10px;
 	display: inline-block;
 	margin: 10px;
-	margin-top: 100px;
+	margin-top: 60px;
 	vertical-align: top;
 }
 .settigns-manager .input {
-	height: 30px;
-	line-height: 30px;
+	height: 40px;
+	line-height: 40px;
 	width: 200px;
-	border: 1px solid white;
+	//border: 1px solid rgba(255, 255, 255, 0.5);
 	color: white;
 	background: transparent;
 	margin-top: 10px;
@@ -117,44 +120,54 @@
 	padding-left: 10px;
 	margin-bottom: 10px;
 	outline: none;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.12);
+	//box-shadow: 0px 0px 50px 3px rgba(0, 0, 0, 0.3);
 }
 .settigns-manager .submit {
 	height: 40px;
 	line-height: 40px;
 	width: 210px;
-	border: 1px solid white;
+	//border: 1px solid white;
 	padding: 0;
 	color: white;
-	background: transparent;
-	margin-top: 50px;
+	//background: transparent;
 	font-size: 20px;
 	font-weight: 100;
 	outline: none;
+	background: rgba(255, 255, 255, 0.12);
+	border-radius: 5px;
 }
 .settigns-manager .submit:hover {
-	border-color: #61AEFF;
-	color: #61AEFF;
+	background: #61AEFF;
 	-moz-transition-duration: 0.9s;
 	-o-transition-duration: 0.9s;
 	-webkit-transition-duration: 0.9s;
 	transition-duration: 0.9s;
+	cursor: default;
+}
+.settigns-manager img {
+	border: none;
 }
 #photodisplay {
 	height: 210px;
 	width: 210px;
-	background: rgba(0, 0, 0, 0.1);
+	background: rgba(255, 255, 255, 0.12);
+	border: 0;
 	display: block;
 	font-size: 0;
+	border-radius: 50%;
 }
 .reset-psswd {
-	width: 120px;
-	height: 30px;
-	line-height: 30px;
+	height: 40px;
+	line-height: 40px;
+	width: 210px;
+	color: white;
+	font-size: 15px;
+	font-weight: 100;
 	border-radius: 5px;
-	background: #4D4D4D;
+	background: rgba(255, 255, 255, 0.12);
 	display: inline-block;
-	font-size: 11px;
-	color: #fff;
 	vertical-align: top;
 	float: right;
 }
@@ -163,28 +176,54 @@
 	cursor: default;
 }
 #country-club {
-	width: 120px;
-	background: #4D4D4D;
+	width: 150px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.12);
 	color: white;
-	height: 30px;
 	vertical-align: middle;
+	font-size: 15px;
+	font-weight: 100;
+	outline: none;
 	border: none;
 	float: left;
 }
 .container-preview {
-	width: 200px;
-	height: 200px;
 	margin-top: 10px;
 }
 .sub-fix {
-	margin-left: 10px;
+	margin-top: 15px;
+}
+//.separator2 {
+//	width: 100%;
+//	height: 40px;
+//}
+#world {
+	height: 40px;
+	float: left;
+	margin-right: 20px;
+}
+#lock {
+	height: 15px;
+	vertical-align: text-top;
+	margin-top: 2px;
+	margin-right: 5px;
+}
+.return {
+	font-size: 20px;
+	font-weight: 100;
+	color: white;
+	margin-top: 30px;
+	//	background: green;
 }
 .js .input-file-container {
 	position: relative;
-	width: 209px;
-	border-bottom: 1px solid white;
-	border-right: 1px solid white;
-	border-left: 1px solid white;
+	width: 210px;
+	height: 40px;
+	line-height: 20px;
+	width: 20px;
+	//	border-bottom: 1px solid white;
+	//	border-right: 1px solid white;
+	//	border-left: 1px solid white;
 }
 .js .input-file-trigger {
 	display: block;
@@ -192,7 +231,10 @@
 	padding-bottom: 5px;
 	background: transparent;
 	color: #fff;
-	font-size: 10px;
+	outline: none;
+	font-size: 40px;
+	font-weight: 100;
+	text-align: left;
 	transition: all .4s;
 	cursor: pointer;
 }
@@ -212,8 +254,7 @@
 	-o-transition-duration: 0.9s;
 	-webkit-transition-duration: 0.9s;
 	transition-duration: 0.9s;
-	background: #fff;
-	color: #000;
+	color: #61AEFF;
 }
 .file-return {
 	margin: 0;
@@ -237,6 +278,11 @@
 	width: 100%;
 	max-width: 530px;
 	margin-top: 20px;
+}
+.settings-title {
+	font-size: 35px;
+	font-weight: 100;
+	color: #fff;
 }
 @media only screen and (max-width: 870px) {
 	.site-container {
@@ -342,5 +388,9 @@
 	}
 	.a0 {
 		background: #111;
+	}
+	#contry-club,
+	.reset-password {
+		float: none;
 	}
 }
