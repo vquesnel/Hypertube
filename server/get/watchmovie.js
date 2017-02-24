@@ -78,18 +78,17 @@ var watchmovie = function (req, res) {
 								let lastSize = 0
 								let start = new Date();
 								var dataResolve = {};
-								engine.once('ready', function () {
+								engine.on('ready', function () {
 									engine.files.forEach(function (file) {
 										if (file.length < 100000000) {
 											file.deselect();
 											return;
 										}
-										console.log(file.isDownloading);
 										const mimetype = mime.lookup(file.path);
 										var checker = mimetype.split("/")[0];
 										if (checker === "video" && !file.isDownloading) {
 											file.isDownloading = true;
-											file.select();
+											
 											dataResolve.file = file;
 											dataResolve.mimetype = mimetype;
 											dataResolve.type = "torrent";
@@ -195,13 +194,13 @@ var watchmovie = function (req, res) {
 									//fs.createReadStream(new_path).pipe(res);
 								}).once('end', () => {
 									console.log("finish convert");
-									//									fs.unlinkSync(path + file.path);
 									var date = Date.now();
 									var code;
 									if (req.params.tvdb_id === "movie") code = req.params.imdb_code;
 									else code = req.params.tvdb_id;
 									connection.query("INSERT INTO download (imdb_code, quality, path, date,  mimetype)SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdb_code FROM download WHERE imdb_code = ?) LIMIT 1", [code, req.params.quality, new_path, date, "video/mp4", code], function (err) {
 										if (err) console.log(err);
+										fs.unlinkSync(path + file.path);
 										res.end();
 									})
 								}).pipe(fs.createWriteStream(new_path));
