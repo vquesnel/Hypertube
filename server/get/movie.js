@@ -56,8 +56,6 @@ var movie = function (req, res) {
 										, }
 									});
 								}).catch(err => {
-									console.log("errror")
-									console.log(err);
 									res.render("movie", {
 										display_one_movie: {
 											infos: movie

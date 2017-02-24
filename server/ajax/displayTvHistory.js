@@ -4,22 +4,9 @@ var displayTvHistory = function (req, res) {
 		res.send("/");
 	}
 	else {
-		connection.query("SELECT DISTINCT * FROM history WHERE userID = ? AND context = ? ORDER BY id DESC LIMIT 4", [req.session.id_user, 'tv_show'], function (err, row) {
-			if (err) throw err;
-			else {
-				var k = 3;
-				var top = ['', '', '', ''];
-				row.forEach(function (tops) {
-					top[k] = tops.imdbID
-					k--;
-				})
-				connection.query("SELECT * FROM tv_shows WHERE imdb_code = ? OR imdb_code = ? OR imdb_code = ? OR imdb_code = ?", [top[0], top[1], top[2], top[3]], function (err, data) {
-					if (err) throw err;
-					else {
-						res.send(data);
-					}
-				})
-			}
+		connection.query("select tv_shows.imdb_code, tv_shows.title, tv_shows.year, tv_shows.cover, tv_shows.rating, t2.date from tv_shows inner join (select DISTINCT history.imdbID , history.date from history WHERE history.context=? AND history.userID= ? ORDER By history.date DESC LIMIT 4) t2 on tv_shows.imdb_code= t2.imdbID ORDER By t2.date DESC", ["tv_show", req.query.id], function (err, rows) {
+			if (err) console.log(err);
+			else res.send(rows);
 		})
 	}
 }

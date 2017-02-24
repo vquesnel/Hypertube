@@ -38,10 +38,10 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-							$('.comments-indicator').text(data.comments);
-					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
-					$('.viewers-indicator').text(data.watchs);
-					$('<img src="/img/viewers.png">').appendTo('.viewers-indicator');
+						$('.comments-indicator').text(data.comments);
+						$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+						$('.viewers-indicator').text(data.watchs);
+						$('<img src="/img/viewers.png">').appendTo('.viewers-indicator');
 					}
 				}
 			})
@@ -73,8 +73,10 @@
 				});
 			});
 		});
-		$(document).one('click', '.episode-link', function () {
+		$(document).on('click', '.episode-link', function () {
+			$('.episode-link').css('color', '#fff');
 			if (watcher.attr('src') !== $(this).children().text()) {
+				$(this).css('color', '#3281ff');
 				if (!videoJs.pause()) videoJs.stop();
 				var oldTracks = videoJs.remoteTextTracks();
 				var i = oldTracks.length;
@@ -93,6 +95,7 @@
 					, data: {
 						season: regex[0]
 						, episode: regex[1]
+						, name: $('.title-show').text()
 					}
 					, success: (function (data) {
 						if (typeof data == 'string') window.location = data
@@ -154,7 +157,7 @@
 				$('<div id="' + data[k].messageID + '" class="comment comment' + k + '"></div>').appendTo(".comments-display");
 				$('<div class="comment-infos cmt-nfo' + k + '"></div>').appendTo('.comment' + k + '');
 				$('<img class="comment-img" src="' + data[k].profil_pic + '">').appendTo('.cmt-nfo' + k + '');
-				$('<div class="comment-user"></div>').text(data[k].username).appendTo('.cmt-nfo' + k + '');
+				$('<a href="/profile2/' + data[k].userID + '" class="comment-user"></a>').text(data[k].username).appendTo('.cmt-nfo' + k + '');
 				$('<div class="comment-date"></div>').text(data[k].date_message).appendTo('.cmt-nfo' + k + '');
 				$('<div class="comment-value"></div>').text(data[k].content).appendTo('.comment' + k + '');
 				j = k;
@@ -255,7 +258,7 @@
 				$('<div d="' + data.messageID + '" class="comment comment' + j + '"></div>').prependTo(".comments-display");
 				$('<div class="comment-infos cmt-nfo' + j + '"></div>').appendTo('.comment' + j + '');
 				$('<img src="' + data.profil_pic + '">').appendTo('.cmt-nfo' + j + '');
-				$('<div class="comment-user"></div>').text(data.username).appendTo('.cmt-nfo' + j + '');
+				$('<a href="/profile2/' + data.userID + '" class="comment-user"></a>').text(data.username).appendTo('.cmt-nfo' + j + '');
 				$('<div class="comment-date"></div>').text(data.date).appendTo('.cmt-nfo' + j + '');
 				$('<div class="comment-value"></div>').text(data.value).appendTo('.comment' + j + '');
 				$('.comments-display').animate({

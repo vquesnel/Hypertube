@@ -1,10 +1,11 @@
 var profile = function (req, res) {
 	if (req.session.username) {
-		res.render('profile2', {
+		res.render('profile2.html', {
 			infos: req.session,
-			userId: req.session.id_user
+			id_user: req.session.id_user
 		})
-	} else {
+	}
+	else {
 		res.redirect("/");
 	}
 }

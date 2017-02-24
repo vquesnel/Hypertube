@@ -57,8 +57,6 @@ var tv_show = function (req, res) {
 										, }
 									});
 								}).catch(err => {
-									console.log("errror")
-									console.log(err);
 									res.render("tv_show", {
 										display_one_movie: {
 											infos: movie

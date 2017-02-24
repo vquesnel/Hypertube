@@ -8,8 +8,14 @@ var doRequest = function (url, options, callback) {
 			, qs: options
 		}, function (err, res, body) {
 			if (!err && res.statusCode === 200) {
-				var json = JSON.parse(body);
-				callback(null, json);
+				if (body[0] !== '[' && body[0] !== "{" && (body[body.length - 1] !== ']' && body[body.length - 1] !== '}')) {
+					run();
+					return;
+				}
+				else {
+					var json = JSON.parse(body);
+					callback(null, json);
+				}
 			}
 			else {
 				setTimeout(run, 10);

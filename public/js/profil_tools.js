@@ -1,5 +1,6 @@
 (function ($) {
 	var indexClass = 0;
+	var id = $('#id_user').text();
 
 	function addScore(score, domElement) {
 		$("<br><span class='stars-container'>").addClass("stars-" + score.toString()).text("★★★★★").appendTo(domElement);
@@ -47,7 +48,10 @@
 	$(document).ready(function () {
 		$.ajax({
 			url: 'https://localhost:4422/displayMoviesHistory'
-			, method: 'GET'
+			, method: 'GET',
+			data:{
+				id: id
+			}
 			, success: function (movies) {
 				if (typeof movies == 'string') window.location = movies
 				else {
@@ -62,7 +66,10 @@
 		})
 		$.ajax({
 			url: 'https://localhost:4422/displayTvHistory'
-			, method: 'GET'
+			, method: 'GET',
+			data:{
+				id: id
+			}
 			, success: function (tv) {
 				if (typeof tv == 'string') window.location = tv;
 				else {
@@ -77,7 +84,10 @@
 		})
 		$.ajax({
 			url: 'https://localhost:4422/displayCommentsHistory'
-			, method: 'GET'
+			, method: 'GET',
+			data:{
+				id: id
+			}
 			, success: function (data) {
 				if (typeof data == 'string') window.location = data
 				else {

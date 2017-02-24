@@ -4,23 +4,12 @@ var displayMoviesHistory = function (req, res) {
 		res.send("/");
 	}
 	else {
-		connection.query("SELECT DISTINCT * FROM history WHERE userID = ? AND context = ? ORDER BY id DESC LIMIT 4", [req.session.id_user, 'movie'], function (err, row) {
-			if (err) throw err;
-			else {
-				var k = 3;
-				var top = ['', '', '', ''];
-				row.forEach(function (tops) {
-					top[k] = tops.imdbID
-					k--;
-				})
-				connection.query("SELECT * FROM movies WHERE imdb_code = ? OR imdb_code = ? OR imdb_code = ? OR imdb_code = ?", [top[0], top[1], top[2], top[3]], function (err, data) {
-					if (err) throw err;
-					else {
-						res.send(data);
-					}
-				})
-			}
-		})
+	connection.query("select movies.imdb_code, movies.title, movies.year, movies.cover, movies.rating, t2.date from movies inner join (select DISTINCT history.imdbID , history.date from history WHERE history.context=? AND history.userID= ? ORDER By history.date DESC LIMIT 4) t2 on movies.imdb_code= t2.imdbID ORDER By t2.date DESC", ["movie", req.query.id],function(err, rows){
+		if (err) console.log(err)
+		else{
+			res.send(rows);
+		}
+	});
 	}
 }
 module.exports = displayMoviesHistory;

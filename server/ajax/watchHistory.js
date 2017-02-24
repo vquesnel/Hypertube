@@ -4,12 +4,24 @@ var watchHistory = function (req, res) {
 		res.send("/");
 	}
 	else {
-		connection.query('INSERT INTO history(imdbID, userID, context) VALUES(?,?,?)', [req.params.imdbID, req.session.id_user, req.params.context], function (err, rows) {
+		connection.query('INSERT INTO history (imdbID, userID, context, date)SELECT * FROM (SELECT ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT imdbID FROM history WHERE imdbID = ? AND userID = ?) LIMIT 1', [req.params.imdbID, req.session.id_user, req.params.context, Date.now(), req.params.imdbID, req.session.id_user], function (err, rows) {
 			if (err) throw err;
 			else {
-				res.send({
-					result: "ok"
-				})
+				if (rows.insertId == 0) {
+					connection.query("UPDATE history set date = ? WHERE imdbID = ? and userID= ?", [Date.now(), req.params.imdbID, req.session.id_user], function (err) {
+						if (err) console.log(err);
+						else {
+							res.send({
+								result: "ok"
+							})
+						}
+					})
+				}
+				else {
+					res.send({
+						result: "ok"
+					})
+				}
 			}
 		})
 		connection.query("SELECT * FROM download WHERE imdb_code =?", [req.params.tvdb_id ? req.params.tvdb_id : req.params.imdbID], function (err, rows) {
