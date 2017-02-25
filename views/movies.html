@@ -50,7 +50,8 @@
 				<form class="picture-manager" method="" enctype="multipart/form-data" action="/upload">
 					<div class="header-form">Profil Picture</div>
 					<div class="container-preview">
-						<img id="photodisplay" src="http://www.cityrider.com/fixed/43aspect.png">
+						                        <img id="photodisplay" src="/img/noPhotoSelect.png">
+
 						<div class="separator2"></div>
 						<div class="input-file-container" align="left">
 							<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
@@ -63,6 +64,7 @@
 				<div class="baiserie">
 					<img id="world" src="/img/world.png" alt="world-logo">
 					<select id="country-club" name="country">
+					<option selected="selected" value="NO">Select A Default Languague</option>
 						<option value="afr">Afrikaans</option>
 						<option value="alb">Albanian</option>
 						<option value="ara">Arabic</option>
@@ -84,7 +86,7 @@
 						<option value="cze">Czech</option>
 						<option value="dan">Danish</option>
 						<option value="dut">Dutch</option>
-						<option selected="selected" value="eng">English</option>
+						<option value="eng">English</option>
 						<option value="epo">Esperanto</option>
 						<option value="est">Estonian</option>
 						<option value="ext">Extremaduran</option>
