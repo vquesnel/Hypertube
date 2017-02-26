@@ -125,27 +125,38 @@ button.addEventListener("click", function (event) {
             method: 'GET',
             success: function (data) {
                 $('.return').css('color', '#82fc78');
-                if (data === "No Language Selected") {
+                if (!data.status) {
+                    console.log("pas de lanfgue select");
                     $('.return').css('color', '#e04343');
-                    $('.return').text(data);
+                    $('.return').text(data.message);
                 } else {
-                    $('.return').text(data + ' (' + $('#country-club :selected').text() + ')');
-                    if (id === "profile2.html") {
-                        $('.profil-lang').text(countryCode);
-                    }
-                    if (page === "tv_show.html" || page === "movie.html") {
-                        $.ajax({
-                            url: "https://localhost:4422/changeSyno",
-                            method: 'GET',
-                            data: {
-                                syno: $(".sum-txt").text()
-                            },
-                            success: function (data) {
-                                $(".sum-txt").text(data);
-                            }
-                        })
-                    }
+                    console.log(data.status);
+                    if (data.status === "modify") {
+                        console.log("modify");
+                        $('.return').text(data.message + ' (' + $('#country-club :selected').text() + ')');
+                        if (id === "profile2.html") {
+                            $('.profil-lang').text(countryCode);
+                        }
+                        if (page === "tv_show.html" || page === "movie.html") {
+                            var imdbID = id;
+                            $.ajax({
+                                url: "https://localhost:4422/changeSyno",
+                                method: 'GET',
+                                data: {
+                                    imdb_code: imdbID
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                    $(".sum-txt").text(data);
+                                }
+                            })
 
+
+                        }
+                    } else {
+                        $('.return').text(data.message);
+
+                    }
                 }
 
             }

@@ -31,15 +31,16 @@
             $('<div class="block ' + indexClass + '"></div>').appendTo('.library');
             $('<a class="link" href="/tv_show.html/' + tv_show.imdb_code + '"> <img src=' + tv_show.cover + '> </a>').appendTo('.' + indexClass + '');
             $('<div class="infos infos' + indexClass + '" align="left"></div>').appendTo('.' + indexClass + '');
-            $('<div class="title">' + tv_show.title + '</div>').appendTo('.infos' + indexClass + '');
-                if (tv_show.viewed)
+            if (tv_show.download) {
+                $('<div class="title">' + tv_show.title + ' &#9889</div>').appendTo('.infos' + indexClass + '');
+            } else {
+                $('<div class="title">' + tv_show.title + '</div>').appendTo('.infos' + indexClass + '');
+
+            }
+            if (tv_show.viewed)
                 $('<div class="viewed"></div>').appendTo('.infos' + indexClass + '');
             $('<div class="year">' + tv_show.year + '</div>').appendTo('.infos' + indexClass + '');
             addScore(Math.round(tv_show.rating) * 10, $('.infos' + indexClass + ''));
-        
-            if(tv_show.download){
-                //eclair pour dire que le film est sur le serveur!
-            }
             indexClass++;
         })
     }

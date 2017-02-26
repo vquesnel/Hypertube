@@ -108,6 +108,7 @@ var watchmovie = function (req, res) {
                                                     if (err) console.log(err);
                                                     else {
                                                         dataResolve.type = "download";
+                                                        dataResolve.link = path + file.path;
                                                         resolve(dataResolve);
                                                     }
                                                 })
@@ -141,7 +142,7 @@ var watchmovie = function (req, res) {
                                     });
                                     if (dataResolve.type === "download") {
                                         console.log("download mp4");
-                                        fs.createReadStream(path + file.path, {
+                                        fs.createReadStream(dataResolve.link, {
                                             start: start,
                                             end: end
                                         }).pipe(res);

@@ -192,20 +192,38 @@
                                     }
                                     link.season = link.season.toString();
                                     link.episode = link.episode.toString();
-                                    if (link.season.length === 1 && link.episode.length === 1) {
-                                        $('<div class="episode-link episode' + k + '">S0' + link.season + 'E0' + link.episode + '</div>').appendTo('.content-' + (link.season));
-                                        $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
-                                    } else if (link.season.length === 2 && link.episode.length === 1) {
-                                        $('<div class="episode-link episode' + k + '">S' + link.season + 'E0' + link.episode + '</div>').appendTo('.content-' + (link.season));
-                                        $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
-                                    } else if (link.season.length === 1 && link.episode.length === 2) {
-                                        $('<div class="episode-link episode' + k + '">S0' + link.season + 'E' + link.episode + '</div>').appendTo('.content-' + (link.season));
-                                        $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
-                                    } else if (link.season.length === 2 && link.episode.length === 2) {
-                                        $('<div class="episode-link episode' + k + '">S' + link.season + 'E' + link.episode + '</div>').appendTo('.content-' + (link.season));
-                                        $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                    if (!link.download) {
+                                        if (link.season.length === 1 && link.episode.length === 1) {
+                                            $('<div class="episode-link episode' + k + '">S0' + link.season + 'E0' + link.episode + '</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 2 && link.episode.length === 1) {
+                                            $('<div class="episode-link episode' + k + '">S' + link.season + 'E0' + link.episode + '</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 1 && link.episode.length === 2) {
+                                            $('<div class="episode-link episode' + k + '">S0' + link.season + 'E' + link.episode + '</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 2 && link.episode.length === 2) {
+                                            $('<div class="episode-link episode' + k + '">S' + link.season + 'E' + link.episode + '</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        }
+                                        k++;
+                                    } else {
+                                        if (link.season.length === 1 && link.episode.length === 1) {
+                                            $('<div class="episode-link episode' + k + '">S0' + link.season + 'E0' + link.episode + ' &#9889</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 2 && link.episode.length === 1) {
+                                            $('<div class="episode-link episode' + k + '">S' + link.season + 'E0' + link.episode + ' &#9889</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 1 && link.episode.length === 2) {
+                                            $('<div class="episode-link episode' + k + '">S0' + link.season + 'E' + link.episode + ' &#9889</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        } else if (link.season.length === 2 && link.episode.length === 2) {
+                                            $('<div class="episode-link episode' + k + '">S' + link.season + 'E' + link.episode + ' &#9889</div>').appendTo('.content-' + (link.season));
+                                            $('<div class="episode-link-hide" >/watchmovie.html/' + imdbID + '/' + link.tvdb_id + '/' + link.magnet + '/480p</div>').appendTo('.episode' + k);
+                                        }
+                                        k++;
+
                                     }
-                                    k++;
                                 });
                             } else {
                                 $('<div class="title-show">No Episodes links available </div>').appendTo('.hud-film');
