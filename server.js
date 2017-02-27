@@ -7,6 +7,7 @@ var cookie = require('cookie')
 var cookieParser = require('cookie-parser');
 var express = require('express');
 var app = express();
+
 var mustacheExpress = require('mustache-express');
 var session = require('express-session');
 var sess = {
@@ -51,6 +52,7 @@ username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
+launch = require("./config/db_config")
 //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");

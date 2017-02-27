@@ -1,3 +1,5 @@
+var videoJs = videojs("my_video_1");
+var hudFilm;
 (function ($) {
 	$('#movies').css('color', '#61AEFF');
 	$(document).ready(function () {
@@ -10,7 +12,6 @@
 		var switcher1080p = $('.onoffswitch-inner:after');
 		var index = 1;
 		var current;
-		var videoJs = videojs("my_video_1");
 		var imdbID = document.location.pathname.split('/')[2];
 		var socket = io.connect('https://localhost:4422');
 		var username = $('.user').text();
@@ -44,9 +45,9 @@
 					if (typeof data == 'string') window.location = data
 					else {
 						$('.comments-indicator').text(data.comments);
-					$('<img src="/img/comments.png">').appendTo('.comments-indicator');
-					$('.viewers-indicator').text(data.watchs);
-					$('<img src="/img/viewers.png">').appendTo('.viewers-indicator');
+						$('<img src="/img/comments.png">').appendTo('.comments-indicator');
+						$('.viewers-indicator').text(data.watchs);
+						$('<img src="/img/viewers.png">').appendTo('.viewers-indicator');
 					}
 				}
 			})
@@ -64,7 +65,7 @@
 			}
 		});
 		$(document).on('click', '.switchor', function () {
-			if (!videoJs.pause()) videoJs.pause();
+			if (!videoJs.paused()) videoJs.pause();
 			$('.watch-bar').fadeIn('slow');
 			$('.switchor').fadeOut('slow', function () {
 				$('.video-container').fadeOut('slow', function () {
@@ -77,7 +78,7 @@
 		});
 		$(document).on('click', '.watch-btn', function () {
 			if (current !== watcher.attr('src')) {
-				if (!videoJs.pause()) videoJs.stop();
+				if (!videoJs.paused()) videoJs.pause();
 				var oldTracks = videoJs.remoteTextTracks();
 				var i = oldTracks.length;
 				while (i--) {
@@ -116,14 +117,15 @@
 				});
 			}
 			else {
-				videoJs.play();
 				$('.watch-bar').fadeOut('slow');
 				$('#comment').fadeOut(2000, function () {
 					$('.video-container').fadeIn(2000);
 					$('.switchor').fadeIn(2000);
 					$('html,body').animate({
 						scrollTop: getDocHeight()
-					}, 2000);
+					}, 2000,function(){
+				videoJs.play();						
+					});
 				});
 			}
 		});
@@ -167,7 +169,7 @@
 			}
 		});
 		var j = 0;
-	socket.on('old_message', function (data) {
+		socket.on('old_message', function (data) {
 			for (var k in data) {
 				$('<div id="' + data[k].messageID + '" class="comment comment' + k + '"></div>').appendTo(".comments-display");
 				$('<div class="comment-infos cmt-nfo' + k + '"></div>').appendTo('.comment' + k + '');

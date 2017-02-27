@@ -6,6 +6,10 @@ var movies = function (req, res) {
         var initialNum = req.query.itemsNum - 48;
         var mask = req.query.mask;
         var genre = '%' + req.query.genre + '%';
+		if (req.query.year) {
+			var start = req.query.year[0];
+			var end = req.query.year[1];
+		}
         if (initialNum < 0) {
             initialNum = 0;
         }
@@ -14,9 +18,10 @@ var movies = function (req, res) {
                 if (err) throw err;
                 else {
                     var itemsprocessed = list.length;
+					if (itemsprocessed > 0) {
                     list.forEach(function (element) {
 
-                        connection.query("SELECT COUNT(*) AS viewed, COUNT(download.imdb_code)AS download FROM history JOIN download on history.imdbID = download.imdb_code where history.imdbID=? AND history.userID=?", [element.imdb_code, req.session.id_user], function (err, result) {
+                        connection.query("SELECT(SELECT COUNT( * ) FROM history WHere history.imdbID = ? and history.userID = ? ) AS viewed, (SELECT COUNT( * ) FROM download WHERE download.imdb_code = ? ) AS download FROM dual ", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
                             itemsprocessed--;
                             if (err) console.log(err);
 
@@ -33,6 +38,10 @@ var movies = function (req, res) {
                             if (itemsprocessed === 0) res.send(list);
                         })
                     })
+					}
+					else {
+						res.send(list);
+					}
 
                 }
             });
@@ -41,6 +50,7 @@ var movies = function (req, res) {
                 if (err) throw err;
                 else {
                     var itemsprocessed = list.length;
+					if (itemsprocessed > 0) {
                     list.forEach(function (element) {
                         connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
                             itemsprocessed--;
@@ -59,6 +69,10 @@ var movies = function (req, res) {
                             if (itemsprocessed === 0) res.send(list);
                         })
                     })
+					}
+					else {
+						res.send(list);
+					}
 
                 }
             });
@@ -67,6 +81,7 @@ var movies = function (req, res) {
                 if (err) throw err;
                 else {
                     var itemsprocessed = list.length;
+					if (itemsprocessed > 0) {
                     list.forEach(function (element) {
                         connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
                             itemsprocessed--;
@@ -85,6 +100,10 @@ var movies = function (req, res) {
                             if (itemsprocessed === 0) res.send(list);
                         })
                     })
+					}
+					else {
+						res.send(list);
+					}
 
                 }
             });
@@ -94,6 +113,7 @@ var movies = function (req, res) {
                     if (err) throw err;
                     else {
                         var itemsprocessed = list.length;
+						if (itemsprocessed > 0) {
                         list.forEach(function (element) {
                             connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
                                 itemsprocessed--;
@@ -112,6 +132,10 @@ var movies = function (req, res) {
                                 if (itemsprocessed === 0) res.send(list);
                             })
                         })
+						}
+					else {
+						res.send(list);
+					}
 
                     }
                 });
@@ -120,6 +144,7 @@ var movies = function (req, res) {
                     if (err) throw err;
                     else {
                         var itemsprocessed = list.length;
+						if (itemsprocessed > 0) {
                         list.forEach(function (element) {
                             connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
                                 itemsprocessed--;
@@ -138,11 +163,50 @@ var movies = function (req, res) {
                                 if (itemsprocessed === 0) res.send(list);
                             })
                         })
+						}
+					else {
+						res.send(list);
+					}
 
                     }
                 });
             }
-        } else {
+        }
+		else if (mask == 4) {
+			connection.query("SELECT * FROM movies WHERE year BETWEEN ? AND ? ORDER BY year ASC LIMIT 48 OFFSET ?", [start, end, initialNum], function (err, list) {
+				if (err) throw err;
+				else {
+					var itemsprocessed = list.length;
+					if (itemsprocessed > 0) {
+						list.forEach(function (element) {
+							connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
+								
+								itemsprocessed--;
+								if (err) console.log(err);
+								if (result[0].viewed > 0) {
+									element.viewed = true;
+								}
+								else {
+									element.viewed = false;
+								}
+								if (result[0].download > 0) {
+									element.download = true
+								}
+								else {
+									element.download = false;
+								}
+								if (itemsprocessed === 0) res.send(list);
+							})
+						})
+					}
+					else {
+						res.send(list);
+					}
+				}
+			})
+		} 
+		
+		else {
             // return  404 not found
             res.send("Error")
         }
