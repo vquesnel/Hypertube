@@ -5,6 +5,7 @@ var request = require('request');
 var urlencode = require('urlencode');
 var schedule = require('node-schedule');
 var mysql = require('mysql');
+var fs = require("fs");
 var connection = mysql.createConnection({
 	port: 3307
 	, host: 'localhost'
@@ -126,10 +127,15 @@ var launch = function () {
 var update_db = function () {
 	var date = Date.now();
 	var checker = date - Number(2592000000);
-	connection.query("DELETE FROM download WHERE date < ?", [checker], function (err, rows) {
+	connection.query("SELECT * FROM download WHERE date < ?", [checker], function (err, rows) {
 		if (err) console.log(err);
-		else {
-			console.log(rows);
+		else if (rows.length > 0) {
+			rows.forEach(function (file) {
+				fs.unlinkSync(file.path);
+			});
+			connection.query("DELETE FROM download WHERE date < ?", [checker], function (err, rows) {
+				if (err) console.log(err);
+			})
 		}
 	});
 }
@@ -162,12 +168,12 @@ var verifTV = function (imdb_code, callback) {
 String.prototype.capitalizeFirstLetter = function () {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
-var rule = new schedule.RecurrenceRule();
-rule.hour = 1;
-schedule.scheduleJob(rule, function () {
+schedule.scheduleJob('00-10 00 * * *', function () {
 	launch();
-	update_db();
 });
+schedule.scheduleJob('* * * * *', function () {
+	update_db();
+})
 connection = mysql.createPool({
 	connectionLimit: 100
 	, port: 3307

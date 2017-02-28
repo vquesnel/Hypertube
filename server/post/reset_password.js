@@ -29,7 +29,6 @@ var reset_password = function (req, res) {
 	else {
 		ret = 'Please fill all the fields';
 	}
-	console.log(req.session);
 	res.render('reset_password.html', {
 		message: ret
 	})

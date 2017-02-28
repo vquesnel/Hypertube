@@ -308,7 +308,7 @@ button.addEventListener("click", function (event) {
 		}
 		else {
 			$('.return').css('color', '#e04343');
-			$('.return').text('Empty field(s)');
+			$('.return').text('Empty field(s) or wrong input');
 		}
 	})
 })(jQuery)

@@ -117,8 +117,6 @@
 	$(window).scroll(function () {
 		if ($(window).data('ajaxready') == false) return;
 		if ($(window).scrollTop() + $(window).height() > getDocHeight() - 1 && mask >= 0 && tmpmask !== 666 && libHeight !== 0) {
-			console.log("fin de la page");
-			console.log(itemsNum, mask, genre, values);
 			$(window).data('ajaxready', false);
 			$.ajax({
 				url: 'https://localhost:4422/tv_shows'
@@ -132,7 +130,6 @@
 				, success: function (data) {
 					if (typeof data == 'string') window.location = data
 					else {
-						console.log("ca scroll biem")
 						displayLibrary(data);
 						libHeight += getDocHeight();
 						itemsNum += 48;
@@ -161,27 +158,27 @@
 		mask = 2;
 		launchLibrary(mask, '');
 	})
-	$("#date").ionRangeSlider({
-		hide_min_max: true
-		, keyboard: true
-		, min: 1969
-		, max: 2017
-		, from: 1969
-		, to: 2017
-		, type: 'double'
-		, step: 1
-		, grid: true
-		, onFinish: function (data) {
-			values = [data.from, data.to];
-			indexClass = 0
-			$('.library').empty();
-			$(window).height(docweighttmp);
-			libHeight = 0;
-			itemsNum = 48;
-			mask = 4;
-			launchLibrary(mask, '');
-		}
-	});
+//	$("#date").ionRangeSlider({
+            //		hide_min_max: true
+            //		, keyboard: true
+            //		, min: 1969
+            //		, max: 2017
+            //		, from: 1969
+            //		, to: 2017
+            //		, type: 'double'
+            //		, step: 1
+            //		, grid: true
+            //		, onFinish: function (data) {
+            //			values = [data.from, data.to];
+            //			indexClass = 0
+            //			$('.library').empty();
+            //			$(window).height(docweighttmp);
+            //			libHeight = 0;
+            //			itemsNum = 48;
+            //			mask = 4;
+            //			launchLibrary(mask, '');
+            //		}
+            //	});
 	$('#genres').change(function () {
 		indexClass = 0
 		$('.library').empty();

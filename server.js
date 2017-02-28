@@ -7,20 +7,19 @@ var cookie = require('cookie')
 var cookieParser = require('cookie-parser');
 var express = require('express');
 var app = express();
-
 var mustacheExpress = require('mustache-express');
 var session = require('express-session');
 var sess = {
-	secret: 'keyboard cat'
-	, cookie: {}
-	, resave: false
-	, saveUninitialized: false
+    secret: 'keyboard cat',
+    cookie: {},
+    resave: false,
+    saveUninitialized: false
 }
 var options = {
-	key: fs.readFileSync('certificates/server.key')
-	, cert: fs.readFileSync('certificates/server.crt')
-	, ca: fs.readFileSync('certificates/server.csr')
-, };
+    key: fs.readFileSync('certificates/server.key'),
+    cert: fs.readFileSync('certificates/server.crt'),
+    ca: fs.readFileSync('certificates/server.csr'),
+};
 app.use(passport.initialize());
 app.use(passport.session());
 app.engine('html', mustacheExpress());
@@ -29,7 +28,7 @@ app.set('views', __dirname + '/views/');
 app.use(express.static('public'));
 app.use(session(sess));
 app.use(bodyParser.urlencoded({
-	extended: true
+    extended: true
 }));
 //================GET=======================\\
 var index = require('./server/get/index');
@@ -53,7 +52,7 @@ email_checker = require("./server/get/email_checker");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
 launch = require("./config/db_config")
-//================POST=======================\\
+    //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
@@ -75,6 +74,8 @@ manageLanguage = require('./server/ajax/manageLanguage');
 manageEmail = require('./server/ajax/manageEmail');
 profilOther = require('./server/get/profilOther');
 changeSyno = require('./server/ajax/changeSyno');
+getDuration = require('./server/ajax/getDuration');
+
 //			\\
 // 	  GET 	\\
 //			\\
@@ -82,25 +83,22 @@ app.get("/", index);
 app.get("/create_account.html", create_account);
 app.get("/profile2.html", profile);
 app.get('/home.html', function (req, res) {
-	if (!req.session.username) {
-		res.redirect("/");
-	}
-	else res.render('home.html');
+    if (!req.session.username) {
+        res.redirect("/");
+    } else res.render('home.html');
 })
 app.get("/tv_shows.html", function (req, res) {
-	if (!req.session.username) {
-		res.redirect("/");
-	}
-	else res.render('tv_shows.html');
+    if (!req.session.username) {
+        res.redirect("/");
+    } else res.render('tv_shows.html');
 })
 app.get("/tv_shows", tv_shows);
 app.get("/tv_show.html/:imdb_code", tv_show);
 app.get("/getEpisodes/:imdb_code", get_episodes);
 app.get("/movies.html", function (req, res) {
-	if (!req.session.username) {
-		res.redirect("/");
-	}
-	else res.render("movies.html");
+    if (!req.session.username) {
+        res.redirect("/");
+    } else res.render("movies.html");
 })
 app.get("/movies", movies);
 app.get("/movie.html/:imdb_code", movie);
@@ -112,25 +110,25 @@ app.get("/reset_request.html", reset_request);
 app.get("/reset_password.html/:token/:id", reset_password);
 app.get("/reset_password.html", reset_password2);
 app.get('/login/facebook', passport.authenticate('facebook', {
-	scope: ['email']
+    scope: ['email']
 }));
 app.get('/login/facebook/return', passport.authenticate('facebook', {
-	failureRedirect: '/'
+    failureRedirect: '/'
 }), passportfb);
 app.get('/login/42/', passport.authenticate('42'));
 app.get('/login/42/return', passport.authenticate('42', {
-	failureRedirect: '/'
+    failureRedirect: '/'
 }), passportschool);
 app.get('/login/github/', passport.authenticate('github'));
 app.get('/login/github/return', passport.authenticate('github', {
-	failureRedirect: '/'
+    failureRedirect: '/'
 }), passportgithub);
 app.get('/login/google', passport.authenticate('google', {
-	scope: ['https://www.googleapis.com/auth/plus.login'
+    scope: ['https://www.googleapis.com/auth/plus.login'
       , 'https://www.googleapis.com/auth/plus.profile.emails.read']
 }));
 app.get('/login/google/return', passport.authenticate('google', {
-	failureRedirect: '/'
+    failureRedirect: '/'
 }), passportgoogle);
 app.get('/wallpaper/:imdbid', wallpaper);
 app.get('/wallpaperTv/:imdbid', wallpaperTv);
@@ -148,10 +146,11 @@ app.get('/manageProfil', profilManager);
 app.get('/manageLanguage/:lang', manageLanguage);
 app.get('/manageEmail', manageEmail);
 app.get('/profile2/:ID', profilOther);
-app.get("/changesyno", changeSyno)
-	//			\\
-	// 	 POST	\\
-	//			\\
+app.get("/changesyno", changeSyno);
+app.get("/getDuration", getDuration);
+//			\\
+// 	 POST	\\
+//			\\
 app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
@@ -163,7 +162,7 @@ app.post("/upload", upload_picture);
 //  SERVER PORT	\\
 // 				\\
 var httpsServer = https.createServer(options, app, function (req, res) {
-	res.writeHead(200);
+    res.writeHead(200);
 });
 httpsServer.listen(4422);
 console.log("server listenning to port 4422");
@@ -175,44 +174,44 @@ console.log("server listenning to port 4422");
 var io = require('socket.io').listen(httpsServer.listen(4422));
 var cookieParser = require('cookie-parser');
 io.on('connection', function (socket) {
-	var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
-	var sessionid = cookies['connect.sid'];
-	connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
-		if (err) throw err;
-	});
-	socket.on('check_message', function (imdbID) {
-		var data = [];
-		connection.query("SELECT comment.userID,comment.imdbID,comment.content,comment.messageID,comment.date_message,users.username,users.profil_pic FROM comment LEFT JOIN users ON comment.userID = users.id WHERE imdbID = ? ORDER BY comment.id DESC", [imdbID], function (err, rows) {
-			if (err) throw err;
-			(function (callback) {
-				for (i = 0; i < rows.length; i++) {
-					data.push(rows[i]);
-				}
-				callback(data);
-			})(function (data) {
-				socket.emit('old_message', data);
-			})
-		})
-	});
-	socket.on('new-message', function (data) {
-		if (data.imdbID) {
-			connection.query("INSERT INTO comment(userID, imdbID, content, date_message, messageID, context) VALUES(?,?,?,?,?,?)", [data.username, data.imdbID, data.value, data.date, data.messageID, data.context], function (err) {
-				if (err) throw err;
-			})
-			connection.query("SELECT username, profil_pic FROM users WHERE id = ?", [data.username], function (err, user_pack) {
-				if (err) throw err;
-				else {
-					io.sockets.emit("new_message", {
-						value: data.value
-						, username: user_pack[0].username
-						, profil_pic: user_pack[0].profil_pic
-						, userID: data.username
-						, imdbID: data.imdbID
-						, date: data.date
-						, messageID: data.messageID
-					});
-				}
-			})
-		}
-	})
+    var cookies = cookieParser.signedCookies(cookie.parse(socket.handshake.headers.cookie), sess.secret);
+    var sessionid = cookies['connect.sid'];
+    connection.query("UPDATE users SET socket_id= ? WHERE sessionID = ?", [socket.id, sessionid], function (err) {
+        if (err) throw err;
+    });
+    socket.on('check_message', function (imdbID) {
+        var data = [];
+        connection.query("SELECT comment.userID,comment.imdbID,comment.content,comment.messageID,comment.date_message,users.username,users.profil_pic FROM comment LEFT JOIN users ON comment.userID = users.id WHERE imdbID = ? ORDER BY comment.id DESC", [imdbID], function (err, rows) {
+            if (err) throw err;
+            (function (callback) {
+                for (i = 0; i < rows.length; i++) {
+                    data.push(rows[i]);
+                }
+                callback(data);
+            })(function (data) {
+                socket.emit('old_message', data);
+            })
+        })
+    });
+    socket.on('new-message', function (data) {
+        if (data.imdbID) {
+            connection.query("INSERT INTO comment(userID, imdbID, content, date_message, messageID, context) VALUES(?,?,?,?,?,?)", [data.username, data.imdbID, data.value, data.date, data.messageID, data.context], function (err) {
+                if (err) throw err;
+            })
+            connection.query("SELECT username, profil_pic FROM users WHERE id = ?", [data.username], function (err, user_pack) {
+                if (err) throw err;
+                else {
+                    io.sockets.emit("new_message", {
+                        value: data.value,
+                        username: user_pack[0].username,
+                        profil_pic: user_pack[0].profil_pic,
+                        userID: data.username,
+                        imdbID: data.imdbID,
+                        date: data.date,
+                        messageID: data.messageID
+                    });
+                }
+            })
+        }
+    })
 })

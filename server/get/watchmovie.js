@@ -160,12 +160,18 @@ var watchmovie = function (req, res) {
 									, 'Connection': 'keep-alive'
 								})
 								var new_path = path + file.path + '.mp4';
-								var downloader = file.createReadStream();
+								var downloader = file.createReadStream({
+									start: 0
+									, end: file.length
+								});
 								var fileConvertToMp4 = fs.createWriteStream(new_path)
 								var test = new Transcoder(downloader)
 								test.videoCodec('h264').audioCodec('aac').format('mp4');
-								test.stream().on('error', function (error) {
+								test.on('error', function (error) {
 									console.log(error);
+								}).on('metadata', function (metadata) {
+									//req.session.fileDuration = metadata.input.duration;
+									//									console.log(req.session)
 								}).on('data', function (data) {
 									fileConvertToMp4.write(data);
 								}).once('end', () => {
@@ -178,7 +184,9 @@ var watchmovie = function (req, res) {
 										if (err) console.log(err);
 										fs.unlinkSync(path + file.path);
 									})
-								}).pipe(res);
+								}).stream().pipe(res, {
+									end: true
+								});
 							}
 						}).catch(function (error) {
 							console.log(error);
