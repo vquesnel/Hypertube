@@ -132,7 +132,7 @@ var manage_profil = function (req, res) {
                         result += infos3;
                     }
                     req.session.messageprofil = result;
-                    res.redirect("/profile2.html");
+                    res.redirect("/profile.html");
                 })
             })
         })
@@ -194,10 +194,10 @@ var email_confirmation = function (req, res) {
         smtpTransport.sendMail(mail, function (error, response) {
             if (error) {
                 req.session.messagereset = 'An error occured please try again';
-                res.redirect("/profile2.html");
+                res.redirect("/profile.html");
             } else {
                 req.session.messagereset = 'Email sended';
-                res.redirect("/profile2.html");
+                res.redirect("/profile.html");
             }
             smtpTransport.close();
         });

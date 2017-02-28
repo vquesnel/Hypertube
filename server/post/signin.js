@@ -27,7 +27,7 @@ var signin = function (req, res) {
                         req.session.language = rows[0].language;
                         req.session.email = rows[0].email;
                         req.session.token = rows[0].token;
-                        res.redirect("/profile2.html");
+                        res.redirect("/profile.html");
                     } else {
                         req.session.id_user = connect[0].id;
                         req.session.username = connect[0].username;
@@ -37,7 +37,7 @@ var signin = function (req, res) {
                         req.session.email = connect[0].email;
                         req.session.token = connect[0].token;
                         req.serssion.language = connect[0].language;
-                        res.redirect("/profile2.html");
+                        res.redirect("/profile.html");
                     }
                 })
             } else {

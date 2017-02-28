@@ -17,7 +17,7 @@ var fb = function (req, res) {
 			req.session.language = rows[0].language;
 			req.session.email = rows[0].email;
 			req.session.token = rows[0].token;
-			res.redirect('/profile2.html');
+			res.redirect('/profile.html');
 		}
 		else {
 			var token = uniqid();
@@ -35,7 +35,7 @@ var fb = function (req, res) {
 					req.session.email = req.user._json.email;
 					req.session.token = token;
 					req.session.language = "eng";
-					res.redirect('/profile2.html');
+					res.redirect('/profile.html');
 				}
 			})
 		}
@@ -56,7 +56,7 @@ var school = function (req, res) {
 			req.session.email = rows[0].email;
 			req.session.token = rows[0].token;
 			req.session.language = rows[0].language;
-			res.redirect('/profile2.html');
+			res.redirect('/profile.html');
 		}
 		else {
 			var token = uniqid();
@@ -71,7 +71,7 @@ var school = function (req, res) {
 					req.session.email = req.user._json.email;
 					req.session.language = "eng";
 					req.session.token = token;
-					res.redirect('/profile2.html');
+					res.redirect('/profile.html');
 				}
 			})
 		}
@@ -92,7 +92,7 @@ var github = function (req, res) {
 			req.session.email = rows[0].email;
 			req.session.language = rows[0].language;
 			req.session.token = rows[0].token;
-			res.redirect('/profile2.html');
+			res.redirect('/profile.html');
 		}
 		else {
 			var token = uniqid();
@@ -109,7 +109,7 @@ var github = function (req, res) {
 					req.session.email = req.user._json.email;
 					req.session.language = "eng";
 					req.session.token = token;
-					res.redirect('/profile2.html');
+					res.redirect('/profile.html');
 				}
 			})
 		}
@@ -130,7 +130,7 @@ var google = function (req, res) {
 			req.session.language = rows[0].language;
 			req.session.email = rows[0].email;
 			req.session.token = rows[0].token;
-			res.redirect('/profile2.html');
+			res.redirect('/profile.html');
 		}
 		else {
 			var token = uniqid();
@@ -151,7 +151,7 @@ var google = function (req, res) {
 					req.session.email = req.user._json.emails.value;
 					req.session.token = token;
 					req.session.language = "eng";
-					res.redirect('/profile2.html');
+					res.redirect('/profile.html');
 				}
 			})
 		}

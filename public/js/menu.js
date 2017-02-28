@@ -134,7 +134,7 @@ button.addEventListener("click", function (event) {
 				else {
 					if (data.status === "modify") {
 						$('.return').text(data.message + ' (' + $('#country-club :selected').text() + ')');
-						if (id === "profile2.html") {
+						if (id === "profile.html") {
 							$('.profil-lang').text(countryCode);
 						}
 						if (page === "tv_show.html" || page === "movie.html") {
@@ -254,7 +254,7 @@ button.addEventListener("click", function (event) {
 				if (ret.message === 'Your profil picture has been updated') {
 					$('.return').css('color', '#82fc78');
 					$('.return').text(ret.message);
-					if (id === "profile2.html") {
+					if (id === "profile.html") {
 						$('#profil-pic').attr('src', ret.img);
 					}
 				}
@@ -292,7 +292,7 @@ button.addEventListener("click", function (event) {
 				, success: function (data) {
 					$('.return').css('color', '#82fc78');
 					$('.return').text(data);
-					if (id === "profile2.html") {
+					if (id === "profile.html") {
 						if (fnameValid) {
 							$('.fname').text($('#fname').val());
 						}

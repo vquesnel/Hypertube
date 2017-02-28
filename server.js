@@ -51,7 +51,8 @@ username_checker = require("./server/get/username_checker");
 email_checker = require("./server/get/email_checker");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
-launch = require("./config/db_config")
+launch = require("./config/db_config");
+homePage = require('./server/get/homePage');
     //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
@@ -74,19 +75,14 @@ manageLanguage = require('./server/ajax/manageLanguage');
 manageEmail = require('./server/ajax/manageEmail');
 profilOther = require('./server/get/profilOther');
 changeSyno = require('./server/ajax/changeSyno');
-getDuration = require('./server/ajax/getDuration');
+randomContent = require('./server/ajax/randomContent');
 
 //			\\
 // 	  GET 	\\
 //			\\
 app.get("/", index);
 app.get("/create_account.html", create_account);
-app.get("/profile2.html", profile);
-app.get('/home.html', function (req, res) {
-    if (!req.session.username) {
-        res.redirect("/");
-    } else res.render('home.html');
-})
+app.get("/profile.html", profile);
 app.get("/tv_shows.html", function (req, res) {
     if (!req.session.username) {
         res.redirect("/");
@@ -145,9 +141,10 @@ app.get('/displayCommentsHistory', displayCommentsHistory);
 app.get('/manageProfil', profilManager);
 app.get('/manageLanguage/:lang', manageLanguage);
 app.get('/manageEmail', manageEmail);
-app.get('/profile2/:ID', profilOther);
+app.get('/profile/:ID', profilOther);
 app.get("/changesyno", changeSyno);
-app.get("/getDuration", getDuration);
+app.get('/home.html', homePage);
+app.get('/randomContent', randomContent);
 //			\\
 // 	 POST	\\
 //			\\
@@ -155,7 +152,7 @@ app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
 app.post("/reset_password.html", reset_pw);
-//app.post("/profile2.html", manage_profil);
+//app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
 //				\\
