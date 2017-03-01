@@ -4,7 +4,7 @@ var hudFilm;
     $('#movies').css('color', '#61AEFF');
     $(document).ready(function () {
         var watcher = $('video');
-          videoJs = videojs("my_video_1");
+        videoJs = videojs("my_video_1");
         var watcher2 = $('#video_player')
         var switcher = $('.onoffswitch-label');
         var q720 = $('.quality720p').clone().children().remove().end().text();
@@ -180,7 +180,7 @@ var hudFilm;
             if (messageFocus) {
                 var offsetMessage = $('#' + messageFocus).offset().top;
                 console.log(offsetMessage);
-                $('#' + messageFocus).find('.comment-value').css('color', 'green');
+                $('#' + messageFocus).find('.comment-value').css('color', '#5787E8');
                 $('html,body').animate({
                     scrollTop: offsetMessage - $('#' + messageFocus).height()
                 }, 2000);

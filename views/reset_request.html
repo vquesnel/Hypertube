@@ -2,27 +2,39 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Hypertube | connexion</title>
-	<link href="stylesheets/main.css" rel="stylesheet">
-	<link href="stylesheets/reset.css" rel="stylesheet">
-	<link rel="icon" type="image/png" href="/img/hypertube-logo.png" />
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet"> </head>
+    <meta charset="utf-8">
+    <title>Hypertube | connexion</title>
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <!--    <link href="stylesheets/reset.css" rel="stylesheet">-->
+    <link href="stylesheets/vegas.min.css" rel="stylesheet">
+    <link href="stylesheets/carousel.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/hypertube-logo.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+</head>
 
 <body>
-	<div class="site-content" align="center">
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="separator"></div>
-		<div class="header-form"> <img id="logo" src="img/hypertube-logo.png" alt="logo"> </div>
-		<div class="title">Please type your email</div>
-		<form class="reset" method="post" action="">
-			<div class="form-left">
-				<input class="input inpt-top" type="email" name="email" placeholder="Email"> </div>
-			<input class="input-btn" type="submit" value="Send Email"> </form>
-		<div class="message">{{message}}</div>
-		<div class="remember"><a href="/">Finally got it ?</a></div>
-	</div>
+    <div class="site-content" align="center">
+        <div class="align">
+
+            <form class="reset" method="post" action="">
+
+                <div class="header-form">
+                    <img id="logo" src="img/hypertube-logo.png" alt="logo">
+                </div>
+                <div class="title">Please type your email</div>
+                <input class="input inpt-top" type="email" name="email" placeholder="Email" autocomplete="off">
+
+                <input class="input-btn" type="submit" value="Send">
+            </form>
+            <div class="message">{{message}}</div>
+            <div class="remember">
+                <a href="/">Finally got it ?</a>
+            </div>
+        </div>
+    </div>
+    <script src="/js/home_tools.js"></script>
+    <script src="/js/vegas.js"></script>
 </body>
 
 </html>

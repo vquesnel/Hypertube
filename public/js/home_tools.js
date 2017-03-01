@@ -14,11 +14,48 @@
     //			}
     //		})
     //	}
+    //    $(document).ready(function () {
+    //        initHome();
+    //    })
+    //
+    //    var slider = [];
+    //
+    //    function initHome() {
+    //        var counter = 0;
+    //        $.ajax({
+    //            url: 'https://localhost:4422/randomContent',
+    //            method: 'GET',
+    //            success: function (data) {
+    //                console.log(data);
+    //                data.film.forEach(function (film) {
+    //                    slider.push({
+    //                        src: film.background_img
+    //                    });
+    //                })
+    //                data.tv.forEach(function (tv) {
+    //                    slider.push({
+    //                        src: tv.background_img
+    //                    });
+    //                })
+    //
+    //                $('.site-content').vegas({
+    //                    align: 'center',
+    //                    valign: 'center',
+    //                    animation: 'kenburns',
+    //                    transition: 'blur2',
+    //                    loop: true,
+    //                    slides: slider
+    //                })
+    //            }
+    //        })
+    //    }
+    //    setInterval(initHome(), 2000);
+    //    $('.cover').on('vegasend', function () {
+    //        location.reload();
+    //    })
     $(document).ready(function () {
         initHome();
     })
-
-    var slider = [];
 
     function initHome() {
         var counter = 0;
@@ -27,42 +64,42 @@
             method: 'GET',
             success: function (data) {
                 console.log(data);
-                data.film.forEach(function (film) {
-                    slider.push({
-                        src: film.background_img
-                    });
-                })
-                data.tv.forEach(function (tv) {
-                    slider.push({
-                        src: tv.background_img
-                    });
-                })
-
-                $('.cover').vegas({
+                $('.site-content').vegas({
                     align: 'center',
                     animation: 'kenburns',
                     transition: 'blur2',
-                    loop: true,
-                    slides: slider
-                })
-                $('.cover').on('vegaswalk', function () {
-                    $(".data-title").remove();
-
-                    if (counter < 5) {
-                        $('<div class="data-title">' + data.film[counter].title.trim() + '</div>').appendTo('.hud-film');
-
-                    } else {
-                        $('<div class="data-title">' + data.tv[counter - 5].title.trim() + '</div>').appendTo('.hud-film');
-                    }
-                    counter++;
-
+                    slides: [
+                        {
+                            src: data[0].background_img
+                        },
+                        {
+                            src: data[1].background_img
+                        },
+                        {
+                            src: data[3].background_img
+                        },
+                        {
+                            src: data[4].background_img
+                        },
+                        {
+                            src: data[5].background_img
+                        },
+                        {
+                            src: data[6].background_img
+                        }
+                        , {
+                            src: data[7].background_img
+                        }
+                        ,
+                        {
+                            src: data[8].background_img
+                        },
+                        {
+                            src: data[9].background_img
+                        }
+                    ]
                 })
             }
         })
     }
-    //    setInterval(initHome(), 2000);
-    //    $('.cover').on('vegasend', function () {
-    //        location.reload();
-    //    })
-
 })(jQuery);

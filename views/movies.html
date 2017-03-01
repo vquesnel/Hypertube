@@ -1,196 +1,202 @@
 <!DOCTYPE html>
 
 <head>
-	<title>Hypertube | Movies</title>
-	<meta charset="utf-8">
-	<link href="stylesheets/main.css" rel="stylesheet">
-	<link href="stylesheets/menu.css" rel="stylesheet">
-	<link href="stylesheets/home.css" rel="stylesheet">
-	<link rel="icon" type="image/png" href="/img/hypertube-logo.png" />
-	<link rel="stylesheet" href="/stylesheets/ion.rangeSlider.css" />
-	<link rel="stylesheet" href="/stylesheets/ion.rangeSlider.skinFlat.css" />
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <title>Hypertube | Movies</title>
+    <meta charset="utf-8">
+    <link href="stylesheets/main.css" rel="stylesheet">
+    <link href="stylesheets/menu.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/hypertube-logo.png" />
+    <link rel="stylesheet" href="/stylesheets/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/stylesheets/ion.rangeSlider.skinFlat.css" />
+    <link href="stylesheets/home.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 
 <body>
-	<div class="site-container" align="center">
-		<div class="site-pusher">
-			<header class="header">
-				<a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
-				<a href="/home.html" class="header__logo"> <img id="menu-logo" src="img/hypertube-logo-2.png" alt="logo"> </a>
-				<nav class="menu">
-					<div class="a0" class="fix"></div> <a id="movies" href="/movies.html" class="a2">Movies</a> <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
-					<a href="/profile.html" class="a2"> <img class="menu-img" src="/img/user.png" alt="user"> </a>
-					<a href="#" class="a1"> <img id="menu-settings" src="/img/settings.png" alt="settings"> </a>
-					<a href="/logout.html" class="a2"> <img class="menu-img" src="/img/logout.png" alt="user"> </a>
-				</nav>
-			</header>
-			<div class="settigns-manager">
-				<div id="close-manager" class="close"></div>
-				<div class="separator"></div>
-				<div class="separator"></div>
-				<div class="settings-title">Settings</div>
-				<form class="profil-manager" method="" action="">
-					<div class="header-form">Update Profil</div>
-					<input id="fname" class="input" type="text" name="new_firstname" placeholder="Firstname">
-					<input id="lname" class="input" type="text" name="new_lastname" placeholder="Lastname">
-					<input id="user" class="input" type="text" name="new_username" placeholder="Username">
-					<input id="email" class="input" type="email" name="new_email" placeholder="Email">
-					<div id="change" class="submit sub-fix">Change</div>
-				</form>
-				<form class="picture-manager" method="" enctype="multipart/form-data" action="/upload">
-					<div class="header-form">Profil Picture</div>
-					<div class="container-preview"> <img id="photodisplay" src="/img/noPhotoSelect.png">
-						<div class="separator2"></div>
-						<div class="input-file-container" align="left">
-							<input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
-							<label for="my-file" class="input-file-trigger" tabindex="0">+</label>
-						</div>
-					</div>
-					<div id="upload" class="submit">Upload</div>
-				</form>
-				<br>
-				<div class="baiserie"> <img id="world" src="/img/world.png" alt="world-logo">
-					<select id="country-club" name="country">
-						<option selected="selected" value="NO">Select A Default Languague</option>
-						<option value="afr">Afrikaans</option>
-						<option value="alb">Albanian</option>
-						<option value="ara">Arabic</option>
-						<option value="arm">Armenian</option>
-						<option value="ast">Asturian</option>
-						<option value="aze">Azerbaijani</option>
-						<option value="baq">Basque</option>
-						<option value="bel">Belarusian</option>
-						<option value="ben">Bengali</option>
-						<option value="bos">Bosnian</option>
-						<option value="bre">Breton</option>
-						<option value="bul">Bulgarian</option>
-						<option value="bur">Burmese</option>
-						<option value="cat">Catalan</option>
-						<option value="chi">Chinese (simplified)</option>
-						<option value="zht">Chinese (traditional)</option>
-						<option value="zhe">Chinese bilingual</option>
-						<option value="hrv">Croatian</option>
-						<option value="cze">Czech</option>
-						<option value="dan">Danish</option>
-						<option value="dut">Dutch</option>
-						<option value="eng">English</option>
-						<option value="epo">Esperanto</option>
-						<option value="est">Estonian</option>
-						<option value="ext">Extremaduran</option>
-						<option value="fin">Finnish</option>
-						<option value="fre">French</option>
-						<option value="glg">Galician</option>
-						<option value="geo">Georgian</option>
-						<option value="ger">German</option>
-						<option value="ell">Greek</option>
-						<option value="heb">Hebrew</option>
-						<option value="hin">Hindi</option>
-						<option value="hun">Hungarian</option>
-						<option value="ice">Icelandic</option>
-						<option value="ind">Indonesian</option>
-						<option value="ita">Italian</option>
-						<option value="jpn">Japanese</option>
-						<option value="kaz">Kazakh</option>
-						<option value="khm">Khmer</option>
-						<option value="kor">Korean</option>
-						<option value="lav">Latvian</option>
-						<option value="lit">Lithuanian</option>
-						<option value="ltz">Luxembourgish</option>
-						<option value="mac">Macedonian</option>
-						<option value="may">Malay</option>
-						<option value="mal">Malayalam</option>
-						<option value="mni">Manipuri</option>
-						<option value="mon">Mongolian</option>
-						<option value="mne">Montenegrin</option>
-						<option value="nor">Norwegian</option>
-						<option value="oci">Occitan</option>
-						<option value="per">Persian</option>
-						<option value="pol">Polish</option>
-						<option value="por">Portuguese</option>
-						<option value="pob">Portuguese (BR)</option>
-						<option value="pom">Portuguese (MZ)</option>
-						<option value="rum">Romanian</option>
-						<option value="rus">Russian</option>
-						<option value="scc">Serbian</option>
-						<option value="sin">Sinhalese</option>
-						<option value="slo">Slovak</option>
-						<option value="slv">Slovenian</option>
-						<option value="spa">Spanish</option>
-						<option value="swa">Swahili</option>
-						<option value="swe">Swedish</option>
-						<option value="syr">Syriac</option>
-						<option value="tgl">Tagalog</option>
-						<option value="tam">Tamil</option>
-						<option value="tel">Telugu</option>
-						<option value="tha">Thai</option>
-						<option value="tur">Turkish</option>
-						<option value="ukr">Ukrainian</option>
-						<option value="urd">Urdu</option>
-						<option value="vie">Vietnamese</option>
-					</select>
-					<div id="reset" class="reset-psswd"> <img id="lock" src="/img/padlock.png" alt="locker"> Reset Password </div>
-				</div>
-				<div class="return"></div>
-			</div>
-			<div class="big-container">
-				<div class="opt-show">
-					<div class="filter-btn">Filters</div>
-					<div class="search-btn">Search</div>
-				</div>
-				<div class="options">
-					<div class="close"> </div>
-					<div class="az">
-						<div class="maj">A</div>
-						<div class="min">z</div>
-					</div>
-					<div class="sorter">Genre :</div>
-					<select id="genres">
-						<option class="opt-btn" selected="selected" value="">Select A Genre</option>
-						<option class="opt-btn" value="Action">Action</option>
-						<option class="opt-btn" value="Adventure">Adventure</option>
-						<option class="opt-btn" value="Animation">Animation</option>
-						<option class="opt-btn" value="Biography">Biography</option>
-						<option class="opt-btn" value="Comedy">Comedy</option>
-						<option class="opt-btn" value="Crime">Crime</option>
-						<option class="opt-btn" value="Documentary">Documentary</option>
-						<option class="opt-btn" value="Drama">Drama</option>
-						<option class="opt-btn" value="Family">Family</option>
-						<option class="opt-btn" value="Fantasy">Fantasy</option>
-						<option class="opt-btn" value="Film-Noir">Film-Noir</option>
-						<option class="opt-btn" value="Game-Show">Game-Show</option>
-						<option class="opt-btn" value="History">History</option>
-						<option class="opt-btn" value="Horror">Horror</option>
-						<option class="opt-btn" value="Music">Music</option>
-						<option class="opt-btn" value="Musical">Musical</option>
-						<option class="opt-btn" value="Mystery">Mystery</option>
-						<option class="opt-btn" value="News">News</option>
-						<option class="opt-btn" value="Reality-tv">Reality-TV</option>
-						<option class="opt-btn" value="Romance">Romance</option>
-						<option class="opt-btn" value="Sci-fi">Sci-Fi</option>
-						<option class="opt-btn" value="Sport">Sport</option>
-						<option class="opt-btn" value="Talk-show">Talk-Show</option>
-						<option class="opt-btn" value="Thriller">Thriller</option>
-						<option class="opt-btn" value="War">War</option>
-						<option class="opt-btn" value="Western">Western</option>
-					</select>
-					<div class="sorter">Date :</div>
-					<input type="text" id="date" value="" name="date" />
-					<div class="sorter">Rate :</div>
-					<div class="imdb-filter"><img src="/img/imdb-logo.png"></div>
-				</div>
-				<div class="search">
-					<div class="close"></div>
-					<input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="off" name="typeahead"> </div>
-				<div class="separator"></div>
-				<div class="separator"></div>
-				<div class="library" align="center"> </div>
-			</div>
-		</div>
-		<script language="javascript" src="/js/menu.js"></script>
-		<script src="/js/ion.rangeSlider.js"></script>
-		<script type="text/javascript" src="/js/movies_tools.js"></script>
-		<script src="/js/previewFile.js"></script>
-	</div>
+    <div class="site-container" align="center">
+        <div class="site-pusher">
+            <header class="header">
+                <a href="#" class="header__icon" id="header__icon" onClick="hide()"></a>
+                <a href="/home.html" class="header__logo"> <img id="menu-logo" src="img/hypertube-logo-2.png" alt="logo"> </a>
+                <nav class="menu">
+                    <div class="a0" class="fix"></div> <a id="movies" href="/movies.html" class="a2">Movies</a> <a id="tvshows" href="/tv_shows.html" class="a1">TV Shows</a>
+                    <a href="/profile.html" class="a2"> <img class="menu-img" src="/img/user.png" alt="user"> </a>
+                    <a href="#" class="a1"> <img id="menu-settings" src="/img/settings.png" alt="settings"> </a>
+                    <a href="/logout.html" class="a2"> <img class="menu-img" src="/img/logout.png" alt="user"> </a>
+                </nav>
+            </header>
+            <div class="settigns-manager">
+                <div id="close-manager" class="close"></div>
+                <div class="separator"></div>
+                <div class="separator"></div>
+                <div class="settings-title">Settings</div>
+                <form class="profil-manager" method="" action="">
+                    <div class="header-form">Update Profil</div>
+                    <input id="fname" class="input" type="text" name="new_firstname" placeholder="Firstname">
+                    <input id="lname" class="input" type="text" name="new_lastname" placeholder="Lastname">
+                    <input id="user" class="input" type="text" name="new_username" placeholder="Username">
+                    <input id="email" class="input" type="email" name="new_email" placeholder="Email">
+                    <div id="change" class="submit sub-fix">Change</div>
+                </form>
+                <form class="picture-manager" method="" enctype="multipart/form-data" action="/upload">
+                    <div class="header-form">Profil Picture</div>
+                    <div class="container-preview"> <img id="photodisplay" src="/img/noPhotoSelect.png">
+                        <div class="separator2"></div>
+                        <div class="input-file-container" align="left">
+                            <input class="input-file" id="my-file" type="file" name="file" onchange="previewFile()">
+                            <label for="my-file" class="input-file-trigger" tabindex="0">+</label>
+                        </div>
+                    </div>
+                    <div id="upload" class="submit">Upload</div>
+                </form>
+                <br>
+                <div class="baiserie"> <img id="world" src="/img/world.png" alt="world-logo">
+                    <select id="country-club" name="country">
+                        <option selected="selected" value="NO">Select A Default Languague</option>
+                        <option value="afr">Afrikaans</option>
+                        <option value="alb">Albanian</option>
+                        <option value="ara">Arabic</option>
+                        <option value="arm">Armenian</option>
+                        <option value="ast">Asturian</option>
+                        <option value="aze">Azerbaijani</option>
+                        <option value="baq">Basque</option>
+                        <option value="bel">Belarusian</option>
+                        <option value="ben">Bengali</option>
+                        <option value="bos">Bosnian</option>
+                        <option value="bre">Breton</option>
+                        <option value="bul">Bulgarian</option>
+                        <option value="bur">Burmese</option>
+                        <option value="cat">Catalan</option>
+                        <option value="chi">Chinese (simplified)</option>
+                        <option value="zht">Chinese (traditional)</option>
+                        <option value="zhe">Chinese bilingual</option>
+                        <option value="hrv">Croatian</option>
+                        <option value="cze">Czech</option>
+                        <option value="dan">Danish</option>
+                        <option value="dut">Dutch</option>
+                        <option value="eng">English</option>
+                        <option value="epo">Esperanto</option>
+                        <option value="est">Estonian</option>
+                        <option value="ext">Extremaduran</option>
+                        <option value="fin">Finnish</option>
+                        <option value="fre">French</option>
+                        <option value="glg">Galician</option>
+                        <option value="geo">Georgian</option>
+                        <option value="ger">German</option>
+                        <option value="ell">Greek</option>
+                        <option value="heb">Hebrew</option>
+                        <option value="hin">Hindi</option>
+                        <option value="hun">Hungarian</option>
+                        <option value="ice">Icelandic</option>
+                        <option value="ind">Indonesian</option>
+                        <option value="ita">Italian</option>
+                        <option value="jpn">Japanese</option>
+                        <option value="kaz">Kazakh</option>
+                        <option value="khm">Khmer</option>
+                        <option value="kor">Korean</option>
+                        <option value="lav">Latvian</option>
+                        <option value="lit">Lithuanian</option>
+                        <option value="ltz">Luxembourgish</option>
+                        <option value="mac">Macedonian</option>
+                        <option value="may">Malay</option>
+                        <option value="mal">Malayalam</option>
+                        <option value="mni">Manipuri</option>
+                        <option value="mon">Mongolian</option>
+                        <option value="mne">Montenegrin</option>
+                        <option value="nor">Norwegian</option>
+                        <option value="oci">Occitan</option>
+                        <option value="per">Persian</option>
+                        <option value="pol">Polish</option>
+                        <option value="por">Portuguese</option>
+                        <option value="pob">Portuguese (BR)</option>
+                        <option value="pom">Portuguese (MZ)</option>
+                        <option value="rum">Romanian</option>
+                        <option value="rus">Russian</option>
+                        <option value="scc">Serbian</option>
+                        <option value="sin">Sinhalese</option>
+                        <option value="slo">Slovak</option>
+                        <option value="slv">Slovenian</option>
+                        <option value="spa">Spanish</option>
+                        <option value="swa">Swahili</option>
+                        <option value="swe">Swedish</option>
+                        <option value="syr">Syriac</option>
+                        <option value="tgl">Tagalog</option>
+                        <option value="tam">Tamil</option>
+                        <option value="tel">Telugu</option>
+                        <option value="tha">Thai</option>
+                        <option value="tur">Turkish</option>
+                        <option value="ukr">Ukrainian</option>
+                        <option value="urd">Urdu</option>
+                        <option value="vie">Vietnamese</option>
+                    </select>
+                    <div id="reset" class="reset-psswd"> <img id="lock" src="/img/padlock.png" alt="locker"> Reset Password </div>
+                </div>
+                <div class="return"></div>
+            </div>
+            <div class="big-container">
+                <div class="opt-show">
+                    <div class="filter-btn">Filters</div>
+                    <div class="search-btn">Search</div>
+                </div>
+                <div class="options">
+                    <div class="close"> </div>
+                    <div class="az">
+                        <div class="maj">A</div>
+                        <div class="min">z</div>
+                    </div>
+                    <div class="sorter">Genre :</div>
+                    <select id="genres">
+                        <option class="opt-btn" selected="selected" value="">Select A Genre</option>
+                        <option class="opt-btn" value="Action">Action</option>
+                        <option class="opt-btn" value="Adventure">Adventure</option>
+                        <option class="opt-btn" value="Animation">Animation</option>
+                        <option class="opt-btn" value="Biography">Biography</option>
+                        <option class="opt-btn" value="Comedy">Comedy</option>
+                        <option class="opt-btn" value="Crime">Crime</option>
+                        <option class="opt-btn" value="Documentary">Documentary</option>
+                        <option class="opt-btn" value="Drama">Drama</option>
+                        <option class="opt-btn" value="Family">Family</option>
+                        <option class="opt-btn" value="Fantasy">Fantasy</option>
+                        <option class="opt-btn" value="Film-Noir">Film-Noir</option>
+                        <option class="opt-btn" value="Game-Show">Game-Show</option>
+                        <option class="opt-btn" value="History">History</option>
+                        <option class="opt-btn" value="Horror">Horror</option>
+                        <option class="opt-btn" value="Music">Music</option>
+                        <option class="opt-btn" value="Musical">Musical</option>
+                        <option class="opt-btn" value="Mystery">Mystery</option>
+                        <option class="opt-btn" value="News">News</option>
+                        <option class="opt-btn" value="Reality-tv">Reality-TV</option>
+                        <option class="opt-btn" value="Romance">Romance</option>
+                        <option class="opt-btn" value="Sci-fi">Sci-Fi</option>
+                        <option class="opt-btn" value="Sport">Sport</option>
+                        <option class="opt-btn" value="Talk-show">Talk-Show</option>
+                        <option class="opt-btn" value="Thriller">Thriller</option>
+                        <option class="opt-btn" value="War">War</option>
+                        <option class="opt-btn" value="Western">Western</option>
+                    </select>
+                    <div class="datesort">
+                        <div class="sorter s-date">Date :</div>
+                        <div class="slider">
+                            <input type="text" id="date" value="" name="date" />
+                        </div>
+                    </div>
+                    <div class="imdbrate">
+                        <div class="sorter rate-sorter">Rate :</div>
+                        <div class="imdb-filter"><img src="/img/imdb-logo.png"></div>
+                    </div>
+                </div>
+                <div class="search">
+                    <div class="close"></div>
+                    <input id="search-bar" type="text" name="search" placeholder="Search ..." class="typeahead tt-query" spellcheck="false" autocomplete="off" name="typeahead"> </div>
+                <div class="separator"></div>
+                <div class="separator"></div>
+                <div class="library" align="center"> </div>
+            </div>
+        </div>
+        <script language="javascript" src="/js/menu.js"></script>
+        <script src="/js/ion.rangeSlider.js"></script>
+        <script type="text/javascript" src="/js/movies_tools.js"></script>
+        <script src="/js/previewFile.js"></script>
+    </div>
 </body>

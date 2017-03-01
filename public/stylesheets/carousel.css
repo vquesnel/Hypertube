@@ -1,7 +1,13 @@
-.cover {
+.site-content {
   position: fixed;
-  top: 66px;
   overflow: none;
+  background-size: cover;
+  width: 100%;
+}
+
+body,
+html {
+  min-height: 0px;
 }
 
 html {
@@ -13,4 +19,172 @@ html {
   font-weight: 100;
   color: #fff;
   margin-top: 100px;
+}
+
+#logo {
+  width: 60%;
+}
+
+.title {
+  font-size: 20px;
+  color: rgba(163, 163, 163, 0.3);
+}
+
+.align {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+}
+
+.sign-in,
+.reset {
+  position: relative;
+  padding-top: 18%;
+  width: 400px;
+  height: 450px;
+}
+
+.inscription-form {
+  position: relative;
+  padding-top: 10%;
+  width: 400px;
+}
+
+.input {
+  width: 60%;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid rgba(163, 163, 163, 0.6);
+  background: transparent;
+  margin: 20px;
+  font-size: 20px;
+  color: white;
+  outline: none;
+  padding-left: 10px;
+}
+
+.smart-login img {
+  height: 30px;
+  margin-top: 5px;
+}
+
+.input-btn {
+  width: 60px;
+  height: 60px;
+  font-size: 17px;
+  display: block;
+  text-align: center;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.input-btn:hover {
+  border-color: #5DA5F3;
+  color: #5DA5F3;
+}
+
+.smart-login {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.facebook,
+.github,
+.intra,
+.google {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  margin-left: 24px;
+  margin-right: 24px;
+  padding: 5px;
+  border-radius: 50%;
+  vertical-align: top;
+}
+
+.facebook {
+  background: #2f4571;
+  margin-left: 48px;
+}
+
+.google {
+  background: #a73f35;
+  margin-right: 48px;
+}
+
+.intra {
+  background: #169293;
+}
+
+.github {
+  background: #24292E;
+}
+
+.facebook:hover,
+.github:hover,
+.intra:hover,
+.google:hover {
+  transition-duration: 0.3s;
+  width: 50px;
+  height: 50px;
+}
+
+.facebook:hover img,
+.github:hover img,
+.intra:hover img,
+.google:hover img {
+  transition-duration: 0.3s;
+  margin-top: 10px;
+}
+
+.return {
+  display: inline-block;
+  width: 275px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size: 12px;
+  font-weight: 100;
+  line-height: 40px;
+  margin-top: 0;
+  vertical-align: bottom;
+}
+
+.no-account {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 540px) {
+  .facebook,
+  .github,
+  .intra,
+  .google {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    margin: 10px;
+  }
+
+  .facebook:hover,
+  .github:hover,
+  .intra:hover,
+  .google:hover {
+    transition-duration: 0.3s;
+    width: 35px;
+    height: 35px;
+  }
+
+  .smart-login img {
+    height: 20px;
+    margin-bottom: 10px;
+  }
 }

@@ -158,27 +158,27 @@
 		mask = 2;
 		launchLibrary(mask, '');
 	})
-//	$("#date").ionRangeSlider({
-            //		hide_min_max: true
-            //		, keyboard: true
-            //		, min: 1969
-            //		, max: 2017
-            //		, from: 1969
-            //		, to: 2017
-            //		, type: 'double'
-            //		, step: 1
-            //		, grid: true
-            //		, onFinish: function (data) {
-            //			values = [data.from, data.to];
-            //			indexClass = 0
-            //			$('.library').empty();
-            //			$(window).height(docweighttmp);
-            //			libHeight = 0;
-            //			itemsNum = 48;
-            //			mask = 4;
-            //			launchLibrary(mask, '');
-            //		}
-            //	});
+	$("#date").ionRangeSlider({
+	    hide_min_max: true,
+	    keyboard: true,
+	    min: 1969,
+	    max: 2017,
+	    from: 1969,
+	    to: 2017,
+	    type: 'double',
+	    step: 1,
+	    grid: true,
+	    onFinish: function (data) {
+	        values = [data.from, data.to];
+	        indexClass = 0
+	        $('.library').empty();
+	        $(window).height(docweighttmp);
+	        libHeight = 0;
+	        itemsNum = 48;
+	        mask = 4;
+	        launchLibrary(mask, '');
+	    }
+	});
 	$('#genres').change(function () {
 		indexClass = 0
 		$('.library').empty();

@@ -1,69 +1,76 @@
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <title>Hypertube | connexion</title>
     <link href="stylesheets/main.css" rel="stylesheet">
-    <link href="stylesheets/index.css" rel="stylesheet">
+    <link href="stylesheets/vegas.min.css" rel="stylesheet">
+    <link href="stylesheets/carousel.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/hypertube-logo.png" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet"> </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400" rel="stylesheet">
+</head>
 
 <body>
     <div class="site-content" align="center">
-        <div class="separator"></div>
-        <div class="separator"></div>
-        <div class="separator"></div>
-        <div class="header-form"> <img id="logo" src="img/hypertube-logo.png" alt="logo"> </div>
-        <form class="sign-in" method="post" action="">
-            <div class="form-left">
-                <input class="input inpt-top" type="text" name="username" placeholder="Username">
-                <input class="input inpt-bot" type="password" name="password" placeholder="Password"> </div>
-            <input class="input-btn" type="submit" value="Sign in"> </form>
-        <div class="no-account"><a href="/create_account.html">New to Hypertube ? Create an account here</a>
-            <br> <a href="/reset_request.html">Forgot your password ?</a> </div>
-        <div class="message">{{message}}</div>
-        <div class="header-omniauth">
-            Smart Connexion
+
+        <div class="align">
+            <form class="sign-in" method="post" action="">
+                <div class="header-form">
+                    <img id="logo" src="img/hypertube-logo.png" alt="logo">
+                </div>
+                <div class="form-left">
+                    <input class="input inpt-top" type="text" name="username" placeholder="Username">
+                    <input class="input inpt-bot" type="password" name="password" placeholder="Password">
+                </div>
+                <input class="input-btn" type="submit" value="Sign in">
+            </form>
+            <div class="no-account">
+                <a href="/create_account.html">New to Hypertube ? Create an account here</a>
+                <br>
+                <a href="/reset_request.html">Forgot your password ?</a>
+            </div>
+            <div class="message">{{message}}</div>
+            <div class="header-omniauth">
+                Smart Connexion
+            </div>
+            <div class="smart-login" align="left">
+                <div class="facebook">
+                    <a href="/login/facebook">
+                        <div class="logo-auth logo-fb">
+                            <img src="/img/facebookomniauth.png">
+                        </div>
+
+                    </a>
+                </div>
+                <div class="github">
+                    <a href="/login/github">
+                        <div class="logo-auth logo-github">
+                            <img src="/img/githubomniauth.png">
+                        </div>
+                    </a>
+                </div>
+                <div class="intra">
+                    <a href="/login/42">
+                        <div class="logo-auth logo-intra">
+                            <img src="/img/42omniauth.png">
+                        </div>
+                    </a>
+                </div>
+                <div class="google">
+                    <a href="/login/google">
+                        <div class="logo-auth logo-google">
+                            <img src="/img/googleomniauth.png">
+                        </div>
+
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="smart-login" align="left">
-            <div class="facebook">
-                <a href="/login/facebook">
-                    <div class="logo-auth logo-fb">
-                        <img src="/img/facebookomniauth.png">
-                    </div>
-                    <div class="name-auth" align="center">facebook</div>
-                </a>
-            </div>
-            <div class="github">
-                <a href="/login/github">
-                    <div class="logo-auth logo-github">
-                        <img src="/img/githubomniauth.png">
-                    </div>
-                    <div class="name-auth" align="center">Git Hub</div>
-                </a>
-            </div>
-            <div class="intra">
-                <a href="/login/42">
-                    <div class="logo-auth logo-intra">
-                        <img src="/img/42omniauth.png">
-                    </div>
-                    <div class="name-auth" align="center">Intra 42</div>
-                </a>
-            </div>
-            <div class="google">
-                <a href="/login/google">
-                    <div class="logo-auth logo-google">
-                        <img src="/img/googleomniauth.png">
-                    </div>
-                    <div class="name-auth" align="center">Google +</div>
-                </a>
-            </div>
-        </div>
-        <footer>
-            <div class="copyright">ZD CORP &reg; &amp; &copy; 2017 - Vquesnel - Kwiessle </div>
-        </footer>
     </div>
+    <script src="/js/home_tools.js"></script>
+    <script src="/js/vegas.js"></script>
 </body>
 
 </html>

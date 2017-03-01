@@ -189,7 +189,7 @@ var hudFilm;
             }
             if (messageFocus) {
                 var offsetMessage = $('#' + messageFocus).offset().top;
-                $('#' + messageFocus).find('.comment-value').css('color', 'green');
+                $('#' + messageFocus).find('.comment-value').css('color', '#5787E8');
                 $('html,body').animate({
                     scrollTop: offsetMessage - $('#' + messageFocus).height()
                 }, 2000);
