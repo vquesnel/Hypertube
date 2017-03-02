@@ -150,10 +150,10 @@ var watchmovie = function (req, res) {
                                     }).pipe(res);
                                 }
                             } else {
-                                res.writeHead(200, {
-                                    'Content-Type': 'video/mp4',
-                                    'Connection': 'keep-alive'
-                                })
+                                //                                res.writeHead(200, {
+                                //                                    'Content-Type': 'video/mp4',
+                                //                                    'Connection': 'keep-alive'
+                                //                                })
                                 var new_path = path + file.path + '.mp4';
                                 var downloader = file.createReadStream({
                                     start: 0,
@@ -161,12 +161,40 @@ var watchmovie = function (req, res) {
                                 });
                                 var fileConvertToMp4 = fs.createWriteStream(new_path)
                                 var test = new Transcoder(downloader)
-                                test.videoCodec('h264').audioCodec('aac').format('mp4');
+                                test.videoCodec('h264').audioCodec('aac').format('mp4').custom('t', '00:30:00');
                                 test.on('error', function (error) {
                                     console.log(error);
                                 }).on('metadata', function (metadata) {
-                                    //req.session.fileDuration = metadata.input.duration;
-                                    //									console.log(req.session)
+                                    //                                    console.log(JSON.stringify(metadata));
+                                    //                                    var args = test._compileArguments();
+                                    //                                    test.;
+                                    //                                    args = ['-i', '-'].concat(args);
+                                    //                                    args.push('pipe:1');
+                                    //                                                        if (req.headers.range) {
+                                    //                                        console.log("sdgadfgdfg");
+                                    //                                        var range = req.headers.range;
+                                    //                                        var parts = range.replace(/bytes=/, "").split("-");
+                                    //                                        var partialstart = parts[0];
+                                    //                                        var partialend = parts[1];
+                                    //                                        var start = parseInt(partialstart, 10);
+                                    //                                        var end = partialend ? parseInt(partialend, 10) : metadata.input.duration - 1;
+                                    //                                        var chunksize = (end - start) + 1;
+                                    //                                        res.writeHead(206, {
+                                    //                                            "Content-Range": "bytes " + start + "-" + end + "/" + metadata.input.duration,
+                                    //                                            "Accept-Ranges": "bytes",
+                                    //                                            "Content-Length": chunksize,
+                                    //                                            "Content-Type": 'video/mp4',
+                                    //                                            'Connection': 'keep-alive'
+                                    //                                        });
+                                    //                                    } else {
+                                    res.writeHead(200, {
+                                            'Content-Type': 'video/mp4',
+                                            'Connection': 'keep-alive',
+                                            'Content-Length': metadata.input.duration
+                                        })
+                                        //                                    }
+                                        //req.session.fileDuration = metadata.input.duration;
+                                        //									console.log(req.session)
                                 }).on('data', function (data) {
                                     fileConvertToMp4.write(data);
                                 }).once('end', () => {

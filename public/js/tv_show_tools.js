@@ -11,8 +11,15 @@ var hudFilm;
         var watcher = $('video');
         var watcher2 = $('#video_player')
         var index = 1;
-        console.log(videoJs);
-        videoJs = videojs("my_video_1");
+        if (!videoJs) {
+            videoJs = videojs("my_video_1", {
+                controlBar: {
+                    volumePanel: {
+                        inline: false
+                    }
+                }
+            });
+        }
         var imdbID = document.location.pathname.split('/')[2];
         var socket = io.connect('https://localhost:4422');
         var username = $('.user').text();
@@ -146,18 +153,12 @@ var hudFilm;
         });
         videoJs.ready(function () {
             videoJs.on("loadedmetadata", function (data) {
-                console.log(videoJs.duration());
                 videoJs.toggleClass('vjs-live', function () {
                     if (videoJs.duration() < 60 || videoJs.duration() == Infinity) {
-                        console.log("LIVE");
                         return true;
                     } else return false;
                 });
             })
-            videoJs.on("loadeddata", function (data) {
-                //console.log(data);
-                //if (videoJs.duration() == Infinity) {
-            });
         })
         socket.emit('check_message', imdbID);
         $('.sender').click(function () {
@@ -189,7 +190,7 @@ var hudFilm;
             }
             if (messageFocus) {
                 var offsetMessage = $('#' + messageFocus).offset().top;
-                $('#' + messageFocus).find('.comment-value').css('color', '#5787E8');
+                $('#' + messageFocus).find('.comment-value').css('color', 'green');
                 $('html,body').animate({
                     scrollTop: offsetMessage - $('#' + messageFocus).height()
                 }, 2000);

@@ -4,7 +4,9 @@ var hudFilm;
     $('#movies').css('color', '#61AEFF');
     $(document).ready(function () {
         var watcher = $('video');
-        videoJs = videojs("my_video_1");
+        if(!videoJs){
+          videoJs = videojs("my_video_1");
+        }
         var watcher2 = $('#video_player')
         var switcher = $('.onoffswitch-label');
         var q720 = $('.quality720p').clone().children().remove().end().text();
@@ -147,6 +149,15 @@ var hudFilm;
                 }
             })
         });
+             videoJs.ready(function () {
+            videoJs.on("loadedmetadata", function (data) {
+                videoJs.toggleClass('vjs-live', function () {
+                    if (videoJs.duration() < 60 || videoJs.duration() == Infinity) {
+                        return true;
+                    } else return false;
+                });
+            })
+        })
         socket.emit('check_message', imdbID);
         $('.sender').click(function () {
             if ($('#message-area').val() != '') {
@@ -179,8 +190,7 @@ var hudFilm;
             }
             if (messageFocus) {
                 var offsetMessage = $('#' + messageFocus).offset().top;
-                console.log(offsetMessage);
-                $('#' + messageFocus).find('.comment-value').css('color', '#5787E8');
+                $('#' + messageFocus).find('.comment-value').css('color', 'green');
                 $('html,body').animate({
                     scrollTop: offsetMessage - $('#' + messageFocus).height()
                 }, 2000);

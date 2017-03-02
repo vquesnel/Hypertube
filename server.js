@@ -52,7 +52,6 @@ email_checker = require("./server/get/email_checker");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
 launch = require("./config/db_config");
-homePage = require('./server/get/homePage');
     //================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
@@ -143,7 +142,6 @@ app.get('/manageLanguage/:lang', manageLanguage);
 app.get('/manageEmail', manageEmail);
 app.get('/profile/:ID', profilOther);
 app.get("/changesyno", changeSyno);
-app.get('/home.html', homePage);
 app.get('/randomContent', randomContent);
 //			\\
 // 	 POST	\\
