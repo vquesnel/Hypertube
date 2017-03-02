@@ -12,7 +12,7 @@ function isValidUserInfos(user) {
 var addNewUser = function (req, res) {
 	if (isValidUserInfos(req.body)) {
 		connection.query("SELECT COUNT(*) as people FROM users WHERE username = ? OR email = ?", [check.protectfield(req.body.username), check.protectfield(req.body.email)], function (err, data) {
-			if (err) throw err;
+			if (err)  res.redirect('/404');
 			else if (data[0].people) {
 				let ret = "username or email already used";
 				res.render("create_account", {
@@ -21,7 +21,7 @@ var addNewUser = function (req, res) {
 				console.log("user exists");
 			} else {
 				connection.query("INSERT INTO users(firstname, lastname, username, email, password, token, language) VALUES (?,?,?,?,?,?,?)", [check.protectfield(req.body.firstname), check.protectfield(req.body.lastname), check.protectfield(req.body.username), check.protectfield(req.body.email), sha256(check.protectfield(req.body.password)), uniqid(), req.body.country], function (err) {
-					if (err) throw err;
+					if (err)  res.redirect('/404');
 					let ret = "account created";
 					res.render("create_account", {
 						'message': ret

@@ -6,15 +6,14 @@ var tv_show = function (req, res) {
         res.redirect('/');
     } else {
         connection.query("SELECT * FROM tv_shows WHERE imdb_code = ?", [req.params.imdb_code], function (err, movie) {
-            if (err) throw err;
+            if (err)  res.redirect('/404');
             else if (movie[0]) {
                 if (!movie[0].director && !movie[0].writers && !movie[0].actors) {
                     imdb.get({
                         id: movie[0].imdb_code
                     }).then(function (data) {
-                        if (err) {
-                            console.log("movie by id");
-                        } else {
+                       if (err)  res.redirect('/404');
+                        else {
                             movie[0].director = 'N/A';
                             movie[0].actors = 'N/A';
                             movie[0].writers = 'N/A';
@@ -40,10 +39,10 @@ var tv_show = function (req, res) {
                                     movie[0].writers = 'N/A';
                             }
                             connection.query("UPDATE tv_shows SET director = ?, writers = ?, actors =? WHERE imdb_code = ?", [movie[0].director, movie[0].writers, movie[0].actors, req.params.imdb_code], function (err) {
-                                if (err) console.log(err);
+                                if (err)  res.redirect('/404');
                             })
                             connection.query("SELECT * FROM tv_shows_torrents WHERE id_tv_show = ? ORDER BY quality DESC", [movie[0].id], function (err, torrents) {
-                                if (err) throw err;
+                              if (err) res.send('404');
                                 else {
                                     for (var k in torrents) torrents[k].imdb_code = torrents[k].tvdb_id;
                                     translate(movie[0].summary, {
@@ -75,11 +74,11 @@ var tv_show = function (req, res) {
                         }
                     }).catch(function (err) {
                         console.log("BUG OMDBP");
-                        console.log(err);
+                        if (err)  res.redirect('/404');
                     })
                 } else {
                     connection.query("SELECT * FROM tv_shows_torrents WHERE id_tv_show = ? ORDER BY quality DESC", [movie[0].id], function (err, torrents) {
-                        if (err) throw err;
+                        if (err)  res.redirect('/404');
                         else {
                             for (var k in torrents) torrents[k].imdb_code = torrents[k].tvdb_id;
                             translate(movie[0].summary, {
@@ -112,7 +111,7 @@ var tv_show = function (req, res) {
                 }
             } else {
                 //return 404 not found
-                res.send("error");
+                res.redirect('/404');
             }
         })
     }

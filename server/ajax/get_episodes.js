@@ -4,14 +4,16 @@ var get_episodes = function (req, res) {
         res.send("/");
     } else {
         connection.query("SELECT tv_shows_torrents.season, tv_shows_torrents.episode,tv_shows_torrents.magnet, tv_shows_torrents.tvdb_id  FROM tv_shows_torrents JOIN tv_shows ON tv_shows_torrents.id_tv_show = tv_shows.id WHERE tv_shows.imdb_code = ? ORDER BY season ASC, episode ASC", [req.params.imdb_code], function (err, rows) {
-            if (err) throw err;
-            else {
+            if (err) {
+                var error = [];
+                res.send(error);
+            } else {
                 var itemProcessed = rows.length;
                 rows.forEach(function (episode) {
                     connection.query("SELECT COUNT(*) as download FROM download WHERE imdb_code = ?", [episode.tvdb_id], function (err, result) {
                         itemProcessed--;
 
-                        if (err) console.log(err);
+                        if (err) res.send(rows);
                         else if (result[0].download > 0)
                             episode.download = true;
                         else

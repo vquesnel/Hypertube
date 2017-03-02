@@ -5,7 +5,10 @@ var displayCommentsHistory = function (req, res) {
 	}
 	else {
 		connection.query("SELECT comment.id AS 'commentID',comment.imdbID AS 'imdbID',comment.messageID AS 'messageID',comment.context AS 'context',movies.title AS 'movieTitle',movies.year AS 'movieYear',movies.rating AS 'movieRating',movies.cover AS 'movieCover',tv_shows.title AS 'tvTitle',tv_shows.year AS 'tvYear',tv_shows.rating AS 'tvRating',tv_shows.cover AS 'tvCover'FROM comment LEFT JOIN movies ON comment.imdbID = movies.imdb_code LEFT JOIN tv_shows ON comment.imdbID = tv_shows.imdb_code WHERE comment.userID = ? ORDER BY comment.id DESC LIMIT 4", [req.query.id], function (err, rows) {
-			if (err) throw err;
+			if (err){
+                var error = [];
+                res.send(error);
+            }
 			else {
 				res.send(rows);
 			}

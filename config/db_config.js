@@ -31,11 +31,21 @@ var launchMovie = function () {
                         genre += movie.genres.join(",");
                     }
                     request({
-                        url: movie.medium_cover_image
+                        url: movie.medium_cover_image,
+                        //                        headers: {
+                        //                            'connection': 'keep-alive',
+                        //                            "Strict-Transport-Security": "max-age=31536000"
+                        //                        }
                     }, function (err, res, body) {
-                        if (err) movie.medium_cover_image = "/img/noCoverAvailable.jpg"
-                        if (!err && res.statusCode === 404) {
+                        if (err) {
+                            //                            console.log("--------------------MOVIES------------------------------")
+                            //                            console.log(movie.medium_cover_image);
                             movie.medium_cover_image = "/img/noCoverAvailable.jpg"
+                        }
+                        if (!err && res.statusCode === 404) {
+                            console.log(res.statusCode);
+                            movie.medium_cover_image = "/img/noCoverAvailable.jpg"
+
                         }
                         connection.query("INSERT INTO `hypertube`.`movies`(title, cover, year, rating, imdb_code, runtime, genre, summary) VALUES(? ,? , ?, ? , ?, ?, ? ,?) ON DUPLICATE KEY UPDATE imdb_code = imdb_code", [movie.title, movie.medium_cover_image, movie.year, movie.rating, movie.imdb_code, movie.runtime, genre, movie.description_full, movie.title],
                             function (err, firstQuery) {
@@ -51,6 +61,7 @@ var launchMovie = function () {
                                                         console.log("tporrents");
                                                         console.log(err);
                                                     }
+                                                    //                                                    res.end();
                                                 });
                                             }
                                         }
@@ -84,10 +95,16 @@ var launchTv_show = function () {
                             }
                             show.images.poster = show.images.poster.replace(/http:\/\//gi, "https://");
                             request({
-                                url: show.images.poster
+                                url: show.images.poster,
                             }, function (err, res, body) {
-                                if (err) show.images.poster = "/img/noCoverAvailable.jpg"
+                                if (err) {
+                                    console.log("--------------------TV_SHOWS------------------------------")
+
+                                    console.log(err);
+                                    show.images.poster = "/img/noCoverAvailable.jpg"
+                                }
                                 if (!err && res.statusCode === 404) {
+                                    console.log(res.statusCode);
                                     show.images.poster = "/img/noCoverAvailable.jpg"
                                 }
                                 connection.query("INSERT INTO `hypertube`.`tv_shows`(title, runtime, season, genre,  summary, cover, imdb_code, rating, year) VALUES(?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE imdb_code = imdb_code", [show.title, jsonEpisodes.runtime, show.num_seasons ? show.num_seasons : "N/A", jsonEpisodes.genres.join(","), jsonEpisodes.synopsis ? jsonEpisodes.synopsis : "N/A", show.images.poster, show.imdb_id, Number(jsonEpisodes.rating.percentage) / 10, show.year], function (err, rows) {
@@ -162,7 +179,7 @@ connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`movies_torrents` ( `id
 String.prototype.capitalizeFirstLetter = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-schedule.scheduleJob('0 0,6,23 * * *', function () {
+schedule.scheduleJob('0 4 * * *', function () {
     launchMovie();
     launchTv_show();
     console.log("Schedule to scrap torrents");

@@ -8,16 +8,22 @@ var homeRequest = function (req, res) {
     var data = [];
 
     connection.query("SELECT background_img FROM movies WHERE background_img <> 'N/A' ORDER BY RAND() LIMIT 5", function (err, result) {
-        if (err) console.log(err);
-        else {
+        if (err) {
+            res.send({
+                picture: false
+            })
+        } else {
             result.forEach(function (movie) {
                 data.push(movie);
             })
             if (result.length < 5) {
                 var offset = 5 - result.length;
                 connection.query("SELECT imdb_code, background_img FROM movies WHERE background_img  = 'N/A' ORDER BY RAND() LIMIT ?", [offset], function (err, rows) {
-                    if (err) throw err;
-                    else {
+                    if (err) {
+                        res.send({
+                            picture: false
+                        })
+                    } else {
                         var itemsprocessed = rows.length
                         rows.forEach(function (row) {
                             let getBackgroun = new Promise(function (resolve, reject) {
@@ -27,21 +33,28 @@ var homeRequest = function (req, res) {
                                     if (err) {
                                         reject(err);
                                     } else {
+
                                         resolve(urlmovie + response.backdrop_path);
                                     }
                                 });
                             })
                             getBackgroun.then(function (fromResolve) {
                                 connection.query("UPDATE movies SET background_img = ? WHERE imdb_code = ? ", [fromResolve, row.imdb_code], function (err, result) {
-                                    if (err) console.log(err);
-                                    else {
+                                    if (err) {
+                                        res.send({
+                                            picture: false
+                                        })
+                                    } else {
                                         itemsprocessed--;
                                         row.background_img = fromResolve;
                                         data.push(row);
                                         if (itemsprocessed === 0) {
                                             connection.query("SELECT background_img FROM tv_shows WHERE background_img <> 'N/A' ORDER BY RAND() LIMIT 5", function (err, tv_shows) {
-                                                if (err) console.log(err);
-                                                else {
+                                                if (err) {
+                                                    res.send({
+                                                        picture: false
+                                                    })
+                                                } else {
                                                     tv_shows.forEach(function (tv_show) {
                                                         data.push(tv_show);
                                                     })
@@ -49,8 +62,11 @@ var homeRequest = function (req, res) {
                                                         var offset = 5 - tv_shows.length;
 
                                                         connection.query("SELECT  title,  background_img FROM tv_shows WHERE background_img = 'N/A' ORDER BY RAND() LIMIT ?", [offset], function (err, final) {
-                                                            if (err) throw err;
-                                                            else {
+                                                            if (err) {
+                                                                res.send({
+                                                                    picture: false
+                                                                })
+                                                            } else {
 
                                                                 var itemprocessedtv = final.length;
                                                                 final.forEach(function (tv) {
@@ -61,7 +77,11 @@ var homeRequest = function (req, res) {
                                                                             if (err) {
                                                                                 reject(err);
                                                                             } else {
-                                                                                resolve(urltv + response.results[0].backdrop_path);
+                                                                                if (response.results) {
+                                                                                    resolve(urltv + response.results[0].backdrop_path);
+                                                                                } else {
+                                                                                    reject("no backdrop_path");
+                                                                                }
                                                                             }
                                                                         });
                                                                     })
@@ -69,8 +89,11 @@ var homeRequest = function (req, res) {
 
 
                                                                         connection.query("UPDATE tv_shows set background_img = ? WHERE title = ? ", [fromResolve, tv.title], function (err, rows) {
-                                                                            if (err) throw err;
-                                                                            else {
+                                                                            if (err) {
+                                                                                res.send({
+                                                                                    picture: false
+                                                                                })
+                                                                            } else {
                                                                                 itemprocessedtv--;
                                                                                 tv.background_img = fromResolve;
                                                                                 data.push(tv);
@@ -79,7 +102,7 @@ var homeRequest = function (req, res) {
                                                                             }
                                                                         })
                                                                     }).catch(function (fromReject) {
-                                                                        console.log(fromReject)
+                                                                        res.send(data)
                                                                     })
 
 
@@ -98,7 +121,9 @@ var homeRequest = function (req, res) {
 
                                     }
                                 })
-                            }).catch(function (fromReject) {})
+                            }).catch(function (fromReject) {
+                                res.send(data);
+                            })
 
                         })
 
@@ -106,8 +131,11 @@ var homeRequest = function (req, res) {
                 })
             } else {
                 connection.query("SELECT background_img FROM tv_shows WHERE background_img <> 'N/A' ORDER BY RAND() LIMIT 5", function (err, tv_shows) {
-                    if (err) console.log(err);
-                    else {
+                    if (err) {
+                        res.send({
+                            picture: false
+                        })
+                    } else {
                         tv_shows.forEach(function (tv_show) {
                             data.push(tv_show);
                         })
@@ -115,8 +143,11 @@ var homeRequest = function (req, res) {
                             var offset = 5 - tv_shows.length;
 
                             connection.query("SELECT  title,  background_img FROM tv_shows WHERE background_img = 'N/A' ORDER BY RAND() LIMIT ?", [offset], function (err, final) {
-                                if (err) throw err;
-                                else {
+                                if (err) {
+                                    res.send({
+                                        picture: false
+                                    })
+                                } else {
 
                                     var itemprocessedtv = final.length;
                                     final.forEach(function (tv) {
@@ -127,7 +158,11 @@ var homeRequest = function (req, res) {
                                                 if (err) {
                                                     reject(err);
                                                 } else {
-                                                    resolve(urltv + response.results[0].backdrop_path);
+                                                    if (response.results) {
+                                                        resolve(urltv + response.results[0].backdrop_path);
+                                                    } else {
+                                                        reject("no backdrop_path");
+                                                    }
                                                 }
                                             });
                                         })
@@ -135,8 +170,11 @@ var homeRequest = function (req, res) {
 
 
                                             connection.query("UPDATE tv_shows set background_img = ? WHERE title = ? ", [fromResolve, tv.title], function (err, rows) {
-                                                if (err) throw err;
-                                                else {
+                                                if (err) {
+                                                    res.send({
+                                                        picture: false
+                                                    })
+                                                } else {
                                                     itemprocessedtv--;
                                                     tv.background_img = fromResolve;
                                                     data.push(tv);
@@ -145,7 +183,7 @@ var homeRequest = function (req, res) {
                                                 }
                                             })
                                         }).catch(function (fromReject) {
-                                            console.log(fromReject)
+                                            res.send(data)
                                         })
 
 

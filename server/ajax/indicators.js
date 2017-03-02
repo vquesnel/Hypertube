@@ -5,7 +5,11 @@ var indicators = function (req, res) {
     } else {
         var data = {};
         connection.query("SELECT * FROM comment WHERE imdbID = ?", [req.params.imdbID], function (err, rows) {
-            if (err) throw err;
+            if (err) {
+                data.comments = 0;
+                data.watchs = 0;
+                res.send(data);
+            }
             else {
                 data.comments = rows.length;
                 connection.query("SELECT * FROM history WHERE imdbID = ?", [req.params.imdbID], function (err, watchs) {

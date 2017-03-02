@@ -16,14 +16,20 @@ var tv_shows = function (req, res) {
 		}
 		if (mask == '0') {
 			connection.query("SELECT * FROM tv_shows ORDER BY id LIMIT 48 OFFSET ? ", [initialNum], function (err, list) {
-				if (err) throw err;
+				if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 				else {
 					var itemsprocessed = list.length;
 					if (itemsprocessed > 0) {
 						list.forEach(function (element) {
 							connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 								itemsprocessed--;
-								if (err) console.log(err);
+								if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 								if (result[0].viewed > 0) {
 									element.viewed = true;
 								}
@@ -48,14 +54,20 @@ var tv_shows = function (req, res) {
 		}
 		else if (mask == '1') {
 			connection.query("SELECT * FROM tv_shows ORDER BY title LIMIT 48 OFFSET ? ", [initialNum], function (err, list) {
-				if (err) throw err;
+				if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 				else {
 					var itemsprocessed = list.length;
 					if (itemsprocessed > 0) {
 						list.forEach(function (element) {
 							connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 								itemsprocessed--;
-								if (err) console.log(err);
+								if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 								if (result[0].viewed > 0) {
 									element.viewed = true;
 								}
@@ -80,13 +92,19 @@ var tv_shows = function (req, res) {
 		}
 		else if (mask == '2') {
 			connection.query("SELECT * FROM tv_shows ORDER BY rating DESC LIMIT 48 OFFSET ? ", [initialNum], function (err, list) {
-				if (err) throw err;
+			if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 				else {
 					var itemsprocessed = list.length;
 					list.forEach(function (element) {
 						connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 							itemsprocessed--;
-							if (err) console.log(err);
+							if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 							if (result[0].viewed > 0) {
 								element.viewed = true;
 							}
@@ -108,14 +126,20 @@ var tv_shows = function (req, res) {
 		else if (mask == '3') {
 			if (genre.length > 2) {
 				connection.query("SELECT * FROM tv_shows WHERE genre LIKE ? ORDER BY rating DESC LIMIT 48 OFFSET ? ", [genre, initialNum], function (err, list) {
-					if (err) throw err;
+				if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 					else {
 						var itemsprocessed = list.length;
 						if (itemsprocessed > 0) {
 							list.forEach(function (element) {
 								connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 									itemsprocessed--;
-									if (err) console.log(err);
+									if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 									if (result[0].viewed > 0) {
 										element.viewed = true;
 									}
@@ -140,14 +164,20 @@ var tv_shows = function (req, res) {
 			}
 			else {
 				connection.query("SELECT * FROM tv_shows ORDER BY id LIMIT 48 OFFSET ? ", [initialNum], function (err, list) {
-					if (err) throw err;
+					if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 					else {
 						var itemsprocessed = list.length;
 						if (itemsprocessed > 0) {
 							list.forEach(function (element) {
 								connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 									itemsprocessed--;
-									if (err) console.log(err);
+									if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 									if (result[0].viewed > 0) {
 										element.viewed = true;
 									}
@@ -173,7 +203,10 @@ var tv_shows = function (req, res) {
 		}
 		else if (mask == 4) {
 			connection.query("SELECT * FROM tv_shows WHERE year BETWEEN ? AND ? ORDER BY year ASC LIMIT 48 OFFSET ?", [start, end, initialNum], function (err, list) {
-				if (err) throw err;
+				if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 				else {
 					var itemsprocessed = list.length;
 					if (itemsprocessed > 0) {
@@ -181,7 +214,10 @@ var tv_shows = function (req, res) {
 							connection.query("SELECT ( SELECT COUNT(*) FROM history WHere history.imdbID= ? and history.userID= ? ) AS viewed, ( SELECT COUNT(*)  FROM download WHERE download.imdb_code=?) AS download FROM dual", [element.imdb_code, req.session.id_user, element.imdb_code], function (err, result) {
 								
 								itemsprocessed--;
-								if (err) console.log(err);
+								if (err) {
+                    var error =[];
+                    res.send(error);
+                }
 								if (result[0].viewed > 0) {
 									element.viewed = true;
 								}
@@ -206,7 +242,7 @@ var tv_shows = function (req, res) {
 		}
 		else {
 			//return sur un 404 not found 
-			res.send("error");
+			res.send("404");
 		}
 	}
 }

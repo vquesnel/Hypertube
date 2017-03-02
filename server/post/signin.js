@@ -11,13 +11,13 @@ function isValidUserInfos(user) {
 var signin = function (req, res) {
     if (isValidUserInfos(req.body)) {
         connection.query("SELECT * FROM users WHERE username = ? AND password = ?", [check.protectfield(req.body.username), sha256(check.protectfield(req.body.password))], function (err, rows) {
-            if (err) throw err;
+            if (err) res.redirect('/404');
             if (rows[0]) {
                 connection.query("SELECT * FROM users WHERE sessionID = ?", [req.sessionID], function (err, connect) {
-                    if (err) throw err;
+                    if (err) res.redirect('/404');
                     if (!connect[0]) {
                         connection.query("UPDATE users SET sessionID = ? WHERE username = ?", [req.sessionID, check.protectfield(req.body.username)], function (err) {
-                            if (err) throw err;
+                            if (err) res.redirect('/404');
                         })
                         req.session.id_user = rows[0].id;
                         req.session.username = rows[0].username;

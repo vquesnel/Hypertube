@@ -7,7 +7,9 @@ var wallpaperTv = function (req, res) {
         res.send("/");
     } else {
         connection.query("SELECT title, background_img FROM tv_shows WHERE imdb_code = ?", [req.params.imdbid], function (err, title) {
-            if (err) throw err;
+            if (err) res.send({
+                picture: false
+            })
             else if (title[0]) {
                 if (title[0].background_img !== "N/A") {
                     res.send({
@@ -35,11 +37,13 @@ var wallpaperTv = function (req, res) {
 
                     }).catch(function (fromReject) {
                         console.log(fromReject);
+                        res.send({
+                            picture: false
+                        })
                     })
                 }
             } else {
-                //return 404 not found
-                res.send("error")
+                res.send('404')
             }
         })
     }

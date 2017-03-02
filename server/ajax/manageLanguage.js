@@ -7,7 +7,11 @@ var profilManager = function (req, res) {
         });
     } else if (req.params.lang.length > 2) {
         connection.query("UPDATE users SET language = ? WHERE id = ?", [req.params.lang, req.session.id_user], function (err) {
-            if (err) throw err;
+            if (err) {res.send({
+                status: false,
+                message: 'An error with the database occurs'
+            })
+                     }
             else {
                 req.session.language = req.params.lang;
                 res.send({

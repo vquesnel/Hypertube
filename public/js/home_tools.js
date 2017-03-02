@@ -26,7 +26,6 @@
             url: 'https://localhost:4422/randomContent',
             method: 'GET',
             success: function (data) {
-                console.log(data);
                 data.forEach(function (pic) {
                     slider.push({
                         src: pic.background_img

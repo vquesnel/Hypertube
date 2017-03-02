@@ -120,7 +120,7 @@ var get_movie_sub = function (req, res) {
                                         }
                                     }));
                                 }).catch(function (err) {
-                                    console.log(err);
+                                   res.send(ajax_return);
                                 });
                             } else {
                                 itemsProcessed--;

@@ -70,7 +70,7 @@ var hudFilm;
             type: 'GET',
             success: function (data) {
                 if (typeof data == 'string') window.location = data
-                else {
+                else if (data.picture) {
                     $('.cover').css("background", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
                 }
             }

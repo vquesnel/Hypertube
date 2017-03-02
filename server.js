@@ -14,7 +14,7 @@ var sess = {
     cookie: {},
     resave: false,
     saveUninitialized: false
-}
+};
 var options = {
     key: fs.readFileSync('certificates/server.key'),
     cert: fs.readFileSync('certificates/server.crt'),
@@ -52,7 +52,7 @@ email_checker = require("./server/get/email_checker");
 tv_shows = require("./server/get/tv_shows");
 tv_show = require("./server/get/tv_show");
 launch = require("./config/db_config");
-    //================POST=======================\\
+//================POST=======================\\
 var signin = require("./server/post/signin");
 addNewUser = require("./server/post/addNewUser");
 reset_req = require("./server/post/reset_request");
@@ -143,6 +143,12 @@ app.get('/manageEmail', manageEmail);
 app.get('/profile/:ID', profilOther);
 app.get("/changesyno", changeSyno);
 app.get('/randomContent', randomContent);
+app.get("/404", function (req, res) {
+    if (!req.session.username) {
+        res.redirect('/');
+    } else
+        res.render('404.html')
+});
 //			\\
 // 	 POST	\\
 //			\\
@@ -150,12 +156,18 @@ app.post("/", signin);
 app.post("/create_account.html", addNewUser);
 app.post("/reset_request.html", reset_req);
 app.post("/reset_password.html", reset_pw);
-//app.post("/profile.html", manage_profil);
 app.post("/email_confirmation", email_confirmation);
 app.post("/upload", upload_picture);
 //				\\
 //  SERVER PORT	\\
 // 				\\
+app.get('*', function (req, res) {
+    if (!req.session.username) {
+        res.redirect('/');
+    } else {
+        res.status(200).render('404.html');
+    }
+});
 var httpsServer = https.createServer(options, app, function (req, res) {
     res.writeHead(200);
 });
