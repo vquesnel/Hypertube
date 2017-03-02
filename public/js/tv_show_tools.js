@@ -71,7 +71,7 @@ var hudFilm;
             success: function (data) {
                 if (typeof data == 'string') window.location = data
                 else {
-                    $('.cover').css("background-image", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+                    $('.cover').css("background", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
                 }
             }
         })
@@ -190,7 +190,7 @@ var hudFilm;
             }
             if (messageFocus) {
                 var offsetMessage = $('#' + messageFocus).offset().top;
-                $('#' + messageFocus).find('.comment-value').css('color', 'green');
+                $('#' + messageFocus).find('.comment-value').css('color', '#5787E8');
                 $('html,body').animate({
                     scrollTop: offsetMessage - $('#' + messageFocus).height()
                 }, 2000);

@@ -73,9 +73,7 @@ body.vegas-container>.vegas-timer {
 }
 
 :root body.vegas-container>.vegas-overlay,
-:root body.vegas-container>.vegas-slide,
-_::full-page-media,
-_:future {
+:root body.vegas-container>.vegas-slide {
     bottom: -76px
 }
 

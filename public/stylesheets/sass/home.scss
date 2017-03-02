@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .library {
     padding-top: 10px;
     width: 100%;
@@ -252,7 +253,7 @@
 }
 
 .stars-100:after {
-    width: 100;
+    width: 100%;
 }
 
 #search-bar {
@@ -278,7 +279,7 @@
     border-color: #94c9f5;
 }
 
-#search-bar::-webkit-input-placeholder {
+#search-bar -webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.3);
     font-weight: 100;
 }

@@ -1,49 +1,55 @@
 #logo {
-    width: 300px;
+  width: 300px;
 }
+
 .reset {
-    width: 280px;
-    height: 80px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px 10px #3c3c3c;
-    margin-top: 40px;
+  width: 280px;
+  height: 80px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 10px #3c3c3c;
+  margin-top: 40px;
 }
+
 .input {
-    width: 280px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 15px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    outline: none;
-    padding-left: 10px;
+  width: 280px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  outline: none;
+  padding-left: 10px;
 }
+
 .input-btn {
-    width: 280px;
-    height: 40px;
-    line-height: 40px;
-    background: blue;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    font-size: 15px;
-    color: white;
-    background: #61AEFF;
-    font-weight: 100;
-    box-shadow: inset 0px 0px 50px 10px #3a86d8;
+  width: 280px;
+  height: 40px;
+  line-height: 40px;
+  background: blue;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 15px;
+  color: white;
+  background: #61AEFF;
+  font-weight: 100;
+  box-shadow: inset 0px 0px 50px 10px #3a86d8;
 }
+
 .input-btn:hover {
-    background: #74b7ff;
+  background: #74b7ff;
 }
+
 .remember {
-    margin-top: 20px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 100;
-    font-size: 13px;
-    color: #61AEFF;
+  margin-top: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 100;
+  font-size: 13px;
+  color: #61AEFF;
 }
+
 .title {
-    margin-top: 40px;
-    font-size: 20px;
-    color: white;
-    font-weight: 100;
+  margin-top: 40px;
+  font-size: 20px;
+  color: white;
+  font-weight: 100;
 }

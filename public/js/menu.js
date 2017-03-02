@@ -36,6 +36,7 @@ button.addEventListener("click", function (event) {
         $('.big-container').css('filter', 'blur(40px)');
     })
     $('#close-manager').click(function () {
+        $('.return').text('');
         $('.settigns-manager').fadeOut();
         $('.big-container').css('filter', 'blur(0px)');
     })

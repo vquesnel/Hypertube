@@ -1,62 +1,115 @@
-.hud {
-    width: 100%;
-    max-width: 800px;
-    border-bottom: 5px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 20px;
-    height: 210px;
+.profil {
+  width: 90%;
+  max-width: 900px;
+  height: 200px;
+  padding-bottom: 20px;
 }
-.profile-pic {
-    width: 200px;
-    height: 200px;
-    height: 30px;
-    border-radius: 50%;
-    display: inline-block;
+
+.profil-pic {
+  height: 200px;
+  max-width: 200px;
+  display: inline-block;
+  vertical-align: middle;
 }
-.profile-pic img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 5px solid rgba(255, 255, 255, 0.2);
-    vertical-align: middle;
+
+#profil-pic {
+  width: 196px;
+  border-radius: 50%;
+  max-height: 196px;
+  border: 3px solid #fff;
 }
-.usr-infos {
-    width: 300px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    display: inline-block;
-    margin-left: 40px;
-    vertical-align: middle;
-    padding: 20px;
-    box-shadow: 0px 0px 300px 20px #2e2e2e;
+
+.settings {
+  text-align: left;
+  margin-top: 10px;
 }
-.firstname,
-.lastname {
-    display: inline-block;
-    font-size: 35px;
-    font-weight: 100;
-    margin-right: 10px;
-    color: white;
-    margin-bottom: 10px;
+
+#settings {
+  width: 25px;
+  display: inline-block;
+  opacity: 0.4;
 }
-.username {
-    font-size: 18px;
-    font-weight: 100;
-    color: white;
-    margin-bottom: 10px;
+
+#settings:hover {
+  opacity: 1;
 }
-#settigns {
-    width: 30px;
-    float: right
+
+.profil-infos {
+  display: inline-block;
+  margin: 20px;
+  vertical-align: middle;
 }
-.baiserie {
-    display: none;
+
+.profil-real-name {
+  font-size: 30px;
+  font-weight: 100;
+  color: white;
+  text-align: left;
 }
-@media only screen and (max-width: 580px) {
-    .usr-infos {
-        margin-top: 200px;
-        margin-left: 0;
-    }
-    .hud {
-        height: 400px;
-    }
+
+.profil-username {
+  font-size: 17px;
+  color: #555;
+  font-weight: 100;
+  text-align: left;
+}
+
+.profil-lang {
+  font-size: 15px;
+  font-weight: 100;
+  color: #555;
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid #555;
+  display: inline-block;
+  border-radius: 5px;
+  height: 17px;
+  line-height: 17px;
+}
+
+.profil-hud {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 900px;
+  min-height: 400px;
+}
+
+.fname,
+.lname {
+  display: inline-block;
+}
+
+.hud-header {
+  font-size: 20px;
+  display: inline-block;
+  font-weight: 100;
+  color: #555;
+  height: 40px;
+  line-height: 40px;
+}
+
+.empty-field {
+  font-size: 15px;
+  color: white;
+  font-weight: 100;
+}
+
+@media only screen and (max-width: 780px) {
+  .profil {
+    height: 300px;
+  }
+
+  .profil-infos {
+    width: 90%;
+  }
+
+  .settings {
+    margin: 4px;
+  }
+
+  .profil-username,
+  .profil-real-name,
+  .settings {
+    text-align: center;
+  }
 }

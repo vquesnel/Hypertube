@@ -4,8 +4,9 @@ var urlmovie = 'https://image.tmdb.org/t/p/original';
 var Promise = require('promise');
 var urltv = 'https://image.tmdb.org/t/p/original';
 
-var data = [];
 var homeRequest = function (req, res) {
+    var data = [];
+
     connection.query("SELECT background_img FROM movies WHERE background_img <> 'N/A' ORDER BY RAND() LIMIT 5", function (err, result) {
         if (err) console.log(err);
         else {

@@ -1,6 +1,6 @@
 .site-content {
     position: fixed;
-    overflow: none;
+    overflow: hidden;
     background-size: cover;
     width: 100%;
 }
@@ -11,7 +11,7 @@ html {
 }
 
 html {
-    overflow: none;
+    overflow: hidden;
 }
 
 .data-title {
@@ -37,8 +37,7 @@ html {
 }
 
 .sign-in,
-.reset,
-{
+.reset {
     position: relative;
     padding-top: 18%;
     width: 400px;

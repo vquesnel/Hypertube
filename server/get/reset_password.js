@@ -8,9 +8,9 @@ var reset_password = function (req, res) {
 				req.session.guest = req.params.id;
 				res.redirect('/reset_password.html')
 			}
-			else if (req.session.username) {
-				res.redirect('/profile.html')
-			}
+//			else if (req.session.username) {
+//				res.redirect('/profile.html')
+//			}
 			else {
 				res.redirect('/')
 			}
