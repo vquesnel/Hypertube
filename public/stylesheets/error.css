@@ -1,0 +1,58 @@
+html {
+  overflow: hidden;
+}
+
+.error {
+  color: white;
+  font-size: 120px;
+  font-weight: 100;
+  padding-top: 100px;
+  animation: 4s shine linear infinite;
+}
+
+.error-name {
+  color: white;
+  font-size: 30px;
+  font-weight: 100;
+  animation: 4s shine linear infinite;
+}
+
+.big-container {
+  line-height: 60px;
+}
+
+@keyframes shine {
+  0% {
+    color: #222;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #222;
+  }
+}
+@keyframes shine2 {
+  0% {
+    border-color: #222;
+  }
+  50% {
+    border-color: #fff;
+  }
+  100% {
+    border-color: #222;
+  }
+}
+.circle {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 5px solid white;
+  animation: 4s shine2 linear infinite;
+}
+
+#hypertube {
+  width: 150px;
+  display: block;
+  margin-top: 15px;
+}

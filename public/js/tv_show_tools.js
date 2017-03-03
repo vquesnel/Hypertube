@@ -1,6 +1,4 @@
 var videoJs;
-
-
 var episode;
 var season;
 var name;
@@ -8,17 +6,18 @@ var hudFilm;
 (function ($) {
     $('#tvshows').css('color', '#61AEFF');
     $(document).ready(function () {
-        var watcher = $('video');
-        var watcher2 = $('#video_player')
         var index = 1;
         if (!videoJs) {
-            videoJs = videojs("my_video_1", {
-                controlBar: {
-                    volumePanel: {
-                        inline: false
-                    }
-                }
-            });
+            console.log("sdfsadfasfasdfasf");
+
+//            videoJs.dispose();
+//            videoJs = null;
+            videoJs = videojs("my_video_1");
+        } else {
+            console.log("already ");
+            videoJs.dispose();
+            videoJs = null;
+            videoJs = videoks("my_video_1");
         }
         var imdbID = document.location.pathname.split('/')[2];
         var socket = io.connect('https://localhost:4422');
@@ -90,7 +89,7 @@ var hudFilm;
         $(document).on('click', '.episode-link', function () {
             $('.episode-link').css('color', '#fff');
             $(this).css('color', '#3281ff');
-            if (watcher.attr('src') !== $(this).children().text()) {
+            if (videoJs.currentSrc() !== $(this).children().text()) {
                 if (!videoJs.paused()) videoJs.pause();
                 var oldTracks = videoJs.remoteTextTracks();
                 var i = oldTracks.length;
@@ -198,7 +197,7 @@ var hudFilm;
             }
             updateIndicators();
         });
-        $(document).on('click', '#show', function () {
+        $(document).on('click', '.watch-btn', function () {
             $.ajax({
                 url: 'https://localhost:4422/getEpisodes/' + imdbID,
                 method: 'GET',
@@ -262,7 +261,7 @@ var hudFilm;
             })
         });
         $(document).on('click', '.vjs-big-play-button', function () {
-            var tvdb_id = watcher.attr('src').split("/")[3];
+            var tvdb_id = videoJs.currentSrc().split("/")[3];
             $.ajax({
                 url: 'https://localhost:4422/watchHistory/' + imdbID + '/' + tvdb_id + '/tv_show',
                 method: 'GET',

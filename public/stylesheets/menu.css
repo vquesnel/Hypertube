@@ -311,6 +311,25 @@
   color: #fff;
 }
 
+.to-top {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background: rgba(40, 40, 40, 0.5);
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  color: white;
+  line-height: 90px;
+  font-size: 80px;
+  font-weight: 100;
+  cursor: default;
+}
+
+.to-top:hover {
+  color: #61AEFF;
+}
+
 @media only screen and (max-width: 870px) {
   .site-pusher {
     height: 100%;
@@ -319,16 +338,16 @@
     transition-duration: 0.3s;
   }
 
-  	/*  .site-content {
-          position: absolute;
-          top: 66px;
-          right: 0;
-          left: 0;
-          bottom: 0;
-          padding-top: 0;
-          overflow-y: scroll;
-          -webkit-overflow-scrolling: touch;
-      }*/
+  /*  .site-content {
+        position: absolute;
+        top: 66px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        padding-top: 0;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }*/
   .header__icon {
     position: relative;
     display: block;

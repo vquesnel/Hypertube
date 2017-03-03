@@ -143,12 +143,6 @@ app.get('/manageEmail', manageEmail);
 app.get('/profile/:ID', profilOther);
 app.get("/changesyno", changeSyno);
 app.get('/randomContent', randomContent);
-app.get("/404", function (req, res) {
-    if (!req.session.username) {
-        res.redirect('/');
-    } else
-        res.render('404.html')
-});
 //			\\
 // 	 POST	\\
 //			\\

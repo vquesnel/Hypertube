@@ -3,11 +3,16 @@ var hudFilm;
 (function ($) {
     $('#movies').css('color', '#61AEFF');
     $(document).ready(function () {
-        var watcher = $('video');
         if (!videoJs) {
+            console.log("sdfsadfasfasdfasf");
+            //            videoJs.dispose();
             videoJs = videojs("my_video_1");
+        } else {
+            console.log("already");
+            videoJs.dispose();
+            videoJs = null;
+            videoJs = videoks("my_video_1");
         }
-        var watcher2 = $('#video_player')
         var switcher = $('.onoffswitch-label');
         var q720 = $('.quality720p').clone().children().remove().end().text();
         var q1080 = $('.quality1080p').clone().children().remove().end().text();
@@ -78,7 +83,7 @@ var hudFilm;
             });
         });
         $(document).on('click', '.watch-btn', function () {
-            if (current !== watcher.attr('src')) {
+            if (current !== videojs.currentSrc()) {
                 if (!videoJs.paused()) videoJs.pause();
                 var oldTracks = videoJs.remoteTextTracks();
                 var i = oldTracks.length;

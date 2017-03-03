@@ -23,6 +23,7 @@ html {
 
 #logo {
   width: 60%;
+  max-width: 200px;
 }
 
 .title {
@@ -46,12 +47,13 @@ html {
 
 .inscription-form {
   position: relative;
-  padding-top: 10%;
-  width: 400px;
+  padding-top: 20%;
+  width: 70%;
 }
 
 .input {
   width: 60%;
+  max-width: 200px;
   height: 40px;
   line-height: 40px;
   border-bottom: 1px solid rgba(163, 163, 163, 0.6);
@@ -61,6 +63,7 @@ html {
   color: white;
   outline: none;
   padding-left: 10px;
+  display: inline-block;
 }
 
 .smart-login img {
@@ -156,6 +159,7 @@ html {
   line-height: 40px;
   margin-top: 0;
   vertical-align: bottom;
+  margin-left: 10px;
 }
 
 .no-account {
