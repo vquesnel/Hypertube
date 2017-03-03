@@ -83,7 +83,7 @@ var hudFilm;
             });
         });
         $(document).on('click', '.watch-btn', function () {
-            if (current !== videojs.currentSrc()) {
+            if (current !== videoJs.currentSrc()) {
                 if (!videoJs.paused()) videoJs.pause();
                 var oldTracks = videoJs.remoteTextTracks();
                 var i = oldTracks.length;
