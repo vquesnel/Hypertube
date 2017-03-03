@@ -38,9 +38,12 @@ var launchMovie = function () {
                         //                        }
                     }, function (err, res, body) {
                         if (err) {
-                            //                            console.log("--------------------MOVIES------------------------------")
-                            //                            console.log(movie.medium_cover_image);
-                            movie.medium_cover_image = "/img/noCoverAvailable.jpg"
+                            if (err.code !== 'ECONNRESET') {
+                                console.log("--------------------MOVIES------------------------------")
+                                console.log(err);
+                                console.log(movie.medium_cover_image);
+                                movie.medium_cover_image = "/img/noCoverAvailable.jpg"
+                            }
                         }
                         if (!err && res.statusCode === 404) {
                             console.log(res.statusCode);
@@ -98,10 +101,12 @@ var launchTv_show = function () {
                                 url: show.images.poster,
                             }, function (err, res, body) {
                                 if (err) {
-                                    console.log("--------------------TV_SHOWS------------------------------")
+                                    if (err.code !== 'ECONNRESET') {
+                                        console.log("--------------------TV_SHOWS------------------------------")
 
-                                    console.log(err);
-                                    show.images.poster = "/img/noCoverAvailable.jpg"
+                                        console.log(err);
+                                        show.images.poster = "/img/noCoverAvailable.jpg"
+                                    }
                                 }
                                 if (!err && res.statusCode === 404) {
                                     console.log(res.statusCode);

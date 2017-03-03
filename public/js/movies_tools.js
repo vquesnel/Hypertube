@@ -209,4 +209,9 @@
         $('.search').fadeIn();
         $('.opt-show').fadeOut();
     })
+    $('#menu-logo').click(function () {
+        $('html,body').animate({
+            scrollTop: 0
+        }, 'slow');
+    });
 })(jQuery)
