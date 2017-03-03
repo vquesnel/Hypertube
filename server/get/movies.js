@@ -225,6 +225,36 @@ var movies = function (req, res) {
                     }
                 }
             })
+        } else if (mask == 5) {
+            connection.query(" SELECT movies.* FROM movies LEFT JOIN download ON download.imdb_code = movies.imdb_code WHERE download.imdb_code LIKE 'tt%' LIMIT 48 OFFSET ?", [initialNum], function (err, list) {
+                if (err) {
+                    var error = [];
+                    res.send(error);
+                } else {
+                    var itemsprocessed = list.length;
+                    if (itemsprocessed > 0) {
+                        list.forEach(function (element) {
+                            connection.query("SELECT COUNT(*) AS viewed FROM history WHERE imdbID = ? and userID=?", [element.imdb_code, req.session.id_user], function (err, result) {
+                                itemsprocessed--;
+                                if (err) {
+                                    var error = [];
+                                    res.send(err);
+                                }
+                                if (result[0].viewed > 0) {
+                                    element.viewed = true;
+                                } else {
+                                    element.viewed = false;
+                                }
+                                element.download = true;
+                                if (itemsprocessed === 0) res.send(list);
+
+                            })
+                        })
+                    } else {
+                        res.send(list);
+                    }
+                }
+            })
         } else {
             // return  404 not found
             res.send("404")

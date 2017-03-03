@@ -183,6 +183,17 @@
         mask = 2;
         launchLibrary(mask, '');
     })
+    $('.speed-filter').click(function () {
+        $('#genres').prop('selectedIndex', 0);
+        slider.reset();
+        indexClass = 0
+        $('.library').empty();
+        libHeight = 0;
+        $(window).height(docweighttmp);
+        itemsNum = 48;
+        mask = 5;
+        launchLibrary(mask, '');
+    })
     $('#genres').change(function () {
         slider.reset();
         indexClass = 0
