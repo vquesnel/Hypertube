@@ -5,7 +5,7 @@ var profilOther = function (req, res) {
     } else if (req.params.ID == req.session.id_user) {
         res.redirect('/profile.html')
     } else {
-        if (typeof (req.params.ID) === 'number') {
+        if (!isNaN(req.params.ID)) {
             connection.query("SELECT * FROM users WHERE id = ?", [req.params.ID], function (err, rows) {
                 if (err) res.send('404');
                 else {
