@@ -277,7 +277,7 @@ html {
     width: 40px;
     height: 20px;
     display: inline-block;
-    margin-left: 20px;
+    margin: 0 0 0 20px;
 }
 
 .sender:hover {
@@ -367,7 +367,7 @@ html {
     margin-bottom: 20px;
     font-weight: 100;
     padding-left: 20px;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 .stars-container {

@@ -1,4 +1,11 @@
 var videoJs;
+if (!videoJs) {
+    videoJs = videojs("my_video_1");
+} else {
+    videoJs.dispose();
+    videoJs = null;
+    videoJs = videoks("my_video_1");
+}
 var episode;
 var season;
 var name;
@@ -7,18 +14,6 @@ var hudFilm;
     $('#tvshows').css('color', '#61AEFF');
     $(document).ready(function () {
         var index = 1;
-        if (!videoJs) {
-            console.log("sdfsadfasfasdfasf");
-
-//            videoJs.dispose();
-//            videoJs = null;
-            videoJs = videojs("my_video_1");
-        } else {
-            console.log("already ");
-            videoJs.dispose();
-            videoJs = null;
-            videoJs = videoks("my_video_1");
-        }
         var imdbID = document.location.pathname.split('/')[2];
         var socket = io.connect('https://localhost:4422');
         var username = $('.user').text();
@@ -70,7 +65,7 @@ var hudFilm;
             success: function (data) {
                 if (typeof data == 'string') window.location = data
                 else if (data.picture) {
-                    $('.cover').css("background", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+                    $('.cover').css("background", "linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
                 }
             }
         })

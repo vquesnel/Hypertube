@@ -1,18 +1,15 @@
 var videoJs;
+if (!videoJs) {
+    videoJs = videojs("my_video_1");
+} else {
+    videoJs.dispose();
+    videoJs = null;
+    videoJs = videoks("my_video_1");
+}
 var hudFilm;
 (function ($) {
     $('#movies').css('color', '#61AEFF');
     $(document).ready(function () {
-        if (!videoJs) {
-            console.log("sdfsadfasfasdfasf");
-            //            videoJs.dispose();
-            videoJs = videojs("my_video_1");
-        } else {
-            console.log("already");
-            videoJs.dispose();
-            videoJs = null;
-            videoJs = videoks("my_video_1");
-        }
         var switcher = $('.onoffswitch-label');
         var q720 = $('.quality720p').clone().children().remove().end().text();
         var q1080 = $('.quality1080p').clone().children().remove().end().text();
@@ -141,7 +138,7 @@ var hudFilm;
             success: function (data) {
                 if (typeof data == 'string') window.location = data
                 else if (data.picture) {
-                    $('.cover').css("background", "-webkit-linear-gradient(left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) ), url(" + data.picture + ")");
+                    $('.cover').css("background", "linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)), url(" + data.picture + ")");
                 }
             }
         })
