@@ -106,6 +106,7 @@
         }
     }, 200))
     $(document).ready(function () {
+        $('.options').css('display', 'none');
         launchLibrary(0, '');
         docweighttmp = getDocHeight();
     })

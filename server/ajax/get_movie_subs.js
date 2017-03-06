@@ -68,7 +68,7 @@ var get_movie_sub = function (req, res) {
         } else {
             var opts = {
                 sublanguageid: [req.session.language, 'eng'].join(),
-                limit: 10,
+                limit: 5,
                 imdbid: req.params.imdb_code
             }
             var path = req.params.imdb_code;
@@ -87,8 +87,6 @@ var get_movie_sub = function (req, res) {
                                 if (subtitles[lang][k].SumCD === "1") {
                                     if (bestSubs[lang] && bestSubs[lang].score < subtitles[lang][k].score) {
                                         bestSubs[lang] = subtitles[lang][k]
-                                    } else {
-                                        bestSubs[lang] = subtitles[lang][k];
                                     }
                                 }
                             }
@@ -120,7 +118,7 @@ var get_movie_sub = function (req, res) {
                                         }
                                     }));
                                 }).catch(function (err) {
-                                   res.send(ajax_return);
+                                    res.send(ajax_return);
                                 });
                             } else {
                                 itemsProcessed--;
