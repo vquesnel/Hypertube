@@ -292,9 +292,10 @@ button.addEventListener("click", function (event) {
                             $('.lname').text($('#lname').val());
                         }
                         if (userValid) {
-                            $('.profil-username').text($('#user').val());
+                            $('.profil-username').html($('#user').val() + ' <div class="profil-lang">' + $('.profil-lang').text() + '</div>');
                         }
                     }
+
                 }
             })
         } else {

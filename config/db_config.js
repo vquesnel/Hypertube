@@ -31,11 +31,7 @@ var launchMovie = function () {
                         genre += movie.genres.join(",");
                     }
                     request({
-                        url: movie.medium_cover_image,
-                        //                        headers: {
-                        //                            'connection': 'keep-alive',
-                        //                            "Strict-Transport-Security": "max-age=31536000"
-                        //                        }
+                        url: movie.medium_cover_image
                     }, function (err, res, body) {
                         if (err) {
                             if (err.code !== 'ECONNRESET') {
@@ -98,7 +94,7 @@ var launchTv_show = function () {
                             }
                             show.images.poster = show.images.poster.replace(/http:\/\//gi, "https://");
                             request({
-                                url: show.images.poster,
+                                url: show.images.poster
                             }, function (err, res, body) {
                                 if (err) {
                                     if (err.code !== 'ECONNRESET') {
