@@ -22,7 +22,7 @@ var upload = multer({
         cb(null, true);
     }
 }).single('file');
-var sharp = require('sharp');
+//var sharp = require('sharp');
 var new_email = function (req, callback) {
     if (req.body.new_email) {
         if (check.protectfield(req.body.new_email)) {
@@ -153,26 +153,26 @@ var upload_picture = function (req, res) {
                 });
 
             } else {
-                sharp(req.file.path).resize(500, 500).toFile('public/' + cropped, function (err) {
-                    if (err) {
-                        res.send({
-                            message: 'Unsupported image format'
-                        });
+                // sharp(req.file.path).resize(500, 500).toFile('public/' + cropped, function (err) {
+                //   if (err) {
+                //      res.send({
+                //   message: 'Unsupported image format'
+                //      });
 
-                    } else {
-                        fs.unlinkSync(req.file.path);
-                        connection.query("UPDATE users SET profil_pic = ? WHERE id = ?", [cropped, req.session.id_user], function (err) {
-                            if (err) throw err;
-                            req.session.profil_pic = cropped;
-                            res.send({
-                                message: 'Your profil picture has been updated',
-                                img: cropped
-                            });
-                        })
+                // } else {
+                //fs.unlinkSync(req.file.path);
+                connection.query("UPDATE users SET profil_pic = ? WHERE id = ?", [cropped, req.session.id_user], function (err) {
+                    if (err) throw err;
+                    req.session.profil_pic = cropped;
+                    res.send({
+                        message: 'Your profil picture has been updated',
+                        img: cropped
+                    });
+                })
 
 
-                    }
-                });
+                //}
+                //});
             }
         } else {
             res.send({

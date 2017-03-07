@@ -161,21 +161,10 @@ connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`users` ( `id` INT(5) N
 connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`history` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `imdbID` VARCHAR(255) NOT NULL , `userID` INT(5) NOT NULL , `context` VARCHAR(255) NOT NULL, `date` BIGINT(10) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`comment` (`id` int(5) NOT NULL AUTO_INCREMENT,`userID` int(5) NOT NULL,`imdbID` varchar(255) COLLATE utf8mb4_bin NOT NULL,`content` text COLLATE utf8mb4_bin NOT NULL,`date_message` varchar(255) COLLATE utf8mb4_bin NOT NULL,`messageID` varchar(255) COLLATE utf8mb4_bin NOT NULL,`context` varchar(255) COLLATE utf8mb4_bin NOT NULL, PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;");
 connection.query("CREATE TABLE IF NOT EXISTS`hypertube`.`download` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `imdb_code` VARCHAR(255) NOT NULL , `quality` VARCHAR(255) NULL DEFAULT NULL , `path` VARCHAR(600) NOT NULL , `date` BIGINT(10) NOT NULL , mimetype VARCHAR(255) NOT NULL,  PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`movies` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `title` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `director` TEXT  NULL, `writers` TEXT  NULL ,  `actors` TEXT  NULL , `cover` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `year` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `rating` DECIMAL(2,1) NULL DEFAULT NULL , `imdb_code` VARCHAR(10) NOT NULL , `runtime` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `genre` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `summary` TEXT NOT NULL,background_img VARCHAR(600) NOT NULL DEFAULT 'N/A',UNIQUE KEY `imdb_code` (`imdb_code`), PRIMARY KEY (`id`)) ENGINE = InnoDB  CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
+connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`movies` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `title` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `director` TEXT  NULL, `writers` TEXT  NULL ,  `actors` TEXT  NULL , `cover` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `year` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `rating` DECIMAL(2,1) NULL DEFAULT NULL , `imdb_code` VARCHAR(10) NOT NULL UNIQUE , `runtime` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `genre` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `summary` TEXT NOT NULL,background_img VARCHAR(600) NOT NULL DEFAULT 'N/A', PRIMARY KEY (`id`)) ENGINE = InnoDB  CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
 connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`tv_shows` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `title` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `season` VARCHAR(5) NOT NULL DEFAULT 'N/A' , `genre` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `director` TEXT  NULL, `writers` TEXT  NULL, `actors` TEXT  NULL,`runtime` VARCHAR(255) NOT NULL DEFAULT 'N/A' ,  `summary` TEXT  NULL , `cover` VARCHAR(255) NOT NULL DEFAULT 'N/A' , `imdb_code` VARCHAR(10) NOT NULL UNIQUE , `rating` DECIMAL(2,1) DEFAULT NULL , `year` VARCHAR(255) NOT NULL DEFAULT 'N/A', `background_img` VARCHAR(600) NOT NULL DEFAULT 'N/A',  PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-connection.query("CREATE TABLE  IF NOT EXISTS `hypertube`.`tv_shows_torrents` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `id_tv_show` INT(5) NOT NULL , `season` INT(2) NULL DEFAULT NULL , `episode` INT(2) NULL DEFAULT NULL ,`quality` VARCHAR(255)  NULL DEFAULT NULL , `magnet` TEXT NOT NULL, `tvdb_id` VARCHAR(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB;", function (err, result) {
-    if (err) console.log(err);
-    else if (result.warningCount === 0) {
-        launchTv_show();
-    }
-
-});
-connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`movies_torrents` ( `id` INT(5) NOT NULL AUTO_INCREMENT, `id_film` INT(5) NOT NULL , `quality` VARCHAR(255) NULL DEFAULT NULL , `magnet` TEXT NOT NULL , `size_bytes` BIGINT(20) NULL DEFAULT NULL, PRIMARY KEY (`id`) ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_bin;", function (err, rows) {
-    if (err) console.log(err);
-    else if (rows.warningCount === 0) {
-        launchMovie();
-    }
-});
+connection.query("CREATE TABLE  IF NOT EXISTS `hypertube`.`tv_shows_torrents` ( `id` INT(5) NOT NULL AUTO_INCREMENT , `id_tv_show` INT(5) NOT NULL , `season` INT(2) NULL DEFAULT NULL , `episode` INT(2) NULL DEFAULT NULL ,`quality` VARCHAR(255)  NULL DEFAULT NULL , `magnet` TEXT NOT NULL, `tvdb_id` VARCHAR(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+connection.query("CREATE TABLE IF NOT EXISTS `hypertube`.`movies_torrents` ( `id` INT(5) NOT NULL AUTO_INCREMENT, `id_film` INT(5) NOT NULL , `quality` VARCHAR(255) NULL DEFAULT NULL , `magnet` TEXT NOT NULL , `size_bytes` BIGINT(20) NULL DEFAULT NULL, PRIMARY KEY (`id`) ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_bin;");
 
 String.prototype.capitalizeFirstLetter = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -188,6 +177,7 @@ schedule.scheduleJob('0 4 * * *', function () {
 schedule.scheduleJob('* * * * *', function () {
     update_db();
 })
+
 connection = mysql.createPool({
     connectionLimit: 100,
     port: 3307,
@@ -197,4 +187,6 @@ connection = mysql.createPool({
     database: 'hypertube',
     charset: 'utf8mb4'
 });
+//launchMovie();
+//launchTv_show();
 module.exports = connection
