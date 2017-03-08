@@ -9,6 +9,7 @@ var get_episodes = function (req, res) {
                 res.send(error);
             } else {
                 var itemProcessed = rows.length;
+                if(itemProcessed > 0){
                 rows.forEach(function (episode) {
                     connection.query("SELECT COUNT(*) as download FROM download WHERE imdb_code = ?", [episode.tvdb_id], function (err, result) {
                         itemProcessed--;
@@ -23,6 +24,10 @@ var get_episodes = function (req, res) {
 
                     })
                 })
+                    }
+            else{
+                res.send(rows);
+            }
             }
         })
     }

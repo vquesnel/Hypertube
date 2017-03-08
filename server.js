@@ -165,8 +165,10 @@ app.get('*', function (req, res) {
 var httpsServer = https.createServer(options, app, function (req, res) {
     res.writeHead(200);
 });
-httpsServer.listen(4422);
-console.log("server listenning to port 4422");
+httpsServer.listen(4422, function () {
+    console.log("server listenning to port 4422");
+
+});
 ////////||\\\\\\||
 //				//
 //	  Socket 	||
