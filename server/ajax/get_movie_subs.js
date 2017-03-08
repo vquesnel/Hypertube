@@ -85,8 +85,11 @@ var get_movie_sub = function (req, res) {
                         (function (lang) {
                             for (var k in subtitles[lang]) {
                                 if (subtitles[lang][k].SumCD === "1") {
-                                    if (bestSubs[lang] && bestSubs[lang].score < subtitles[lang][k].score) {
-                                        bestSubs[lang] = subtitles[lang][k]
+                                    if (bestSubs[lang]) {
+                                        if (bestSubs[lang].score < subtitles[lang][k].score)
+                                            bestSubs[lang] = subtitles[lang][k]
+                                    } else {
+                                        bestSubs[lang] = subtitles[lang][k];
                                     }
                                 }
                             }

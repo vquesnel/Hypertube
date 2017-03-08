@@ -95,6 +95,7 @@ var hudFilm;
                     url: 'https://localhost:4422/get_movie_sub.html/' + imdbID,
                     type: 'GET',
                     success: (function (data) {
+                        console.log(data);
                         if (typeof data == 'string') window.location = data
                         else {
                             var track = [];
