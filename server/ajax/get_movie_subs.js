@@ -23,12 +23,12 @@ var get_movie_sub = function (req, res) {
                     for (var k in subtitlesList) {
                         (function (k) {
                             let splited = subtitlesList[k].link.split("/");
-                            let file = splited[splited.length - 1];
+                            let file = 'public/uploads/' + path + "-" + subtitlesList[k].lang + '(' + k + ').str'
                             if (!fs.existsSync('public/uploads/' + path + "-" + subtitlesList[k].lang + '(' + k + ').vtt')) {
-                                addic7edApi.download(subtitlesList[k], 'public/uploads/' + file).then(function () {
-                                    fs.createReadStream('public/uploads/' + file).pipe(srt2vtt()).pipe(fs.createWriteStream('public/uploads/' + path + "-" + subtitlesList[k].lang + '(' + k + ').vtt').on("finish", function () {
+                                addic7edApi.download(subtitlesList[k],  file).then(function () {
+                                    fs.createReadStream(file).pipe(srt2vtt()).pipe(fs.createWriteStream('public/uploads/' + path + "-" + subtitlesList[k].lang + '(' + k + ').vtt').on("finish", function () {
                                         itemsProcessed--;
-                                        fs.unlinkSync('public/uploads/' + file);
+                                        fs.unlinkSync(file);
                                         var sub = {
                                             path: '/uploads/' + path + "-" + subtitlesList[k].lang + '(' + k + ').vtt',
                                             language: subtitlesList[k].lang,
